@@ -10,6 +10,6 @@ app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
 
-app.use('/api', router);
+app.use('/api/v1', router);
 
 export default app;

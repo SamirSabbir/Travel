@@ -3,6 +3,7 @@ import app from './app';
 import config from './app/config';
 
 async function main() {
+  console.log(config.databaseUri);
   await mongoose.connect(config.databaseUri as string);
 
   app.listen(config.port, () => {

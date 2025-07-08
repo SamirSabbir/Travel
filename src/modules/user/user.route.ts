@@ -4,7 +4,7 @@ import { auth } from '../../middlewares/auth';
 
 const userRoutes = express.Router();
 
-userRoutes.post('/', createUser);
-userRoutes.patch('/block/:userId', auth(USER_ROLE.admin), blockUser);
+userRoutes.post('/register', createUser);
+
 
 export default userRoutes;
