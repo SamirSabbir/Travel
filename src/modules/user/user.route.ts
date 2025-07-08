@@ -4,7 +4,7 @@ import { auth } from '../../middlewares/auth';
 
 const userRoutes = express.Router();
 
-userRoutes.post('/register', createUser);
+userRoutes.post('/register',  createUser);
 
 
 export default userRoutes;
