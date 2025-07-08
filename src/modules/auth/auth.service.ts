@@ -5,13 +5,11 @@ import jwt from 'jsonwebtoken';
 
 const loginUser = async (payload: TLoginUser) => {
   const isUserExist = await UserModel.findOne({ email: payload.email });
+
   if (!isUserExist) {
     throw new Error('Invalid credentials');
   }
-  const isBlocked = isUserExist?.isBlocked;
-  if (isBlocked) {
-    throw new Error('Invalid credentials');
-  }
+
   const isPasswordMatched = payload.password === isUserExist?.password;
 
   if (!isPasswordMatched) {
@@ -22,10 +20,10 @@ const loginUser = async (payload: TLoginUser) => {
     userEmail: isUserExist.email,
     userRole: isUserExist.role,
   };
-
   const accessToken = jwt.sign(tokenPayload, config.secret as string, {
     expiresIn: 60 * 60,
   });
+  console.log(accessToken);
   return accessToken;
 };
 
