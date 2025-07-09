@@ -24,6 +24,10 @@ const UserSchema = new Schema<TUser>(
     isApproved:{
       type:Boolean,
       default:false,
+    },
+    photo:{
+      type:String,
+      required:true,
     }
   },
   {

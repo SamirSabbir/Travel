@@ -6,6 +6,7 @@ type TUser = {
   isApproved: boolean;
   createdAt: Date;
   updatedAt: Date;
+  photo: string,
 };
 
 export default TUser;

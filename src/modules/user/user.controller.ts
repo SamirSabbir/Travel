@@ -5,23 +5,26 @@ import {
   approveHRUserIntoDB,
 } from './user.service';
 
-// Create User
+
 export const createUser = async (req: Request, res: Response) => {
   try {
     const userData = req.body;
+
+    if (req.file) {
+      userData.photo = req.file.path; 
+    }
+
     const result = await createUserIntoDB(userData);
+
     res.status(201).json({
       success: true,
       message: 'User created successfully',
-      statusCode: 201,
       data: result,
     });
   } catch (err: any) {
     res.status(400).json({
       success: false,
-      message: 'Failed to create user',
-      statusCode: 400,
-      error: err.message,
+      message: err.message || 'Failed to create user',
     });
   }
 };
