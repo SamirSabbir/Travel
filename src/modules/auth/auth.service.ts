@@ -4,7 +4,7 @@ import { TLoginUser } from './auth.interface';
 import jwt from 'jsonwebtoken';
 
 const loginUser = async (payload: TLoginUser) => {
-  const isUserExist = await UserModel.findOne({ email: payload.email });
+  const isUserExist = await UserModel.findOne({ email: payload.email, isApproved:true });
 
   if (!isUserExist) {
     throw new Error('Invalid credentials');
