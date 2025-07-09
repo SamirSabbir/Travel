@@ -3,7 +3,7 @@ type TUser = {
   email: string;
   password: string;
   role: 'Admin' | 'Empolyee' | 'HR';
-  isBlocked: boolean;
+  isApproved: boolean;
   createdAt: Date;
   updatedAt: Date;
 };

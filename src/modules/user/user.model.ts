@@ -21,6 +21,10 @@ const UserSchema = new Schema<TUser>(
       enum: ['Employee', 'Admin', 'HR'],
       required: true,
     },
+    isApproved:{
+      type:Boolean,
+      default:false,
+    }
   },
   {
     timestamps: true,

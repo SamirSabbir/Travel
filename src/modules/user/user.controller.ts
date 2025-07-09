@@ -1,6 +1,11 @@
 import { Request, Response } from 'express';
-import { blockAUserInDB, createUserIntoDB } from './user.service';
+import {
+  createUserIntoDB,
+  findAllUnApprovedUsersFromDB,
+  approveHRUserIntoDB,
+} from './user.service';
 
+// Create User
 export const createUser = async (req: Request, res: Response) => {
   try {
     const userData = req.body;
@@ -11,34 +16,53 @@ export const createUser = async (req: Request, res: Response) => {
       statusCode: 201,
       data: result,
     });
-  } catch (err) {
-    return {
-      success: true,
-      message: 'User created successfully',
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: 'Failed to create user',
       statusCode: 400,
-      error: 'details',
-      stack: 'error stack',
-    };
+      error: err.message,
+    });
   }
 };
 
-export const blockUser = async (req: Request, res: Response) => {
+// Approve HR User
+export const approveHRUser = async (req: Request, res: Response) => {
   try {
-    const { userId } = req.params;
-    const result = await blockAUserInDB(userId);
-    res.status(201).json({
+    const { email } = req.params;
+    const result = await approveHRUserIntoDB(email);
+    res.status(200).json({
       success: true,
-      message: 'User blocked successfully',
-      statusCode: 201,
+      message: 'HR user approved successfully',
+      statusCode: 200,
       data: result,
     });
-  } catch (err) {
-    return {
-      success: true,
-      message: 'User created successfully',
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: 'Failed to approve HR user',
       statusCode: 400,
-      error: 'details',
-      stack: 'error stack',
-    };
+      error: err.message,
+    });
+  }
+};
+
+// Get all unapproved users
+export const findUnapprovedUsers = async (req: Request, res: Response) => {
+  try {
+    const result = await findAllUnApprovedUsersFromDB();
+    res.status(200).json({
+      success: true,
+      message: 'Unapproved users retrieved successfully',
+      statusCode: 200,
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: 'Failed to get unapproved users',
+      statusCode: 400,
+      error: err.message,
+    });
   }
 };
