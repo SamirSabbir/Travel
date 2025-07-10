@@ -1,12 +1,13 @@
-
 import express from 'express';
 import userRoutes from '../modules/user/user.route';
 import authRoutes from '../modules/auth/auth.route';
+import leadRoutes from '../modules/leads/leads.route';
+import salesRoutes from '../modules/sales/sales.routes';
+import workRoutes from '../modules/work/work.routes';
 
 const router = express.Router();
 
 const moduleRoutes = [
-
   {
     path: '/users',
     route: userRoutes,
@@ -14,6 +15,18 @@ const moduleRoutes = [
   {
     path: '/auth',
     route: authRoutes,
+  },
+  {
+    path: '/leads',
+    route: leadRoutes,
+  },
+  {
+    path: '/sales',
+    route: salesRoutes,
+  },
+  {
+    path: '/works',
+    route: workRoutes,
   },
 ];
 
