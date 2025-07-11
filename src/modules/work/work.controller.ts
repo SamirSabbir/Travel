@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createWorkInDB, getAllWorkFromDB } from './work.service';
+import { createWorkInDB, getAllWorkFromDB, getPipelineDataFromDB } from './work.service';
 
 
 export const createWorkEntry = async (req: Request, res: Response) => {
@@ -25,6 +25,22 @@ export const createWorkEntry = async (req: Request, res: Response) => {
     res.status(400).json({
       success: false,
       message: err.message || 'Failed to create work entry',
+    });
+  }
+};
+
+export const getPipelineData = async (req: Request, res: Response) => {
+  try {
+    const result = await getPipelineDataFromDB();
+    res.status(200).json({
+      success: true,
+      message: 'Pipeline data retrieved successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Failed to fetch pipeline data',
     });
   }
 };

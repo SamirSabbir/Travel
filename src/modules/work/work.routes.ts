@@ -2,7 +2,7 @@ import express from 'express';
 
 import { auth } from '../../middlewares/auth';
 import { upload } from '../../app/multer.config';
-import { createWorkEntry, getAllWorkEntries } from './work.controller';
+import { createWorkEntry, getAllWorkEntries, getPipelineData } from './work.controller';
 
 const workRoutes = express.Router();
 
@@ -16,5 +16,6 @@ workRoutes.post(
 
 // Get all work entries (for pipeline view or others)
 workRoutes.get('/', auth('Employee'), getAllWorkEntries);
+workRoutes.get('/pipeline', auth('Employee'), getPipelineData);
 
 export default workRoutes;

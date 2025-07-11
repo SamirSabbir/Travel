@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createSalesEntryInDB } from './sales.service';
+import { createSalesEntryInDB, getAllSalesFromDB } from './sales.service';
 
 
 export const createSalesEntry = async (req: Request, res: Response) => {
@@ -15,6 +15,21 @@ export const createSalesEntry = async (req: Request, res: Response) => {
     res.status(400).json({
       success: false,
       message: err.message || 'Failed to submit sales data',
+    });
+  }
+};
+
+export const getAllSales = async (req: Request, res: Response) => {
+  try {
+    const result = await getAllSalesFromDB();
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Failed to fetch sales data',
     });
   }
 };

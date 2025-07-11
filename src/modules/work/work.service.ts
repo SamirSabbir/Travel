@@ -9,3 +9,14 @@ export const createWorkInDB = async (data: TWork) => {
 export const getAllWorkFromDB = async () => {
   return await WorkModel.find().populate('salesId');
 };
+
+export const getPipelineDataFromDB = async () => {
+  return await WorkModel.find()
+    .populate({
+      path: 'salesId',
+      populate: {
+        path: 'leadId',
+        model: 'Lead', 
+      },
+    });
+};
