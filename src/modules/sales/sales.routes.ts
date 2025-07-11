@@ -5,6 +5,6 @@ import { auth } from '../../middlewares/auth';
 const salesRoutes = express.Router();
 
 salesRoutes.post('/', auth('Employee'), createSalesEntry); 
-salesRoutes.get('/', auth('Employee'), getAllSales); 
+salesRoutes.get('/', auth('Employee', 'Admin'), getAllSales); 
 
 export default salesRoutes;

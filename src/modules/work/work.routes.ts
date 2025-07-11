@@ -15,7 +15,7 @@ workRoutes.post(
 );
 
 // Get all work entries (for pipeline view or others)
-workRoutes.get('/', auth('Employee'), getAllWorkEntries);
+workRoutes.get('/', auth('Employee','Admin'), getAllWorkEntries);
 workRoutes.get('/pipeline', auth('Employee'), getPipelineData);
 
 export default workRoutes;
