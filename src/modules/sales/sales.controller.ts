@@ -5,7 +5,7 @@ import { createSalesEntryInDB, getAllSalesFromDB } from './sales.service';
 export const createSalesEntry = async (req: Request, res: Response) => {
   try {
     const data = req.body;
-    const result = await createSalesEntryInDB(data);
+    const result = await createSalesEntryInDB({...data,employeeEmail:req.user?.userEmail});
     res.status(201).json({
       success: true,
       message: 'Sales data submitted successfully',

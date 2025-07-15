@@ -1,5 +1,5 @@
-import { model, Schema } from "mongoose";
-import { TSales } from "./sales.interface";
+import { model, Schema } from 'mongoose';
+import { TSales } from './sales.interface';
 
 const salesSchema = new Schema<TSales>(
   {
@@ -9,10 +9,11 @@ const salesSchema = new Schema<TSales>(
     lastCallDate: { type: Date, required: true },
     followUpCallDate: { type: Date, required: true },
     duePayment: { type: Number, required: true },
+    employeeEmail: { type: String, required: true },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const SalesModel = model<TSales>('Sales', salesSchema);

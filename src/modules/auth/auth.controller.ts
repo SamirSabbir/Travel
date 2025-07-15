@@ -5,6 +5,7 @@ export const loginUser = async (req: Request, res: Response) => {
   try {
     const authData = req.body;
     const result = await authService.loginUser(authData);
+    console.log(result);
     res.status(200).json({
       success: true,
       message: 'Login successful',
@@ -13,10 +14,10 @@ export const loginUser = async (req: Request, res: Response) => {
         token: result,
       },
     });
-  } catch (err) {
-    return {
-      message: 'Authentication Failed',
-      err,
-    };
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: err.message || 'Authentication Failed',
+    });
   }
 };

@@ -1,19 +1,23 @@
 import { Request, Response } from 'express';
-import { createWorkInDB, getAllWorkFromDB, getPipelineDataFromDB } from './work.service';
-
+import {
+  createWorkInDB,
+  getAllWorkFromDB,
+  getPipelineDataFromDB,
+} from './work.service';
 
 export const createWorkEntry = async (req: Request, res: Response) => {
   try {
     const { salesId, status } = req.body;
 
     const filePaths = req.files
-      ? (req.files as Express.Multer.File[]).map(file => file.path)
+      ? (req.files as Express.Multer.File[]).map((file) => file.path)
       : [];
 
     const result = await createWorkInDB({
       salesId,
       files: filePaths,
       status,
+      employeeEmail: req.user?.userEmail,
     });
 
     res.status(201).json({

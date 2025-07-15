@@ -1,9 +1,34 @@
 import { Request, Response } from 'express';
 import {
   createUserIntoDB,
+  createAdminIntoDB,
   findAllUnApprovedUsersFromDB,
-  approveHRUserIntoDB,
+  approveUserIntoDB,
 } from './user.service';
+
+
+export const createAdminUser = async (req: Request, res: Response) => {
+  try {
+    const userData = req.body;
+
+    if (req.file) {
+      userData.photo = req.file.path; 
+    }
+
+    const result = await createAdminIntoDB(userData);
+
+    res.status(201).json({
+      success: true,
+      message: 'User created successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: err.message || 'Failed to create user',
+    });
+  }
+};
 
 
 export const createUser = async (req: Request, res: Response) => {
@@ -30,13 +55,13 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 // Approve HR User
-export const approveHRUser = async (req: Request, res: Response) => {
+export const approveUser = async (req: Request, res: Response) => {
   try {
     const { email } = req.params;
-    const result = await approveHRUserIntoDB(email);
+    const result = await approveUserIntoDB(email);
     res.status(200).json({
       success: true,
-      message: 'HR user approved successfully',
+      message: 'User approved successfully',
       statusCode: 200,
       data: result,
     });

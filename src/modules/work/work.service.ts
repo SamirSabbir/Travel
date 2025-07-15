@@ -10,8 +10,8 @@ export const getAllWorkFromDB = async () => {
   return await WorkModel.find().populate('salesId');
 };
 
-export const getPipelineDataFromDB = async () => {
-  return await WorkModel.find()
+export const getPipelineDataFromDB = async (employeeEmail:string) => {
+  return await WorkModel.find({employeeEmail})
     .populate({
       path: 'salesId',
       populate: {

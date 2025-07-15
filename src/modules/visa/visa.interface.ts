@@ -4,6 +4,7 @@ export type TUSVisaPayment = {
   securityQuestion1: string;
   securityQuestion2: string;
   securityQuestion3: string;
+  employeeEmail: string;
 };
 
 export type TUSRetrieveDS = {
@@ -13,6 +14,7 @@ export type TUSRetrieveDS = {
   sureNameFirst5Letters: string;
   yearOfBirth: number;
   mothersGivenName: string;
+  employeeEmail: string;
 };
 
 export type TNonUS = {
@@ -21,4 +23,5 @@ export type TNonUS = {
   phone: string;
   userName: string;
   password: string;
+  employeeEmail: string;
 };

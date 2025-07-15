@@ -7,4 +7,5 @@ export type TSales = {
   lastCallDate: Date;
   followUpCallDate: Date;
   duePayment: number;
+    employeeEmail: string;
 };

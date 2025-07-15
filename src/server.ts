@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import app from './app';
 import config from './app/config';
+import { seedSuperAdmin } from './seeders/superAdminSeeder';
 
 async function main() {
   console.log(config.databaseUri);
@@ -12,3 +13,4 @@ async function main() {
 }
 
 main();
+seedSuperAdmin();

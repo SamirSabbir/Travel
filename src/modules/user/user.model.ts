@@ -18,17 +18,16 @@ const UserSchema = new Schema<TUser>(
     },
     role: {
       type: String,
-      enum: ['Employee', 'Admin', 'HR'],
+      enum: ['Employee', 'Admin', 'HR', 'SuperAdmin'],
       required: true,
     },
-    isApproved:{
-      type:Boolean,
-      default:false,
+    isApproved: {
+      type: Boolean,
+      default: false,
     },
-    photo:{
-      type:String,
-      required:true,
-    }
+    photo: {
+      type: String,
+    },
   },
   {
     timestamps: true,
