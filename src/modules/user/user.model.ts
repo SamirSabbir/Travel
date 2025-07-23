@@ -18,7 +18,7 @@ const UserSchema = new Schema<TUser>(
     },
     role: {
       type: String,
-      enum: ['Employee', 'Admin', 'HR', 'SuperAdmin'],
+      enum: ['Employee', 'AccountsAdmin', 'HRAdmin', 'HR', 'SuperAdmin'],
       required: true,
     },
     isApproved: {

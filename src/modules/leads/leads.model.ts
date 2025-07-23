@@ -1,8 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { TLeads } from './leads.interface';
 
-
-
 // 2. Create the Mongoose schema
 const LeadSchema = new Schema<TLeads>(
   {
@@ -15,10 +13,18 @@ const LeadSchema = new Schema<TLeads>(
       type: String,
       required: true,
     },
+    adminEmail: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // 3. Create the model

@@ -4,7 +4,7 @@ import { createLead, getAllLeads } from './leads.controller';
 
 const leadRoutes = express.Router();
 
-leadRoutes.post('/create-lead', auth('Admin'), createLead);
-leadRoutes.get('/', auth('Admin','Employee'), getAllLeads);
+leadRoutes.post('/create-lead', auth('SuperAdmin','HRAdmin'), createLead);
+leadRoutes.get('/', auth('SuperAdmin','HRAdmin'), getAllLeads);
 
 export default leadRoutes;
