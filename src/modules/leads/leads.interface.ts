@@ -3,4 +3,5 @@ export type TLeads = {
   customerPhone: string;
   description: string;
   adminEmail: string;
+  assigns: string[]
 };

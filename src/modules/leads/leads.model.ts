@@ -21,6 +21,10 @@ const LeadSchema = new Schema<TLeads>(
       type: String,
       required: true,
     },
+    assigns:{
+      type:[String], 
+      required:true
+    }
   },
   {
     timestamps: true,
