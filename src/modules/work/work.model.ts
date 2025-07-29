@@ -4,12 +4,14 @@ import { TWork } from './work.interface';
 const workSchema = new Schema<TWork>(
   {
     salesId: { type: Schema.Types.ObjectId, ref: 'Sales', required: true },
-    files: [{ type: String, required: true }],
+
     deliveryDate: {
       type: String,
-      required: true,
     },
     submissionDate: {
+      type: String,
+    },
+    phone: {
       type: String,
       required: true,
     },
@@ -21,6 +23,21 @@ const workSchema = new Schema<TWork>(
     employeeEmail: {
       type: String,
       required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    country: {
+      type: String,
+    },
+    pax: {
+      type: String,
+      enum: ['1 Person', 'Family'],
+    },
+    payment: {
+      type: String,
+      enum: ['Full', 'Partial'],
     },
   },
   {

@@ -1,10 +1,26 @@
 import express from 'express';
-import { createSalesEntry, getAllSales } from './sales.controller';
+import {
+  confirmSales,
+  getAllSales,
+  getEmployeeSales,
+  updateSalesData,
+} from './sales.controller';
 import { auth } from '../../middlewares/auth';
 
 const salesRoutes = express.Router();
 
-salesRoutes.post('/', auth('Employee', 'SuperAdmin'), createSalesEntry); 
-salesRoutes.get('/', auth('Employee', 'SuperAdmin'), getAllSales); 
+// salesRoutes.post('/', auth('Employee', 'SuperAdmin'), createSalesEntry);
+salesRoutes.get('/', auth('Employee', 'SuperAdmin'), getAllSales);
+salesRoutes.get('/my-sales', auth('Employee', 'SuperAdmin'), getEmployeeSales);
+salesRoutes.patch(
+  '/confirm-sales/:salesId',
+  auth('Employee', 'SuperAdmin'),
+  confirmSales,
+);
+salesRoutes.patch(
+  '/update-sales/:salesId',
+  auth('Employee', 'SuperAdmin'),
+  updateSalesData,
+);
 
 export default salesRoutes;

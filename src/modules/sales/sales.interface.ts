@@ -1,14 +1,15 @@
-import { Types } from "mongoose";
+import { Types } from 'mongoose';
 
 export type TSales = {
   leadId: Types.ObjectId;
-  customerName:string,
-  phoneNumber:string,
+  customerName: string;
+  phoneNumber: string;
   country: string;
   description: string;
   lastCallDate: Date;
   followUpCallDate: Date;
-  status:string,
+  status: string;
   duePayment: number;
-    employeeEmail: string;
+  employeeEmails: string[];
+  isConfirmed: boolean;
 };

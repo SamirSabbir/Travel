@@ -11,8 +11,8 @@ export const createUserIntoDB = async (userData: TUser) => {
 };
 
 export const createAdminIntoDB = async (userData: TUser) => {
-    const result = await UserModel.create({ ...userData, role:'Admin', isApproved: true });
-    return result;
+  const result = await UserModel.create({ ...userData, isApproved: true });
+  return result;
 };
 
 export const findAllUnApprovedUsersFromDB = async () => {
