@@ -1,22 +1,5 @@
-import mongoose, { Schema, Document, Types } from 'mongoose';
-
-interface CommissionDetail {
-  salesPersonId: Types.ObjectId;
-  commissionRate: number;
-  commissionAmount?: number;
-}
-
-export interface IAccounts extends Document {
-  revenue: number;
-  receipt: string | null; // File path or URL
-  income: number;
-  expense: number;
-  commission: number;
-  commissionDetails: CommissionDetail[];
-  createdBy: Types.ObjectId;
-  createdAt: Date;
-  updatedAt?: Date;
-}
+import mongoose, { Schema} from 'mongoose';
+import { CommissionDetail, TAccount } from './accounts.interface';
 
 const CommissionDetailSchema = new Schema<CommissionDetail>({
   salesPersonId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
@@ -24,7 +7,7 @@ const CommissionDetailSchema = new Schema<CommissionDetail>({
   commissionAmount: { type: Number },
 });
 
-const AccountsSchema = new Schema<IAccounts>(
+const AccountsSchema = new Schema<TAccount>(
   {
     revenue: { type: Number, required: true },
     receipt: { type: String, default: null }, // e.g., file path or S3 URL
@@ -32,11 +15,14 @@ const AccountsSchema = new Schema<IAccounts>(
     expense: { type: Number, required: true },
     commission: { type: Number, required: true },
     commissionDetails: { type: [CommissionDetailSchema], default: [] },
-    createdBy: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    accountAdminEmail: { type: String, required: true },
   },
   {
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
-  }
+  },
 );
 
-export const AccountsModel = mongoose.model<IAccounts>('Accounts', AccountsSchema);
+export const AccountModel = mongoose.model<TAccount>(
+  'Accounts',
+  AccountsSchema,
+);

@@ -1,10 +1,12 @@
-interface CommissionDetail {
-  salesPersonId: string;
+import { Types } from "mongoose";
+
+export interface CommissionDetail {
+  salesPersonId: Types.ObjectId;
   commissionRate: number;
   commissionAmount?: number;
 }
 
-interface Accounts {
+export interface TAccount {
   id: string;
   revenue: number;
   receipt: File | null;
@@ -12,7 +14,7 @@ interface Accounts {
   expense: number;
   commission: number;
   commissionDetails: CommissionDetail[];
-  createdBy: string;
+  accountAdminEmail: string;
   createdAt: Date;
   updatedAt?: Date;
 }

@@ -1,8 +1,14 @@
-export type TInvoice = {
+import mongoose from 'mongoose';
+
+export interface TInvoice {
+  saleId: mongoose.Types.ObjectId;
   airTicket: number;
   visaProcessing: number;
-  hotel: number;
+  hotel: string;
   appointmentDate: Date;
   package: string;
-  documents: string[]; // Array of file paths or URLs for uploaded invoice
-};
+  attachments: string[];
+  accountAdminEmail?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
