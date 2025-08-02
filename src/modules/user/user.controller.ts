@@ -4,15 +4,16 @@ import {
   createAdminIntoDB,
   findAllUnApprovedUsersFromDB,
   approveUserIntoDB,
+  findAllUsersFromDB,
+  findAllEmployeesFromDB,
 } from './user.service';
-
 
 export const createAdminUser = async (req: Request, res: Response) => {
   try {
     const userData = req.body;
 
     if (req.file) {
-      userData.photo = req.file.path; 
+      userData.photo = req.file.path;
     }
 
     const result = await createAdminIntoDB(userData);
@@ -30,13 +31,12 @@ export const createAdminUser = async (req: Request, res: Response) => {
   }
 };
 
-
 export const createUser = async (req: Request, res: Response) => {
   try {
     const userData = req.body;
 
     if (req.file) {
-      userData.photo = req.file.path; 
+      userData.photo = req.file.path;
     }
 
     const result = await createUserIntoDB(userData);
@@ -78,17 +78,57 @@ export const approveUser = async (req: Request, res: Response) => {
 // Get all unapproved users
 export const findUnapprovedUsers = async (req: Request, res: Response) => {
   try {
-    const result = await findAllUnApprovedUsersFromDB();
+    const result = await findAllUsersFromDB();
     res.status(200).json({
       success: true,
-      message: 'Unapproved users retrieved successfully',
+      message: 'All users retrieved successfully',
       statusCode: 200,
       data: result,
     });
   } catch (err: any) {
     res.status(400).json({
       success: false,
-      message: 'Failed to get unapproved users',
+      message: 'Failed to get all users',
+      statusCode: 400,
+      error: err.message,
+    });
+  }
+};
+
+// Get all unapproved users
+export const findAllUsers = async (req: Request, res: Response) => {
+  try {
+    const result = await findAllUsersFromDB();
+    res.status(200).json({
+      success: true,
+      message: 'All users retrieved successfully',
+      statusCode: 200,
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: 'Failed to get all users',
+      statusCode: 400,
+      error: err.message,
+    });
+  }
+};
+
+// Get all unapproved users
+export const findAllEmployeeUsers = async (req: Request, res: Response) => {
+  try {
+    const result = await findAllEmployeesFromDB();
+    res.status(200).json({
+      success: true,
+      message: 'All users retrieved successfully',
+      statusCode: 200,
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: 'Failed to get all users',
       statusCode: 400,
       error: err.message,
     });

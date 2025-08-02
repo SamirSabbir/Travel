@@ -4,6 +4,8 @@ import {
   approveUser,
   findUnapprovedUsers,
   createAdminUser,
+  findAllUsers,
+  findAllEmployeeUsers,
 } from './user.controller';
 import { auth } from '../../middlewares/auth';
 import { upload } from '../../app/multer.config';
@@ -11,8 +13,19 @@ import { upload } from '../../app/multer.config';
 const userRoutes = express.Router();
 
 userRoutes.post('/register', upload.single('photo'), createUser);
-userRoutes.post('/create-admin', auth('SuperAdmin','Admin'), upload.single('photo'), createAdminUser);
+userRoutes.post(
+  '/create-admin',
+  auth('SuperAdmin', 'Admin'),
+  upload.single('photo'),
+  createAdminUser,
+);
 userRoutes.patch('/approve/:email', auth('SuperAdmin'), approveUser);
 userRoutes.get('/findUnapprovedUsers', auth('SuperAdmin'), findUnapprovedUsers);
+userRoutes.get('/findAllUsers', auth('SuperAdmin'), findAllUsers);
+userRoutes.get(
+  '/findEmployeeUsers',
+  auth('SuperAdmin', 'Employee', 'SuperAdmin'),
+  findAllEmployeeUsers,
+);
 
 export default userRoutes;

@@ -1,21 +1,19 @@
-import { Types } from "mongoose";
-
+// interfaces/accounts.interface.ts
 export interface CommissionDetail {
-  salesPersonId: Types.ObjectId;
-  commissionRate: number; // % value like 30
-  commissionAmount: number; // Always store this
+  salesPersonEmail: string; // updated from ID to email
+  commissionRate: number;
+  commissionAmount?: number;
 }
 
 export interface TAccount {
-  id: string;
-  saleId: Types.ObjectId; // <-- new: link to confirmed sale
+  saleId: string;
   revenue: number;
-  receipt: string; // URL to uploaded file (PDF/image)
+  receipt: string | null; // assuming URL or file path
   income: number;
-  expense: number; // 40% of revenue
-  commission: number; // total from commissionDetails
+  expense: number;
+  commission: number;
   commissionDetails: CommissionDetail[];
   accountAdminEmail: string;
-  createdAt: Date;
+  createdAt?: Date;
   updatedAt?: Date;
 }

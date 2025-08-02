@@ -20,10 +20,20 @@ export const findAllUnApprovedUsersFromDB = async () => {
   return result;
 };
 
+export const findAllUsersFromDB = async () => {
+  const result = await UserModel.find({ isApproved: true });
+  return result;
+};
+
+export const findAllEmployeesFromDB = async () => {
+  const result = await UserModel.find({ isApproved: true, role: 'Employee' });
+  return result;
+};
+
 export const approveUserIntoDB = async (email: string) => {
   const user = await UserModel.findOne({
     email,
-    role: { $in: ['Admin', 'HR'] },
+    role: { $in: ['Admin', 'HR', 'AccountAdmin'] },
   });
 
   if (!user) {

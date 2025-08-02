@@ -1,28 +1,29 @@
-import mongoose, { Schema} from 'mongoose';
-import { CommissionDetail, TAccount } from './accounts.interface';
+// models/accounts.model.ts
+import { Schema, model } from 'mongoose';
 
-const CommissionDetailSchema = new Schema<CommissionDetail>({
-  salesPersonId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  commissionRate: { type: Number, required: true },
-  commissionAmount: { type: Number },
-});
-
-const AccountsSchema = new Schema<TAccount>(
+const commissionDetailSchema = new Schema(
   {
+    salesPersonEmail: { type: String, required: true },
+    commissionRate: { type: Number, required: true },
+    commissionAmount: { type: Number, required: false }, // can be auto-calculated
+  },
+  { _id: false }
+);
+
+const accountSchema = new Schema(
+  {
+    saleId: { type: Schema.Types.ObjectId, ref: 'Sales', required: true },
     revenue: { type: Number, required: true },
-    receipt: { type: String, default: null }, // e.g., file path or S3 URL
-    income: { type: Number, required: true },
     expense: { type: Number, required: true },
     commission: { type: Number, required: true },
-    commissionDetails: { type: [CommissionDetailSchema], default: [] },
+    income: { type: Number, required: true },
+    commissionDetails: { type: [commissionDetailSchema], required: true },
+    receipt: { type: String },
     accountAdminEmail: { type: String, required: true },
   },
   {
-    timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
-  },
+    timestamps: true,
+  }
 );
 
-export const AccountModel = mongoose.model<TAccount>(
-  'Accounts',
-  AccountsSchema,
-);
+export const AccountModel = model('Account', accountSchema);
