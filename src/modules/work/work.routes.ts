@@ -4,6 +4,7 @@ import { auth } from '../../middlewares/auth';
 import { upload } from '../../app/multer.config';
 import {
   createWorkEntry,
+  getAdminPipelineData,
   getAllEmployeeWorkEntries,
   getAllWorkEntries,
   getPipelineData,
@@ -22,7 +23,7 @@ workRoutes.post(
 
 workRoutes.get('/', auth('Employee', 'SuperAdmin'), getAllWorkEntries);
 workRoutes.get('/pipeline', auth('Employee', 'SuperAdmin'), getPipelineData);
-workRoutes.get('/admin-pipeline', auth('SuperAdmin'), getPipelineData);
+workRoutes.get('/admin-pipeline', auth('SuperAdmin'), getAdminPipelineData);
 workRoutes.get(
   '/my-works',
   auth('Employee', 'SuperAdmin'),
