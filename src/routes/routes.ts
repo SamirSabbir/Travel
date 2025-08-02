@@ -32,18 +32,18 @@ const moduleRoutes = [
     path: '/works',
     route: workRoutes,
   },
-   {
+  {
     path: '/visa',
     route: visaRoutes,
   },
   {
     path: '/invoice',
-    route: invoiceRoutes
+    route: invoiceRoutes,
   },
   {
-    path: 'accounts',
-    route: accountRoutes
-  }
+    path: '/account',
+    route: accountRoutes,
+  },
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));

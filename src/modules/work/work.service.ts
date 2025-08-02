@@ -46,3 +46,11 @@ export const getPipelineDataFromDB = async (employeeEmail: string) => {
     status: true,
   });
 };
+
+export const getAdminPipelineDataFromDB = async (employeeEmail: string) => {
+  return await WorkModel.find({ employeeEmail }).select({
+    name: true,
+    phone: true,
+    status: true,
+  });
+};
