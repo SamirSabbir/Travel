@@ -39,8 +39,8 @@ export const updateWorkStatusAccountAdmin = async (
   return await WorkModel.findOneAndUpdate({ _id }, { payment: data.payment });
 };
 
-export const getPipelineDataFromDB = async (employeeEmail: string) => {
-  return await WorkModel.find({ employeeEmail }).select({
+export const getPipelineDataFromDB = async () => {
+  return await WorkModel.find().select({
     name: true,
     phone: true,
     status: true,

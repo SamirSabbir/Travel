@@ -39,7 +39,7 @@ export const createWorkEntry = async (req: Request, res: Response) => {
 
 export const getPipelineData = async (req: Request, res: Response) => {
   try {
-    const result = await getPipelineDataFromDB(req.user?.userEmail);
+    const result = await getPipelineDataFromDB();
     res.status(200).json({
       success: true,
       message: 'Pipeline data retrieved successfully',
