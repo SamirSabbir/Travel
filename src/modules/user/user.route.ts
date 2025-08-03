@@ -6,6 +6,7 @@ import {
   createAdminUser,
   findAllUsers,
   findAllEmployeeUsers,
+  deleteUser,
 } from './user.controller';
 import { auth } from '../../middlewares/auth';
 import { upload } from '../../app/multer.config';
@@ -20,6 +21,7 @@ userRoutes.post(
   createAdminUser,
 );
 userRoutes.patch('/approve/:email', auth('SuperAdmin'), approveUser);
+userRoutes.delete('/delete/:email', auth('SuperAdmin'), deleteUser);
 userRoutes.get('/findUnapprovedUsers', auth('SuperAdmin'), findUnapprovedUsers);
 userRoutes.get('/findAllUsers', auth('SuperAdmin'), findAllUsers);
 userRoutes.get(

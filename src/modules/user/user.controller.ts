@@ -6,6 +6,7 @@ import {
   approveUserIntoDB,
   findAllUsersFromDB,
   findAllEmployeesFromDB,
+  deleteUserFromDB,
 } from './user.service';
 
 export const createAdminUser = async (req: Request, res: Response) => {
@@ -75,10 +76,30 @@ export const approveUser = async (req: Request, res: Response) => {
   }
 };
 
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.params;
+    const result = await deleteUserFromDB(email);
+    res.status(200).json({
+      success: true,
+      message: 'User deleted successfully',
+      statusCode: 200,
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: 'Failed to approve HR user',
+      statusCode: 400,
+      error: err.message,
+    });
+  }
+};
+
 // Get all unapproved users
 export const findUnapprovedUsers = async (req: Request, res: Response) => {
   try {
-    const result = await findAllUsersFromDB();
+    const result = await findAllUnApprovedUsersFromDB();
     res.status(200).json({
       success: true,
       message: 'All users retrieved successfully',

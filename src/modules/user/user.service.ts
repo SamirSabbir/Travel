@@ -2,10 +2,6 @@ import TUser from './user.interface';
 import { UserModel } from './user.model';
 
 export const createUserIntoDB = async (userData: TUser) => {
-  if (userData.role === 'Employee') {
-    const result = await UserModel.create({ ...userData, isApproved: true });
-    return result;
-  }
   const result = await UserModel.create(userData);
   return result;
 };
@@ -49,5 +45,10 @@ export const approveUserIntoDB = async (email: string) => {
     { isApproved: true },
   );
 
+  return result;
+};
+
+export const deleteUserFromDB = async (email: string) => {
+  const result = await UserModel.deleteOne({ email });
   return result;
 };
