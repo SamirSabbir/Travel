@@ -33,7 +33,11 @@ userRoutes.get(
   findAllEmployeeUsers,
 );
 userRoutes.get('/employeeProfile', auth('Employee'), getEmployeeUser);
-userRoutes.patch('/employeeProfileUpdate', auth('Employee'), updateEmployeeUser);
+userRoutes.patch(
+  '/employeeProfileUpdate',
+  auth('Employee'),
+  updateEmployeeUser,
+);
 userRoutes.patch(
   '/employeeProfileUpdateForAdmin/:email',
   auth('SuperAdmin', 'AccountAdmin', 'HRAdmin'),

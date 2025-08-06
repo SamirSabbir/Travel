@@ -1,3 +1,4 @@
+import { KPIChartModel } from '../chart/chart.model';
 import TUser from './user.interface';
 import { UserModel } from './user.model';
 
@@ -27,10 +28,16 @@ export const employeeAdminUpdateIntoDB = async (
   email: string,
   updatedData: TUser,
 ) => {
-  const result = await UserModel.updateOne(
+  const result = await UserModel.findOneAndUpdate(
     { email, role: 'Employee' },
     { KPI: updatedData.KPI, salary: updatedData.salary },
   );
+  if (updatedData.KPI) {
+    await KPIChartModel.create({
+      employeeId: result?._id,
+      KPI: updatedData.KPI,
+    });
+  }
   return result;
 };
 

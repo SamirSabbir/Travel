@@ -1,10 +1,17 @@
 // services/account.service.ts
 
-import { TAccount } from "./accounts.interface";
-import { AccountModel } from "./accounts.model";
+import { CommissionChartModel } from '../chart/chart.model';
+import { TAccount } from './accounts.interface';
+import { AccountModel } from './accounts.model';
 
 export const createAccountData = async (data: TAccount) => {
   const result = await AccountModel.create(data);
+  if (data.commission) {
+    await CommissionChartModel.create({
+      employeeId: result?._id,
+      commission: data.commission,
+    });
+  }
   return result;
 };
 
