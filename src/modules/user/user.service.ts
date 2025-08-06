@@ -6,6 +6,34 @@ export const createUserIntoDB = async (userData: TUser) => {
   return result;
 };
 
+export const employeeProfileIntoDB = async (email: string) => {
+  console.log(email);
+  const result = await UserModel.findOne({ email, role: 'Employee' });
+  return result;
+};
+
+export const employeeProfileUpdateIntoDB = async (
+  email: string,
+  updatedData: TUser,
+) => {
+  const result = await UserModel.updateOne(
+    { email, role: 'Employee' },
+    { photo: updatedData.photo, password: updatedData.password },
+  );
+  return result;
+};
+
+export const employeeAdminUpdateIntoDB = async (
+  email: string,
+  updatedData: TUser,
+) => {
+  const result = await UserModel.updateOne(
+    { email, role: 'Employee' },
+    { KPI: updatedData.KPI, salary: updatedData.salary },
+  );
+  return result;
+};
+
 export const createAdminIntoDB = async (userData: TUser) => {
   const result = await UserModel.create({ ...userData, isApproved: true });
   return result;

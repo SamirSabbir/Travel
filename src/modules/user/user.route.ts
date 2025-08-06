@@ -7,6 +7,9 @@ import {
   findAllUsers,
   findAllEmployeeUsers,
   deleteUser,
+  getEmployeeUser,
+  updateEmployeeUserForAdmin,
+  updateEmployeeUser,
 } from './user.controller';
 import { auth } from '../../middlewares/auth';
 import { upload } from '../../app/multer.config';
@@ -26,8 +29,15 @@ userRoutes.get('/findUnapprovedUsers', auth('SuperAdmin'), findUnapprovedUsers);
 userRoutes.get('/findAllUsers', auth('SuperAdmin'), findAllUsers);
 userRoutes.get(
   '/findEmployeeUsers',
-  auth('SuperAdmin', 'Employee', 'SuperAdmin'),
+  auth('SuperAdmin', 'HRAdmin', 'AccountAdmin'),
   findAllEmployeeUsers,
+);
+userRoutes.get('/employeeProfile', auth('Employee'), getEmployeeUser);
+userRoutes.patch('/employeeProfileUpdate', auth('Employee'), updateEmployeeUser);
+userRoutes.patch(
+  '/employeeProfileUpdateForAdmin/:email',
+  auth('SuperAdmin', 'AccountAdmin', 'HRAdmin'),
+  updateEmployeeUserForAdmin,
 );
 
 export default userRoutes;
