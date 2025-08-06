@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import {
   createWorkInDB,
   getAdminPipelineDataFromDB,
+  getAllEmployeesWorks,
   getAllEmployeeWorks,
   getAllWorkFromDB,
   getPipelineDataFromDB,
@@ -89,7 +90,25 @@ export const getAllEmployeeWorkEntries = async (
   res: Response,
 ) => {
   try {
-    const result = await getAllEmployeeWorks(req?.user.userEmail);
+    const result = await getAllEmployeesWorks();
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: 'Failed to fetch work entries',
+    });
+  }
+};
+
+export const getAllEmployeeWorkEntriesForAdmin = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const result = await getAllEmployeeWorks(req?.params.employeeEmail);
     res.status(200).json({
       success: true,
       data: result,

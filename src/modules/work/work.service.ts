@@ -13,6 +13,10 @@ export const getAllEmployeeWorks = async (employeeEmail: string) => {
   return await WorkModel.find({ employeeEmail });
 };
 
+export const getAllEmployeesWorks = async () => {
+  return await WorkModel.find();
+};
+
 export const updateWorkStatusWithEmployee = async (
   _id: string,
   employeeEmail: string,

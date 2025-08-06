@@ -29,6 +29,12 @@ workRoutes.get(
   auth('Employee', 'SuperAdmin'),
   getAllEmployeeWorkEntries,
 );
+
+workRoutes.get(
+  '/employee-works',
+  auth('SuperAdmin', 'AccountAdmin', 'HRAdmin', 'Employee'),
+  getAllEmployeeWorkEntries,
+);
 workRoutes.patch(
   '/update-work-employee/:workId',
   auth('Employee', 'SuperAdmin'),
