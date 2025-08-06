@@ -29,7 +29,7 @@ userRoutes.get('/findUnapprovedUsers', auth('SuperAdmin'), findUnapprovedUsers);
 userRoutes.get('/findAllUsers', auth('SuperAdmin'), findAllUsers);
 userRoutes.get(
   '/findEmployeeUsers',
-  auth('SuperAdmin', 'HRAdmin', 'AccountAdmin'),
+  auth('SuperAdmin', 'HRAdmin', 'AccountAdmin', 'Employee'),
   findAllEmployeeUsers,
 );
 userRoutes.get('/employeeProfile', auth('Employee'), getEmployeeUser);
