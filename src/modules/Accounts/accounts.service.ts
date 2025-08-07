@@ -16,9 +16,9 @@ export const createAccountData = async (data: TAccount) => {
 };
 
 export const getAllAccountsFromDB = async () => {
-  return await AccountModel.find();
+  return await AccountModel.find().populate('saleId');
 };
 
 export const getAccountByIdFromDB = async (id: string) => {
-  return await AccountModel.findById(id);
+  return await AccountModel.findById(id).populate('saleId');
 };
