@@ -10,7 +10,7 @@ import { auth } from '../../middlewares/auth';
 const salesRoutes = express.Router();
 
 // salesRoutes.post('/', auth('Employee', 'SuperAdmin'), createSalesEntry);
-salesRoutes.get('/', auth('Employee', 'SuperAdmin'), getAllSales);
+salesRoutes.get('/', auth('Employee', 'SuperAdmin','AccountAdmin'), getAllSales);
 salesRoutes.get('/my-sales', auth('Employee', 'SuperAdmin'), getEmployeeSales);
 salesRoutes.patch(
   '/confirm-sales/:salesId',
