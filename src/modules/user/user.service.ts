@@ -19,7 +19,7 @@ export const employeeProfileUpdateIntoDB = async (
 ) => {
   const result = await UserModel.updateOne(
     { email, role: 'Employee' },
-    { photo: updatedData.photo, password: updatedData.password },
+    { photo: updatedData.photo, password: updatedData.password, name: updatedData.name },
   );
   return result;
 };
