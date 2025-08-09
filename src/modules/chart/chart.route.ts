@@ -9,11 +9,13 @@ const chartRouter = express.Router();
 
 chartRouter.get(
   '/KPI-Chart/:employeeId',
-  auth('SuperAdmin', 'AccountAdmin'),
+  auth('SuperAdmin', 'AccountAdmin','Employee'),
   getEmployeeKPIChart,
 );
 chartRouter.get(
   '/commission-Chart/:employeeId',
-  auth('SuperAdmin', 'AccountAdmin'),
+  auth('SuperAdmin', 'AccountAdmin','Employee'),
   getEmployeeCommissionChart,
 );
+
+export default chartRouter;
