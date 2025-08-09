@@ -10,6 +10,8 @@ import {
   employeeProfileIntoDB,
   employeeProfileUpdateIntoDB,
   employeeAdminUpdateIntoDB,
+  adminProfileIntoDB,
+  updateAdminProfileIntoDB,
 } from './user.service';
 
 export const createAdminUser = async (req: Request, res: Response) => {
@@ -152,6 +154,51 @@ export const getEmployeeUser = async (req: Request, res: Response) => {
     res.status(400).json({
       success: false,
       message: 'Failed to get all users',
+      statusCode: 400,
+      error: err.message,
+    });
+  }
+};
+
+export const getAdminProfileUser = async (req: Request, res: Response) => {
+  try {
+    const result = await adminProfileIntoDB(
+      req?.user?.userEmail,
+      req?.user?.userRole,
+    );
+    res.status(200).json({
+      success: true,
+      message: 'All users retrieved successfully',
+      statusCode: 200,
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: 'Failed to get all users',
+      statusCode: 400,
+      error: err.message,
+    });
+  }
+};
+
+export const updateAdminProfileUser = async (req: Request, res: Response) => {
+  try {
+    const result = await updateAdminProfileIntoDB(
+      req?.user?.userEmail,
+      req?.user?.userRole,
+      req.body,
+    );
+    res.status(200).json({
+      success: true,
+      message: 'Usr profile updated successfully',
+      statusCode: 200,
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: 'User profile update failed',
       statusCode: 400,
       error: err.message,
     });

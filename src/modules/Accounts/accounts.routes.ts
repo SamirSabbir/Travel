@@ -5,6 +5,7 @@ import {
   handleCreateAccount,
   handleGetAccountById,
   handleGetAllAccounts,
+  handleGetMyAccounts,
 } from './accounts.controller';
 
 const router = express.Router();
@@ -15,6 +16,13 @@ router.get(
   auth('SuperAdmin', 'AccountAdmin'),
   handleGetAllAccounts,
 );
+
+router.get(
+  '/my-accounts',
+  auth('SuperAdmin', 'AccountAdmin'),
+  handleGetMyAccounts,
+);
+
 router.get('/:id', auth('SuperAdmin', 'AccountAdmin'), handleGetAccountById);
 
 export const accountRoutes = router;

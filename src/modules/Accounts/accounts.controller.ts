@@ -1,7 +1,11 @@
 // controllers/account.controller.ts
 import { Request, Response } from 'express';
-import { createAccountData, getAccountByIdFromDB, getAllAccountsFromDB } from './accounts.service';
-
+import {
+  createAccountData,
+  getAccountByIdFromDB,
+  getAllAccountsFromDB,
+  getMyAccountsFromDB,
+} from './accounts.service';
 
 export const handleCreateAccount = async (req: Request, res: Response) => {
   try {
@@ -22,6 +26,22 @@ export const handleCreateAccount = async (req: Request, res: Response) => {
 export const handleGetAllAccounts = async (req: Request, res: Response) => {
   try {
     const result = await getAllAccountsFromDB();
+    res.status(200).json({
+      success: true,
+      message: 'Fetched all accounts',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Failed to fetch accounts',
+    });
+  }
+};
+
+export const handleGetMyAccounts = async (req: Request, res: Response) => {
+  try {
+    const result = await getMyAccountsFromDB(req?.user.userEmail);
     res.status(200).json({
       success: true,
       message: 'Fetched all accounts',

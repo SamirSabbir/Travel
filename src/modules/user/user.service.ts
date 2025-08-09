@@ -8,8 +8,28 @@ export const createUserIntoDB = async (userData: TUser) => {
 };
 
 export const employeeProfileIntoDB = async (email: string) => {
-  console.log(email);
   const result = await UserModel.findOne({ email, role: 'Employee' });
+  return result;
+};
+
+export const adminProfileIntoDB = async (email: string, role: string) => {
+  const result = await UserModel.findOne({ email, role }).select({
+    KPI: 0,
+    Commission: 0,
+    salary: 0,
+  });
+  return result;
+};
+
+export const updateAdminProfileIntoDB = async (
+  email: string,
+  role: string,
+  data: any,
+) => {
+  const result = await UserModel.updateOne(
+    { email, role },
+    { name: data.name, photo: data.photo, password: data.password },
+  );
   return result;
 };
 
@@ -19,7 +39,11 @@ export const employeeProfileUpdateIntoDB = async (
 ) => {
   const result = await UserModel.updateOne(
     { email, role: 'Employee' },
-    { photo: updatedData.photo, password: updatedData.password, name: updatedData.name },
+    {
+      photo: updatedData.photo,
+      password: updatedData.password,
+      name: updatedData.name,
+    },
   );
   return result;
 };
