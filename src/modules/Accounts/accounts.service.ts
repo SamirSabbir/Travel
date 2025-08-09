@@ -19,8 +19,9 @@ export const getAllAccountsFromDB = async () => {
   return await AccountModel.find().populate('saleId');
 };
 
-export const getMyAccountsFromDB = async (accountAdminEmail:string) => {
-  return await AccountModel.find({accountAdminEmail}).populate('saleId');
+export const getMyAccountsFromDB = async (accountAdminEmail: string) => {
+  const result = await AccountModel.find({ accountAdminEmail });
+  return result;
 };
 
 export const getAccountByIdFromDB = async (id: string) => {

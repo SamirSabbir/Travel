@@ -41,6 +41,7 @@ export const handleGetAllAccounts = async (req: Request, res: Response) => {
 
 export const handleGetMyAccounts = async (req: Request, res: Response) => {
   try {
+    console.log(req?.user.userEmail)
     const result = await getMyAccountsFromDB(req?.user.userEmail);
     res.status(200).json({
       success: true,
