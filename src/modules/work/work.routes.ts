@@ -7,6 +7,7 @@ import {
   getAdminPipelineData,
   getAllEmployeeWorkEntries,
   getAllWorkEntries,
+  getMyPipelineData,
   getPipelineData,
   updateWorkWithAccountAdmin,
   updateWorkWithEmployee,
@@ -22,8 +23,10 @@ workRoutes.post(
 );
 
 workRoutes.get('/', auth('Employee', 'SuperAdmin'), getAllWorkEntries);
-workRoutes.get('/pipeline', auth('Employee', 'SuperAdmin'), getPipelineData);
+workRoutes.get('/pipeline', auth('Employee'), getPipelineData);
+workRoutes.get('/pipeline', auth('Employee'), getPipelineData);
 workRoutes.get('/admin-pipeline', auth('SuperAdmin'), getAdminPipelineData);
+workRoutes.get('/my-pipeline/:employeeEmail', auth('SuperAdmin'), getMyPipelineData);
 workRoutes.get(
   '/my-works',
   auth('Employee', 'SuperAdmin'),

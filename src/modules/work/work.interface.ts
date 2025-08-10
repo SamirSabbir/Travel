@@ -7,8 +7,9 @@ export type TWork = {
   submissionDate: string;
   deliveryDate: string;
   pax: string;
-  payment: string;
+  payment: number;
+  paymentStatus: 'Partial Payment' | 'Full Payment' | 'Pending';
   country: string;
   name: string;
-  phone:string,
+  phone: string;
 };

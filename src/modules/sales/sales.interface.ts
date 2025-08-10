@@ -11,5 +11,10 @@ export type TSales = {
   status: string;
   duePayment: number;
   employeeEmails: string[];
-  isConfirmed: boolean;
+  isConfirmed:
+    | 'New lead'
+    | 'Confirmed'
+    | 'Follow-up'
+    | 'Follow-up 1'
+    | 'Followed-up 2';
 };

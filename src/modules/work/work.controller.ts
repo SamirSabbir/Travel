@@ -5,6 +5,7 @@ import {
   getAllEmployeesWorks,
   getAllEmployeeWorks,
   getAllWorkFromDB,
+  getMyPipelineDataFromDB,
   getPipelineDataFromDB,
   updateWorkStatusAccountAdmin,
   updateWorkStatusWithEmployee,
@@ -57,6 +58,22 @@ export const getPipelineData = async (req: Request, res: Response) => {
 export const getAdminPipelineData = async (req: Request, res: Response) => {
   try {
     const result = await getAdminPipelineDataFromDB();
+    res.status(200).json({
+      success: true,
+      message: 'Pipeline data retrieved successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Failed to fetch pipeline data',
+    });
+  }
+};
+
+export const getMyPipelineData = async (req: Request, res: Response) => {
+  try {
+    const result = await getMyPipelineDataFromDB(req.params.employeeEmail);
     res.status(200).json({
       success: true,
       message: 'Pipeline data retrieved successfully',

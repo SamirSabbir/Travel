@@ -35,9 +35,13 @@ const workSchema = new Schema<TWork>(
       type: String,
       enum: ['1 Person', 'Family'],
     },
-    payment: {
+    paymentStatus: {
       type: String,
-      enum: ['Full', 'Partial'],
+      enum: ['Partial Payment', 'Full Payment', 'Pending'],
+    },
+    payment: {
+      type: Number,
+      required: true,
     },
   },
   {
