@@ -54,7 +54,11 @@ export const employeeAdminUpdateIntoDB = async (
 ) => {
   const result = await UserModel.findOneAndUpdate(
     { email, role: 'Employee' },
-    { KPI: updatedData.KPI, salary: updatedData.salary },
+    {
+      KPI: updatedData.KPI,
+      salary: updatedData.salary,
+      Commission: updatedData.Commission,
+    },
   );
   if (updatedData.KPI) {
     await KPIChartModel.create({
