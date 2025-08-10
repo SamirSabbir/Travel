@@ -45,6 +45,7 @@ export const updateWorkStatusSuperAdmin = async (_id: string, data: TWork) => {
       submissionDate: data.submissionDate,
       employeeEmail: data.employeeEmail,
       payment: data.payment,
+      paymentStatus: data.paymentStatus,
     },
   );
 };
@@ -53,7 +54,10 @@ export const updateWorkStatusAccountAdmin = async (
   _id: string,
   data: TWork,
 ) => {
-  return await WorkModel.findOneAndUpdate({ _id }, { payment: data.payment });
+  return await WorkModel.findOneAndUpdate(
+    { _id },
+    { payment: data.payment, paymentStatus: data.paymentStatus },
+  );
 };
 
 export const getPipelineDataFromDB = async (employeeEmail: string) => {
