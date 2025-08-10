@@ -41,7 +41,7 @@ const workSchema = new Schema<TWork>(
     },
     payment: {
       type: Number,
-      required: true,
+      default: 0,
     },
   },
   {

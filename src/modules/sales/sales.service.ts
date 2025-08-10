@@ -33,13 +33,14 @@ export const getAllEmployeeSales = async (employeeEmail: string) => {
 export const updateConfirmSales = async (
   _id: string,
   employeeEmail: string,
-  status: string,
+  data: any,
 ) => {
   const result = await SalesModel.findOneAndUpdate(
     { _id, employeeEmails: employeeEmail },
-    { isConfirmed: status },
+    { isConfirmed: data?.status },
   );
-  if (result && status === 'Very Interested') {
+  console.log(result);
+  if (result && data.status === 'Very Interested') {
     await WorkModel.create({
       salesId: result._id,
       employeeEmail,
