@@ -16,5 +16,6 @@ export type TSales = {
     | 'Confirmed'
     | 'Follow-up'
     | 'Follow-up 1'
-    | 'Followed-up 2';
+    | 'Followed-up 2'
+    | 'Very Interested';
 };

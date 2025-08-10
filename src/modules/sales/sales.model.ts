@@ -28,6 +28,7 @@ const salesSchema = new Schema<TSales>(
         'Follow-up',
         'Follow-up 1',
         'Followed-up 2',
+        'Very Interested',
       ],
     },
   },
