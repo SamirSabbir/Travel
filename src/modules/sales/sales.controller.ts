@@ -53,6 +53,23 @@ export const getEmployeeSales = async (req: Request, res: Response) => {
   }
 };
 
+export const getEmployeeSalesForAdmin = async (req: Request, res: Response) => {
+  try {
+    const result = await getAllEmployeeSales(
+      req?.params?.employeeEmail as string,
+    );
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Failed to fetch sales data',
+    });
+  }
+};
+
 export const confirmSales = async (req: Request, res: Response) => {
   try {
     const result = await updateConfirmSales(

@@ -36,6 +36,19 @@ export const updateWorkStatusWithEmployee = async (
   return result;
 };
 
+export const updateWorkStatusSuperAdmin = async (_id: string, data: TWork) => {
+  return await WorkModel.findOneAndUpdate(
+    { _id },
+    {
+      pax: data.pax,
+      country: data.country,
+      submissionDate: data.submissionDate,
+      employeeEmail: data.employeeEmail,
+      payment: data.payment,
+    },
+  );
+};
+
 export const updateWorkStatusAccountAdmin = async (
   _id: string,
   data: TWork,

@@ -11,6 +11,7 @@ import {
   getPipelineData,
   updateWorkWithAccountAdmin,
   updateWorkWithEmployee,
+  updateWorkWithSuperAdmin,
 } from './work.controller';
 
 const workRoutes = express.Router();
@@ -26,7 +27,11 @@ workRoutes.get('/', auth('Employee', 'SuperAdmin'), getAllWorkEntries);
 workRoutes.get('/pipeline', auth('Employee'), getPipelineData);
 workRoutes.get('/pipeline', auth('Employee'), getPipelineData);
 workRoutes.get('/admin-pipeline', auth('SuperAdmin'), getAdminPipelineData);
-workRoutes.get('/my-pipeline/:employeeEmail', auth('SuperAdmin'), getMyPipelineData);
+workRoutes.get(
+  '/my-pipeline/:employeeEmail',
+  auth('SuperAdmin'),
+  getMyPipelineData,
+);
 workRoutes.get(
   '/my-works',
   auth('Employee', 'SuperAdmin'),
@@ -43,6 +48,13 @@ workRoutes.patch(
   auth('Employee', 'SuperAdmin'),
   updateWorkWithEmployee,
 );
+
+workRoutes.patch(
+  '/update-work-super-admin/:workId',
+  auth('SuperAdmin'),
+  updateWorkWithSuperAdmin,
+);
+
 workRoutes.patch(
   '/update-work-account-admin/:workId',
   auth('AccountAdmin', 'SuperAdmin'),

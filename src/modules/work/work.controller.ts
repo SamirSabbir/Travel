@@ -8,6 +8,7 @@ import {
   getMyPipelineDataFromDB,
   getPipelineDataFromDB,
   updateWorkStatusAccountAdmin,
+  updateWorkStatusSuperAdmin,
   updateWorkStatusWithEmployee,
 } from './work.service';
 
@@ -143,6 +144,24 @@ export const updateWorkWithEmployee = async (req: Request, res: Response) => {
     const result = await updateWorkStatusWithEmployee(
       req.params.workId as string,
       req?.user.userEmail,
+      req.body,
+    );
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: 'Failed to update work entry',
+    });
+  }
+};
+
+export const updateWorkWithSuperAdmin = async (req: Request, res: Response) => {
+  try {
+    const result = await updateWorkStatusSuperAdmin(
+      req.params.workId as string,
       req.body,
     );
     res.status(200).json({
