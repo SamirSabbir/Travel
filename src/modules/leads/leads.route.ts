@@ -18,7 +18,7 @@ leadRoutes.patch(
 );
 leadRoutes.get(
   '/my-leads',
-  auth('Employee'), // Allowed for these roles
+  auth('Employee','SuperAdmin'), // Allowed for these roles
   getMyAssignedLeads,
 );
 
