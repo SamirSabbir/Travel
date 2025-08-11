@@ -8,6 +8,7 @@ import {
   getAllEmployeeWorkEntries,
   getAllWorkEntries,
   getMyPipelineData,
+  getMyWorkData,
   getPipelineData,
   updateWorkWithAccountAdmin,
   updateWorkWithEmployee,
@@ -36,7 +37,7 @@ workRoutes.get(
 workRoutes.get(
   '/my-works',
   auth('Employee', 'SuperAdmin'),
-  getAllEmployeeWorkEntries,
+  getMyWorkData,
 );
 
 workRoutes.get(
