@@ -28,7 +28,7 @@ const loginUser = async (payload: TLoginUser) => {
   const accessToken = jwt.sign(tokenPayload, config.secret as string, {
     expiresIn: 60 * 60 * 24,
   });
-  console.log(accessToken);
+  // console.log(accessToken);
   return accessToken;
 };
 

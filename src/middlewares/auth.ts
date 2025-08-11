@@ -14,7 +14,7 @@ export const auth = (...requiredRoles: TUserRole[]) => {
       if (err) {
         throw new Error('You are not authorized');
       }
-      const { userEmail, userRole } = decoded;
+      const { userEmail, userRole, photo } = decoded;
       console.log(decoded);
 
       if (requiredRoles && !requiredRoles.includes(userRole)) {
