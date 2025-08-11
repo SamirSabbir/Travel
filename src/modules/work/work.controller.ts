@@ -88,6 +88,22 @@ export const getMyPipelineData = async (req: Request, res: Response) => {
   }
 };
 
+export const getMyWorkData = async (req: Request, res: Response) => {
+  try {
+    const result = await getAllEmployeeWorks(req.user.userEmail);
+    res.status(200).json({
+      success: true,
+      message: 'Pipeline data retrieved successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Failed to fetch pipeline data',
+    });
+  }
+};
+
 export const getAllWorkEntries = async (req: Request, res: Response) => {
   try {
     const result = await getAllWorkFromDB();
