@@ -58,7 +58,7 @@ export const getPipelineData = async (req: Request, res: Response) => {
 
 export const getAdminPipelineData = async (req: Request, res: Response) => {
   try {
-    const result = await getAdminPipelineDataFromDB();
+    const result = await getMyPipelineDataFromDB(req.user.userEmail);
     res.status(200).json({
       success: true,
       message: 'Pipeline data retrieved successfully',
