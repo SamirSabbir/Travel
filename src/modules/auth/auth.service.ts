@@ -23,6 +23,7 @@ const loginUser = async (payload: TLoginUser) => {
     userEmail: isUserExist.email,
     userRole: isUserExist.role,
     userName: isUserExist.name,
+    photo: isUserExist.photo,
   };
   const accessToken = jwt.sign(tokenPayload, config.secret as string, {
     expiresIn: 60 * 60 * 24,
