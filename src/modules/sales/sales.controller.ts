@@ -75,7 +75,7 @@ export const confirmSales = async (req: Request, res: Response) => {
     const result = await updateConfirmSales(
       req?.params?.salesId as string,
       req?.user?.userEmail as string,
-      req.body
+      req.body,
     );
     res.status(200).json({
       success: true,

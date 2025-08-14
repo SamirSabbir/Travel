@@ -2,7 +2,7 @@ import { Types } from 'mongoose';
 
 export type TWork = {
   salesId: Types.ObjectId;
-  status: 'draft' | 'complete' | 'pending';
+  status: 'Draft' | 'Completed' | 'Pending';
   employeeEmail: string;
   submissionDate: string;
   deliveryDate: string;

@@ -17,8 +17,8 @@ const workSchema = new Schema<TWork>(
     },
     status: {
       type: String,
-      enum: ['draft', 'complete', 'pending'],
-      default: 'pending',
+      enum: ['Draft', 'Completed', 'Pending'],
+      default: 'Draft',
     },
     employeeEmail: {
       type: String,
