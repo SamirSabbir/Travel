@@ -8,6 +8,9 @@ const workSchema = new Schema<TWork>(
     deliveryDate: {
       type: String,
     },
+    uniqueName: {
+      type: String,
+    },
     submissionDate: {
       type: String,
     },
@@ -43,11 +46,11 @@ const workSchema = new Schema<TWork>(
       type: Number,
       default: 0,
     },
-    paymentDetails:{
+    paymentDetails: {
       type: Schema.Types.ObjectId,
       ref: 'Payment',
       required: false,
-    }
+    },
   },
   {
     timestamps: true,

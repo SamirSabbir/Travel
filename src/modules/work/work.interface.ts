@@ -13,4 +13,5 @@ export type TWork = {
   name: string;
   phone: string;
   paymentDetails?: Types.ObjectId;
+  uniqueName?: string;
 };

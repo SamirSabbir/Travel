@@ -63,6 +63,7 @@ export const updateWorkStatusSuperAdmin = async (
       payment: data.payment,
       paymentStatus: data.paymentStatus,
       status: data.status,
+      uniqueName: data.uniqueName,
     },
   );
   if (!result) {
