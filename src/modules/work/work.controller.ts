@@ -179,6 +179,7 @@ export const updateWorkWithSuperAdmin = async (req: Request, res: Response) => {
     const result = await updateWorkStatusSuperAdmin(
       req.params.workId as string,
       req.body,
+      req.user?.userEmail,
     );
     res.status(200).json({
       success: true,

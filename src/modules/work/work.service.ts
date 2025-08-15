@@ -42,8 +42,12 @@ export const updateWorkStatusWithEmployee = async (
   return result;
 };
 
-export const updateWorkStatusSuperAdmin = async (_id: string, data: TWork) => {
-  return await WorkModel.findOneAndUpdate(
+export const updateWorkStatusSuperAdmin = async (
+  _id: string,
+  data: TWork,
+  superAdminEmail: string,
+) => {
+  const result = await WorkModel.findOneAndUpdate(
     { _id },
     {
       pax: data.pax,
@@ -54,6 +58,14 @@ export const updateWorkStatusSuperAdmin = async (_id: string, data: TWork) => {
       paymentStatus: data.paymentStatus,
     },
   );
+  if (data.employeeEmail) {
+    await WorkRecordModel.create({
+      workId: _id,
+      assignedTo: data.employeeEmail,
+      assignedBy: superAdminEmail,
+    });
+  }
+  return result;
 };
 
 export const updateWorkStatusAccountAdmin = async (
