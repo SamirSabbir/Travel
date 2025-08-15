@@ -1,3 +1,4 @@
+import { WorkRecordModel } from '../workRecords/workRecord.model';
 import { TWork } from './work.interface';
 import { WorkModel } from './work.model';
 
@@ -22,7 +23,6 @@ export const updateWorkStatusWithEmployee = async (
   employeeEmail: string,
   data: TWork,
 ) => {
-  console.log(_id);
   const result = await WorkModel.findOneAndUpdate(
     { _id, employeeEmail },
     {
@@ -32,7 +32,13 @@ export const updateWorkStatusWithEmployee = async (
       employeeEmail: data.employeeEmail,
     },
   );
-  console.log(result);
+  if (data.employeeEmail) {
+    await WorkRecordModel.create({
+      workId: _id,
+      assignedTo: data.employeeEmail,
+      assignedBy: employeeEmail,
+    });
+  }
   return result;
 };
 

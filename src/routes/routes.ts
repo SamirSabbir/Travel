@@ -9,6 +9,7 @@ import path from 'path';
 import { invoiceRoutes } from '../modules/Invoice/invoice.route';
 import { accountRoutes } from '../modules/Accounts/accounts.routes';
 import chartRouter from '../modules/chart/chart.route';
+import { workRecordRoutes } from '../modules/workRecords/workRecord.routes';
 
 const router = express.Router();
 
@@ -47,8 +48,12 @@ const moduleRoutes = [
   },
   {
     path: '/chart',
-    route: chartRouter
-  }
+    route: chartRouter,
+  },
+  {
+    path: '/work-records',
+    route: workRecordRoutes,
+  },
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));
