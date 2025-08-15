@@ -10,7 +10,7 @@ const router = express.Router();
 // router.get('/assigned/:assignedId', auth('SuperAdmin', 'HRAdmin'), handleGetWorkRecordsByAssignedId);
 router.get(
   '/:workId',
-  auth('SuperAdmin', 'HRAdmin', 'AccountAdmin'),
+  auth('SuperAdmin', 'HRAdmin', 'AccountAdmin', 'Employee'),
   handleGetWorkRecordsByWorkId,
 );
 
