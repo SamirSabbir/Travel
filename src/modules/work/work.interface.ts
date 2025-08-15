@@ -12,4 +12,5 @@ export type TWork = {
   country: string;
   name: string;
   phone: string;
+  paymentDetails?: Types.ObjectId;
 };

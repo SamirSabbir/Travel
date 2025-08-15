@@ -1,3 +1,4 @@
+import { PaymentModel } from '../payment/payment.model';
 import { WorkModel } from '../work/work.model';
 import { TSales } from './sales.interface';
 import { SalesModel } from './sales.model';
@@ -41,12 +42,18 @@ export const updateConfirmSales = async (
   );
   console.log(result);
   if (result && data.status === 'Very Interested') {
-    await WorkModel.create({
+    const paymentDetails = await PaymentModel.create({});
+    const work = await WorkModel.create({
       salesId: result._id,
       employeeEmail,
+      paymentDetails: paymentDetails._id,
       name: result.customerName,
       phone: result.phoneNumber,
     });
+    await PaymentModel.updateOne(
+      { _id: paymentDetails._id },
+      { workId: work._id },
+    );
   }
   return result;
 };

@@ -7,15 +7,15 @@ export const createWorkInDB = async (data: TWork) => {
 };
 
 export const getAllWorkFromDB = async () => {
-  return await WorkModel.find().populate('salesId');
+  return await WorkModel.find().populate('paymentDetails');
 };
 
 export const getAllEmployeeWorks = async (employeeEmail: string) => {
-  return await WorkModel.find({ employeeEmail });
+  return await WorkModel.find({ employeeEmail }).populate('paymentDetails');
 };
 
 export const getAllEmployeesWorks = async () => {
-  return await WorkModel.find();
+  return await WorkModel.find().populate('paymentDetails');
 };
 
 export const updateWorkStatusWithEmployee = async (
@@ -63,7 +63,7 @@ export const updateWorkStatusSuperAdmin = async (
       paymentStatus: data.paymentStatus,
     },
   );
-    if (!result) {
+  if (!result) {
     throw new Error('Invalid work ID');
   }
   if (data.employeeEmail) {

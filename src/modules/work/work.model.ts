@@ -43,6 +43,11 @@ const workSchema = new Schema<TWork>(
       type: Number,
       default: 0,
     },
+    paymentDetails:{
+      type: Schema.Types.ObjectId,
+      ref: 'Payment',
+      required: false,
+    }
   },
   {
     timestamps: true,
