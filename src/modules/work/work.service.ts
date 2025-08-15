@@ -33,11 +33,13 @@ export const updateWorkStatusWithEmployee = async (
     },
   );
   if (data.employeeEmail) {
-    await WorkRecordModel.create({
-      workId: _id,
-      assignedTo: data.employeeEmail,
-      assignedBy: employeeEmail,
-    });
+    if (data.employeeEmail !== employeeEmail) {
+      await WorkRecordModel.create({
+        workId: _id,
+        assignedTo: data.employeeEmail,
+        assignedBy: employeeEmail,
+      });
+    }
   }
   return result;
 };
@@ -59,11 +61,13 @@ export const updateWorkStatusSuperAdmin = async (
     },
   );
   if (data.employeeEmail) {
-    await WorkRecordModel.create({
-      workId: _id,
-      assignedTo: data.employeeEmail,
-      assignedBy: superAdminEmail,
-    });
+    if (data.employeeEmail !== superAdminEmail) {
+      await WorkRecordModel.create({
+        workId: _id,
+        assignedTo: data.employeeEmail,
+        assignedBy: superAdminEmail,
+      });
+    }
   }
   return result;
 };
