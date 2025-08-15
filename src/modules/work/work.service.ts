@@ -30,6 +30,7 @@ export const updateWorkStatusWithEmployee = async (
       country: data.country,
       submissionDate: data.submissionDate,
       employeeEmail: data.employeeEmail,
+      status: data.status,
     },
   );
   if (!result) {
@@ -61,6 +62,7 @@ export const updateWorkStatusSuperAdmin = async (
       employeeEmail: data.employeeEmail,
       payment: data.payment,
       paymentStatus: data.paymentStatus,
+      status: data.status,
     },
   );
   if (!result) {

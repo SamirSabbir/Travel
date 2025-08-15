@@ -56,7 +56,7 @@ const moduleRoutes = [
     route: workRecordRoutes,
   },
   {
-    path: '/payment',
+    path: '/payment-details',
     route: paymentRoutes,
   },
 ];
