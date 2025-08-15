@@ -32,6 +32,9 @@ export const updateWorkStatusWithEmployee = async (
       employeeEmail: data.employeeEmail,
     },
   );
+  if (!result) {
+    throw new Error('Invalid work ID');
+  }
   if (data.employeeEmail) {
     if (data.employeeEmail !== employeeEmail) {
       await WorkRecordModel.create({
@@ -60,6 +63,9 @@ export const updateWorkStatusSuperAdmin = async (
       paymentStatus: data.paymentStatus,
     },
   );
+    if (!result) {
+    throw new Error('Invalid work ID');
+  }
   if (data.employeeEmail) {
     if (data.employeeEmail !== superAdminEmail) {
       await WorkRecordModel.create({
