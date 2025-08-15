@@ -10,6 +10,7 @@ import { invoiceRoutes } from '../modules/Invoice/invoice.route';
 import { accountRoutes } from '../modules/Accounts/accounts.routes';
 import chartRouter from '../modules/chart/chart.route';
 import { workRecordRoutes } from '../modules/workRecords/workRecord.routes';
+import { paymentRoutes } from '../modules/payment/payment.routes';
 
 const router = express.Router();
 
@@ -53,6 +54,10 @@ const moduleRoutes = [
   {
     path: '/work-records',
     route: workRecordRoutes,
+  },
+  {
+    path: '/payment',
+    route: paymentRoutes,
   },
 ];
 
