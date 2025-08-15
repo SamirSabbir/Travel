@@ -31,6 +31,7 @@ export const updateWorkStatusWithEmployee = async (
       submissionDate: data.submissionDate,
       employeeEmail: data.employeeEmail,
       status: data.status,
+      uniqueName: data.uniqueName,
     },
   );
   if (!result) {
