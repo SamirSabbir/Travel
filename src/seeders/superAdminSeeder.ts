@@ -1,4 +1,5 @@
 import { UserModel } from '../modules/user/user.model';
+import bcrypt from 'bcrypt';
 
 export const seedSuperAdmin = async () => {
   try {
@@ -9,10 +10,13 @@ export const seedSuperAdmin = async () => {
       return;
     }
 
+    // ✅ Hash the password before saving
+    const hashedPassword = await bcrypt.hash('123456', 10);
+
     const superAdmin = await UserModel.create({
       name: 'Super Admin',
       email: 'superadmin@example.com',
-      password: '123456', // Will be hashed if your model uses pre-save hooks
+      password: hashedPassword,
       role: 'SuperAdmin',
       isApproved: true,
     });
