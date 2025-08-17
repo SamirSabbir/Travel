@@ -2,6 +2,7 @@ import config from '../../app/config';
 import { UserModel } from '../user/user.model';
 import { TLoginUser } from './auth.interface';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 const loginUser = async (payload: TLoginUser) => {
   const isUserExist = await UserModel.findOne({ email: payload.email });
@@ -9,11 +10,16 @@ const loginUser = async (payload: TLoginUser) => {
   if (!isUserExist) {
     throw new Error('Invalid credentials');
   }
+
   if (isUserExist.isApproved === false) {
     throw new Error('User is not approved');
   }
 
-  const isPasswordMatched = payload.password === isUserExist?.password;
+  // ✅ Compare hashed password with user input
+  const isPasswordMatched = await bcrypt.compare(
+    payload.password,
+    isUserExist.password,
+  );
 
   if (!isPasswordMatched) {
     throw new Error('Invalid credentials');
@@ -25,10 +31,11 @@ const loginUser = async (payload: TLoginUser) => {
     userName: isUserExist.name,
     photo: isUserExist.photo,
   };
+
   const accessToken = jwt.sign(tokenPayload, config.secret as string, {
-    expiresIn: 60 * 60 * 24,
+    expiresIn: 60 * 60 * 24, // 1 day
   });
-  // console.log(accessToken);
+
   return accessToken;
 };
 
