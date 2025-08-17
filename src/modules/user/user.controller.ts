@@ -74,7 +74,7 @@ export const approveUser = async (req: Request, res: Response) => {
   } catch (err: any) {
     res.status(400).json({
       success: false,
-      message: 'Failed to approve HR user',
+      message: 'Failed to approve user',
       statusCode: 400,
       error: err.message,
     });
