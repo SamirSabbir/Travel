@@ -7,11 +7,12 @@ const commissionDetailSchema = new Schema(
     commissionRate: { type: Number, required: true },
     commissionAmount: { type: Number, required: false }, // can be auto-calculated
   },
-  { _id: false }
+  { _id: false },
 );
 
 const accountSchema = new Schema(
   {
+    accountName: { type: String, required: true },
     saleId: { type: Schema.Types.ObjectId, ref: 'Sales', required: true },
     revenue: { type: Number, required: true },
     expense: { type: Number, required: true },
@@ -23,7 +24,7 @@ const accountSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const AccountModel = model('Account', accountSchema);
