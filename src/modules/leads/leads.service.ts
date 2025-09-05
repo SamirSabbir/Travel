@@ -40,15 +40,25 @@ export const updateConfirmLeads = async (
     { _id, employeeEmails: employeeEmail },
     { isConfirmed: data?.status },
   );
-  console.log(result);
-  if (result && data.status === 'Very Interested') {
+  const isWorkExist = await WorkModel.find({
+    leadsId: result?._id,
+  });
+  if (isWorkExist) {
+    await WorkModel.updateOne(
+      { leadsId: result?._id },
+      {
+        leadsStatus: data.status,
+      },
+    );
+  } else {
     const paymentDetails = await PaymentModel.create({});
     const work = await WorkModel.create({
-      LeadsId: result._id,
+      LeadsId: result?._id,
+      leadsStatus: data.status,
       employeeEmail,
       paymentDetails: paymentDetails._id,
-      name: result.customerName,
-      phone: result.phoneNumber,
+      name: result?.customerName,
+      phone: result?.phoneNumber,
     });
     await PaymentModel.updateOne(
       { _id: paymentDetails._id },

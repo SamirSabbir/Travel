@@ -41,4 +41,4 @@ const LeadsSchema = new Schema<TLeads>(
   },
 );
 
-export const LeadsModel = model<TLeads>('Leads', LeadsSchema);
+export const LeadsModel = model<TLeads>('Lead', LeadsSchema);

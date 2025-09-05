@@ -7,15 +7,22 @@ export const createWorkInDB = async (data: TWork) => {
 };
 
 export const getAllWorkFromDB = async () => {
-  return await WorkModel.find().populate('paymentDetails');
+  return await WorkModel.find({ leadsStatus: 'Confirmed' }).populate(
+    'paymentDetails',
+  );
 };
 
 export const getAllEmployeeWorks = async (employeeEmail: string) => {
-  return await WorkModel.find({ employeeEmail }).populate('paymentDetails');
+  return await WorkModel.find({
+    employeeEmail,
+    leadsStatus: 'Confirmed',
+  }).populate('paymentDetails');
 };
 
 export const getAllEmployeesWorks = async () => {
-  return await WorkModel.find().populate('paymentDetails');
+  return await WorkModel.find({ leadsStatus: 'Confirmed' }).populate(
+    'paymentDetails',
+  );
 };
 
 export const updateWorkStatusWithEmployee = async (
@@ -24,7 +31,7 @@ export const updateWorkStatusWithEmployee = async (
   data: TWork,
 ) => {
   const result = await WorkModel.findOneAndUpdate(
-    { _id, employeeEmail },
+    { _id, employeeEmail, leadsStatus: 'Confirmed' },
     {
       pax: data.pax,
       country: data.country,
@@ -55,7 +62,7 @@ export const updateWorkStatusSuperAdmin = async (
   superAdminEmail: string,
 ) => {
   const result = await WorkModel.findOneAndUpdate(
-    { _id },
+    { _id, leadsStatus: 'Confirmed' },
     {
       pax: data.pax,
       country: data.country,
@@ -87,13 +94,16 @@ export const updateWorkStatusAccountAdmin = async (
   data: TWork,
 ) => {
   return await WorkModel.findOneAndUpdate(
-    { _id },
+    { _id, leadsStatus: 'Confirmed' },
     { payment: data.payment, paymentStatus: data.paymentStatus },
   );
 };
 
 export const getPipelineDataFromDB = async (employeeEmail: string) => {
-  return await WorkModel.find({ employeeEmail }).select({
+  return await WorkModel.find({
+    employeeEmail,
+    leadsStatus: 'Very Interested',
+  }).select({
     name: true,
     phone: true,
     status: true,
@@ -101,7 +111,7 @@ export const getPipelineDataFromDB = async (employeeEmail: string) => {
 };
 
 export const getAdminPipelineDataFromDB = async () => {
-  return await WorkModel.find().select({
+  return await WorkModel.find({ leadsStatus: 'Very Interested' }).select({
     name: true,
     phone: true,
     status: true,
@@ -109,7 +119,10 @@ export const getAdminPipelineDataFromDB = async () => {
 };
 
 export const getMyPipelineDataFromDB = async (employeeEmail: string) => {
-  return await WorkModel.find({ employeeEmail }).select({
+  return await WorkModel.find({
+    employeeEmail,
+    leadsStatus: 'Very Interested',
+  }).select({
     name: true,
     phone: true,
     status: true,

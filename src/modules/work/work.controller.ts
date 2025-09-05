@@ -14,14 +14,14 @@ import {
 
 export const createWorkEntry = async (req: Request, res: Response) => {
   try {
-    const { salesId, status } = req.body;
+    const { leadsId, status } = req.body;
 
     const filePaths = req.files
       ? (req.files as Express.Multer.File[]).map((file) => file.path)
       : [];
 
     const result = await createWorkInDB({
-      salesId,
+      leadsId,
       files: filePaths,
       status,
       employeeEmail: req.user?.userEmail,

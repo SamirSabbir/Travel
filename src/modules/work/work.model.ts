@@ -3,7 +3,7 @@ import { TWork } from './work.interface';
 
 const workSchema = new Schema<TWork>(
   {
-    salesId: { type: Schema.Types.ObjectId, ref: 'Sales', required: true },
+    leadsId: { type: Schema.Types.ObjectId, ref: 'Lead', required: true },
 
     deliveryDate: {
       type: String,
@@ -22,6 +22,10 @@ const workSchema = new Schema<TWork>(
       type: String,
       enum: ['Draft', 'Completed', 'Pending'],
       default: 'Draft',
+    },
+    leadsStatus: {
+      type: String,
+      required: true,
     },
     employeeEmail: {
       type: String,
