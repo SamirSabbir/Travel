@@ -1,50 +1,59 @@
-import { SalesModel } from '../sales/sales.model';
+import { PaymentModel } from '../payment/payment.model';
+import { WorkModel } from '../work/work.model';
 import { TLeads } from './leads.interface';
-import LeadModel from './leads.model';
+import { LeadsModel } from './leads.model';
 
-export const createLeadInDB = async (data: TLeads) => {
-  const result = await LeadModel.create(data);
-  if (data) {
-    await SalesModel.create({
-      customerName: data.customerName,
-      phoneNumber: data.customerPhone,
-      description: data.description,
-      employeeEmails: data?.assigns,
-      leadId: result._id,
-    });
-  }
-  return result;
-};
+// export const createLeadsEntryInDB = async (data: TLeads) => {
+//   const result = await LeadsModel.create(data);
+//   if (result) {
+//     await WorkModel.create({
+//       name: data.customerName,
+//       employeeEmail: data.employeeEmail,
+//       LeadsId: result._id,
+//       status:data?.status
+//     });
+//   }
+//   return result;
+// };
 
 export const getAllLeadsFromDB = async () => {
-  const result = await LeadModel.find();
+  const result = await LeadsModel.find().populate('leadId');
   return result;
 };
 
-// Add this to your existing service functions
-export const assignEmailToLeadInDB = async (leadId: string, email: string) => {
-  const result = await LeadModel.findByIdAndUpdate(
-    leadId,
-    { $addToSet: { assigns: email } },
-    { new: true },
+export const updateLeadsDataIntoDB = async (_id: string, data: TLeads) => {
+  const result = await LeadsModel.findOneAndUpdate({ _id }, data);
+  return result;
+};
+
+export const getAllEmployeeLeads = async (employeeEmail: string) => {
+  const result = await LeadsModel.find({ employeeEmails: employeeEmail });
+  return result;
+};
+
+export const updateConfirmLeads = async (
+  _id: string,
+  employeeEmail: string,
+  data: any,
+) => {
+  const result = await LeadsModel.findOneAndUpdate(
+    { _id, employeeEmails: employeeEmail },
+    { isConfirmed: data?.status },
   );
-
-  if (!result) {
-    throw new Error('Lead not found');
-  }
-
-  if (result) {
-    await SalesModel.findOneAndUpdate(
-      { customerName: result.customerName },
-      { $addToSet: { employeeEmails: email } },
-      { new: true },
+  console.log(result);
+  if (result && data.status === 'Very Interested') {
+    const paymentDetails = await PaymentModel.create({});
+    const work = await WorkModel.create({
+      LeadsId: result._id,
+      employeeEmail,
+      paymentDetails: paymentDetails._id,
+      name: result.customerName,
+      phone: result.phoneNumber,
+    });
+    await PaymentModel.updateOne(
+      { _id: paymentDetails._id },
+      { workId: work._id },
     );
   }
-
-  return result;
-};
-
-export const getAssignedLeadsFromDB = async (email: string) => {
-  const result = await LeadModel.find({ assigns: email });
   return result;
 };

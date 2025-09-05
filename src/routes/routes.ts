@@ -1,8 +1,8 @@
 import express from 'express';
 import userRoutes from '../modules/user/user.route';
 import authRoutes from '../modules/auth/auth.route';
-import leadRoutes from '../modules/leads/leads.route';
-import salesRoutes from '../modules/sales/sales.routes';
+import leadRoutes from '../modules/leadsManage/leads.route';
+import salesRoutes from '../modules/leads/leads.routes';
 import workRoutes from '../modules/work/work.routes';
 import { visaRoutes } from '../modules/visa/visa.route';
 import path from 'path';
@@ -11,6 +11,8 @@ import { accountRoutes } from '../modules/Accounts/accounts.routes';
 import chartRouter from '../modules/chart/chart.route';
 import { workRecordRoutes } from '../modules/workRecords/workRecord.routes';
 import { paymentRoutes } from '../modules/payment/payment.routes';
+import leadsManageRoutes from '../modules/leadsManage/leads.route';
+import LeadsRoutes from '../modules/leads/leads.routes';
 
 const router = express.Router();
 
@@ -24,12 +26,12 @@ const moduleRoutes = [
     route: authRoutes,
   },
   {
-    path: '/leads',
-    route: leadRoutes,
+    path: '/leads-manage',
+    route: leadsManageRoutes,
   },
   {
-    path: '/sales',
-    route: salesRoutes,
+    path: '/leads',
+    route: LeadsRoutes,
   },
   {
     path: '/works',

@@ -1,37 +1,44 @@
-import { Schema, model } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { TLeads } from './leads.interface';
 
-// 2. Create the Mongoose schema
-const LeadSchema = new Schema<TLeads>(
+const LeadsSchema = new Schema<TLeads>(
   {
+    leadManageId: {
+      type: Schema.Types.ObjectId,
+      ref: 'LeadsManage',
+      required: true,
+    },
+    country: { type: String },
+    description: { type: String, required: true },
+    lastCallDate: { type: Date },
+    followUpCallDate: { type: Date },
+    duePayment: { type: Number },
     customerName: {
       type: String,
-      required: true,
-      trim: true,
     },
-    customerPhone: {
+    phoneNumber: {
       type: String,
-      required: true,
     },
-    adminEmail: {
+    status: {
       type: String,
-      required: true,
     },
-    description: {
+    employeeEmails: { type: [String], required: true },
+    isConfirmed: {
       type: String,
-      required: true,
+      default: 'New lead',
+      enum: [
+        'New lead',
+        'Confirmed',
+        'Follow-up',
+        'Follow-up 1',
+        'Followed-up 2',
+        'Very Interested',
+      ],
     },
-    assigns:{
-      type:[String], 
-      required:true
-    }
   },
   {
     timestamps: true,
   },
 );
 
-// 3. Create the model
-const LeadModel = model<TLeads>('Lead', LeadSchema);
-
-export default LeadModel;
+export const LeadsModel = model<TLeads>('Leads', LeadsSchema);
