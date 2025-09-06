@@ -31,7 +31,7 @@ export const updateWorkStatusWithEmployee = async (
   data: TWork,
 ) => {
   const result = await WorkModel.findOneAndUpdate(
-    { _id, employeeEmail, leadsStatus: 'Confirmed' },
+    { _id, employeeEmail },
     {
       pax: data.pax,
       country: data.country,
