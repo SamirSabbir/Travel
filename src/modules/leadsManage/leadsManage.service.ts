@@ -27,7 +27,7 @@ export const assignEmailToLeadsManageInDB = async (
   email: string,
 ) => {
   const result = await LeadsManageModel.findByIdAndUpdate(
-    leadId,
+    { _id: leadId },
     { $addToSet: { assigns: email } },
     { new: true },
   );
@@ -37,7 +37,7 @@ export const assignEmailToLeadsManageInDB = async (
   }
 
   if (result) {
-    await LeadsManageModel.findOneAndUpdate(
+    await LeadsModel.findOneAndUpdate(
       { customerName: result.customerName },
       { $addToSet: { employeeEmails: email } },
       { new: true },
