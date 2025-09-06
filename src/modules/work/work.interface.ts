@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 
 export type TWork = {
-  leadsId: Types.ObjectId;
+  leadId: Types.ObjectId;
   status: 'Draft' | 'Completed' | 'Pending';
   employeeEmail: string;
   submissionDate: string;

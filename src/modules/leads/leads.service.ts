@@ -42,12 +42,12 @@ export const updateConfirmLeads = async (
   );
   console.log(result?._id);
   const isWorkExist = await WorkModel.findOne({
-    leadsId: result?._id,
+    leadId: result?._id,
   });
-  console.log(isWorkExist);
+  console.log(isWorkExist? true : false);
   if (isWorkExist) {
     await WorkModel.updateOne(
-      { leadsId: result?._id },
+      { leadId: result?._id },
       {
         leadsStatus: data.status,
       },
@@ -55,7 +55,7 @@ export const updateConfirmLeads = async (
   } else {
     const paymentDetails = await PaymentModel.create({});
     const work = await WorkModel.create({
-      LeadsId: result?._id,
+      leadId: result?._id,
       leadsStatus: data.status,
       employeeEmail,
       paymentDetails: paymentDetails._id,
