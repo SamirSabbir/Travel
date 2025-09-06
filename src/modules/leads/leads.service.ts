@@ -40,9 +40,11 @@ export const updateConfirmLeads = async (
     { _id, employeeEmails: employeeEmail },
     { isConfirmed: data?.status },
   );
-  const isWorkExist = await WorkModel.find({
+  console.log(result?._id);
+  const isWorkExist = await WorkModel.findOne({
     leadsId: result?._id,
   });
+  console.log(isWorkExist);
   if (isWorkExist) {
     await WorkModel.updateOne(
       { leadsId: result?._id },
