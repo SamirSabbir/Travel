@@ -6,7 +6,7 @@ const LeadsSchema = new Schema<TLeads>(
     leadManageId: {
       type: Schema.Types.ObjectId,
       ref: 'LeadsManage',
-      required: true,
+      // required: true,
     },
     country: { type: String },
     description: { type: String, required: true },

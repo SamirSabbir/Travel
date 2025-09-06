@@ -10,7 +10,7 @@ export const createLeadsManageInDB = async (data: TLeadsManage) => {
       phoneNumber: data.customerPhone,
       description: data.description,
       employeeEmails: data?.assigns,
-      leadsManageId: result._id,
+      leadsManageId: result?._id,
     });
   }
   return result;
