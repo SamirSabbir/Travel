@@ -10,7 +10,7 @@ export const createLeadsManageInDB = async (data: TLeadsManage) => {
       phoneNumber: data.customerPhone,
       description: data.description,
       employeeEmails: data?.assigns,
-      leadsManageId: result?._id,
+      leadManageId: result?._id,
     });
   }
   return result;
@@ -31,7 +31,6 @@ export const assignEmailToLeadsManageInDB = async (
     { $addToSet: { assigns: email } },
     { new: true },
   );
-  console.log(result);
   if (!result) {
     throw new Error('Lead not found');
   }
