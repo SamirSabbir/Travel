@@ -31,7 +31,7 @@ export const assignEmailToLeadsManageInDB = async (
     { $addToSet: { assigns: email } },
     { new: true },
   );
-
+  console.log(result);
   if (!result) {
     throw new Error('Lead not found');
   }
