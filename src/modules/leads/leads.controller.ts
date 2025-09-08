@@ -3,6 +3,7 @@ import {
   getAllEmployeeLeads,
   getAllLeadsFromDB,
   updateConfirmLeads,
+  updateConfirmLeadsWithWorkId,
   updateLeadsDataIntoDB,
 } from './leads.service';
 
@@ -84,7 +85,26 @@ export const confirmLeads = async (req: Request, res: Response) => {
   } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: err.message || 'Failed to confirm Leads ',
+      message: err.message || 'Failed to update Leads ',
+    });
+  }
+};
+
+export const confirmLeadsWithWorkId = async (req: Request, res: Response) => {
+  try {
+    const result = await updateConfirmLeadsWithWorkId(
+      req?.params?.workId as string,
+      req?.user?.userEmail as string,
+      req.body,
+    );
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Failed to update Leads ',
     });
   }
 };

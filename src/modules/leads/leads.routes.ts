@@ -27,6 +27,13 @@ LeadsRoutes.patch(
   auth('Employee', 'SuperAdmin'),
   confirmLeads,
 );
+
+LeadsRoutes.patch(
+  '/confirm-Leads-workId/:workId',
+  auth('Employee', 'SuperAdmin'),
+  confirmLeads,
+);
+
 LeadsRoutes.patch(
   '/update-Leads/:LeadsId',
   auth('Employee', 'SuperAdmin'),

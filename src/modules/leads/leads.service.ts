@@ -44,7 +44,7 @@ export const updateConfirmLeads = async (
   const isWorkExist = await WorkModel.findOne({
     leadId: result?._id,
   });
-  console.log(isWorkExist? true : false);
+  console.log(isWorkExist ? true : false);
   if (isWorkExist) {
     await WorkModel.updateOne(
       { leadId: result?._id },
@@ -68,4 +68,25 @@ export const updateConfirmLeads = async (
     );
   }
   return result;
+};
+
+export const updateConfirmLeadsWithWorkId = async (
+  _id: string,
+  employeeEmail: string,
+  data: any,
+) => {
+  const isWorkExist = await WorkModel.findOne({
+    _id,
+  });
+  if (!isWorkExist) {
+    throw Error("Work doesn't exist!");
+  }
+  const work = await WorkModel.updateOne(
+    { _id },
+    {
+      leadsStatus: data.status,
+    },
+  );
+
+  return work;
 };
