@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   confirmLeads,
+  confirmLeadsWithWorkId,
   getAllLeads,
   getEmployeeLeads,
   getEmployeeLeadsForAdmin,
@@ -31,7 +32,7 @@ LeadsRoutes.patch(
 LeadsRoutes.patch(
   '/confirm-Leads-workId/:workId',
   auth('Employee', 'SuperAdmin'),
-  confirmLeads,
+  confirmLeadsWithWorkId,
 );
 
 LeadsRoutes.patch(
