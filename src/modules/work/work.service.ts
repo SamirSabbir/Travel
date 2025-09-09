@@ -102,7 +102,7 @@ export const updateWorkStatusAccountAdmin = async (
 export const getPipelineDataFromDB = async (employeeEmail: string) => {
   return await WorkModel.find({
     employeeEmail,
-    leadsStatus: 'Very Interested',
+    leadsStatus: { $not: /Confirmed/i },
   }).select({
     name: true,
     phone: true,
@@ -111,7 +111,9 @@ export const getPipelineDataFromDB = async (employeeEmail: string) => {
 };
 
 export const getAdminPipelineDataFromDB = async () => {
-  return await WorkModel.find({ leadsStatus: 'Very Interested' }).select({
+  return await WorkModel.find({
+    leadsStatus: { $not: /Confirmed/i },
+  }).select({
     name: true,
     phone: true,
     status: true,
@@ -121,7 +123,7 @@ export const getAdminPipelineDataFromDB = async () => {
 export const getMyPipelineDataFromDB = async (employeeEmail: string) => {
   return await WorkModel.find({
     employeeEmail,
-    leadsStatus: 'Very Interested',
+    leadsStatus: { $not: /Confirmed/i },
   }).select({
     name: true,
     phone: true,
