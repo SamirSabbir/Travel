@@ -38,7 +38,6 @@ export const updateWorkStatusWithEmployee = async (
       submissionDate: data.submissionDate,
       employeeEmail: data.employeeEmail,
       status: data.status,
-      uniqueName: data.uniqueName,
     },
   );
   if (!result) {
@@ -71,7 +70,6 @@ export const updateWorkStatusSuperAdmin = async (
       payment: data.payment,
       paymentStatus: data.paymentStatus,
       status: data.status,
-      uniqueName: data.uniqueName,
     },
   );
   if (!result) {

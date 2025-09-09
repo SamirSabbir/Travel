@@ -2,6 +2,7 @@ import { PaymentModel } from '../payment/payment.model';
 import { WorkModel } from '../work/work.model';
 import { TLeads } from './leads.interface';
 import { LeadsModel } from './leads.model';
+import { v4 as uuidv4 } from 'uuid';
 
 // export const createLeadsEntryInDB = async (data: TLeads) => {
 //   const result = await LeadsModel.create(data);
@@ -54,7 +55,9 @@ export const updateConfirmLeads = async (
     );
   } else {
     const paymentDetails = await PaymentModel.create({});
+    const uuId = uuidv4();
     const work = await WorkModel.create({
+      uuId,
       leadId: result?._id,
       leadsStatus: data.status,
       employeeEmail,
