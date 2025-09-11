@@ -16,7 +16,7 @@ export interface TPayment {
   uploadedDocument?: string[]; // file URLs
   depositedToAccount: string;
   givenAmount: number;
-  serviceCharge: number;
+  dueAmount: number;
   amount: number;
 
   workId: mongoose.Types.ObjectId; // Reference to Work

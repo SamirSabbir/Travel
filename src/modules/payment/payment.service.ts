@@ -35,6 +35,7 @@ export const updatePaymentByIdInDB = async (
       { _id: updateData.workId },
       {
         payment: updateData.amount,
+        paymentStatus: updateData.paymentStatus,
       },
     );
   }

@@ -18,7 +18,7 @@ const paymentSchema = new Schema<TPayment>(
     uploadedDocument: [{ type: String }],
     depositedToAccount: { type: String },
     givenAmount: { type: Number },
-    serviceCharge: { type: Number },
+    dueAmount: { type: Number },
     amount: { type: Number },
 
     workId: { type: Schema.Types.ObjectId, ref: 'Work' },
