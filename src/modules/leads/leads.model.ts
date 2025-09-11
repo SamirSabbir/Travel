@@ -8,6 +8,9 @@ const LeadsSchema = new Schema<TLeads>(
       ref: 'LeadsManage',
       required: true,
     },
+    uuId:{
+      type:String,
+    },
     country: { type: String },
     description: { type: String, required: true },
     lastCallDate: { type: Date },

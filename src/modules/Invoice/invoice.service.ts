@@ -16,3 +16,5 @@ export const getAllInvoicesFromDB = async (accountAdminEmail: string) => {
 export const getInvoiceByIdFromDB = async (id: string) => {
   return await InvoiceModel.findById(id);
 };
+
+

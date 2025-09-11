@@ -2,6 +2,7 @@ import { Types } from 'mongoose';
 
 export type TLeads = {
   leadManageId: Types.ObjectId;
+  uuId: string;
   customerName: string;
   phoneNumber: string;
   country: string;

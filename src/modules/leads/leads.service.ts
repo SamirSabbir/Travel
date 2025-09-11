@@ -55,9 +55,9 @@ export const updateConfirmLeads = async (
     );
   } else {
     const paymentDetails = await PaymentModel.create({});
-    const uuId = uuidv4();
+
     const work = await WorkModel.create({
-      uuId,
+      uuId: result?.uuId,
       leadId: result?._id,
       leadsStatus: data.status,
       employeeEmail,

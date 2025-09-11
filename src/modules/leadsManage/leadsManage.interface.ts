@@ -3,5 +3,5 @@ export type TLeadsManage = {
   customerPhone: string;
   description: string;
   adminEmail: string;
-  assigns: string[];
+  assigns: string[]
 };
