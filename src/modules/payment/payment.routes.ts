@@ -1,6 +1,12 @@
 import express from 'express';
 import { auth } from '../../middlewares/auth';
-import { handleCreatePayment, handleGetAllPayments, handleGetPaymentById, handleGetPaymentByWorkId, handleUpdatePaymentById } from './payment.controller';
+import {
+  handleCreatePayment,
+  handleGetAllPayments,
+  handleGetPaymentById,
+  handleGetPaymentByWorkId,
+  handleUpdatePaymentById,
+} from './payment.controller';
 
 const router = express.Router();
 

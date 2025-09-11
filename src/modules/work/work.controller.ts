@@ -15,6 +15,7 @@ import {
   updateWorkStatusWithEmployee,
   directApproveWorkInDB,
   assignWorkWithEmployee,
+  cancelWorkInDB,
 } from './work.service';
 
 export const createWorkEntry = async (req: Request, res: Response) => {
@@ -255,6 +256,30 @@ export const approveWork = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: err.message || 'Failed to approve work',
+    });
+  }
+};
+
+export const cancelWorkController = async (req: Request, res: Response) => {
+  try {
+    const result = await cancelWorkInDB(req.params.workId);
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Work not found or already approved',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Work cancled successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Failed to cancel work',
     });
   }
 };

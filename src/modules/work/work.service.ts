@@ -31,7 +31,7 @@ export const updateWorkStatusWithEmployee = async (
   data: TWork,
 ) => {
   const result = await WorkModel.findOneAndUpdate(
-    { _id, employeeEmail },
+    { _id, employeeEmail, isApplied: false },
     {
       pax: data.pax,
       country: data.country,
@@ -156,6 +156,19 @@ export const approveWorkInDB = async (_id: string) => {
     },
     {
       workStatus: 'Completed',
+    },
+  );
+};
+
+export const cancelWorkInDB = async (_id: string) => {
+  return await WorkModel.updateOne(
+    {
+      _id,
+      isApplied: true,
+      workStatus: 'Pending',
+    },
+    {
+      isApplied: false,
     },
   );
 };

@@ -17,6 +17,7 @@ import {
   updateWorkWithEmployee,
   updateWorkWithSuperAdmin,
   assignWorkWithEmployeeController,
+  cancelWorkController,
 } from './work.controller';
 
 const workRoutes = express.Router();
@@ -56,6 +57,12 @@ workRoutes.patch(
   '/approve-work/:workId',
   auth('SuperAdmin', 'AccountAdmin'),
   approveWork,
+);
+
+workRoutes.patch(
+  '/cancel-work/:workId',
+  auth('SuperAdmin', 'AccountAdmin'),
+  cancelWorkController,
 );
 
 workRoutes.patch(
