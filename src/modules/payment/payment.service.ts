@@ -14,7 +14,7 @@ export const getAllPaymentsFromDB = async () => {
 
 // Get payment by ID
 export const getPaymentByIdFromDB = async (id: string) => {
-  return await PaymentModel.findById(id);
+  return await PaymentModel.findOne({ workId: id });
 };
 
 // Get payment by workId
