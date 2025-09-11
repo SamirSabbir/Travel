@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 export type TWork = {
   uuId: string;
   leadId: Types.ObjectId;
-  status: 'Draft' | 'Completed' | 'Pending';
+  workStatus: 'Completed' | 'Pending';
   employeeEmail: string;
   submissionDate: string;
   deliveryDate: string;
@@ -16,4 +16,5 @@ export type TWork = {
   paymentDetails?: Types.ObjectId;
   // uniqueName?: string;
   leadsStatus: string;
+  isApplied: boolean;
 };

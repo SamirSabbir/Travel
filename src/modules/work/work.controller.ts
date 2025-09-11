@@ -1,15 +1,19 @@
 import { Request, Response } from 'express';
 import {
+  approveWorkInDB,
+  applyForApproveWorkInDB, // Add this import
   createWorkInDB,
   getAdminPipelineDataFromDB,
   getAllEmployeesWorks,
   getAllEmployeeWorks,
+  getAllUnapprovedWorksFromDB,
   getAllWorkFromDB,
   getMyPipelineDataFromDB,
   getPipelineDataFromDB,
   updateWorkStatusAccountAdmin,
   updateWorkStatusSuperAdmin,
   updateWorkStatusWithEmployee,
+  directApproveWorkInDB,
 } from './work.service';
 
 export const createWorkEntry = async (req: Request, res: Response) => {
@@ -21,7 +25,7 @@ export const createWorkEntry = async (req: Request, res: Response) => {
       : [];
 
     const result = await createWorkInDB({
-      leadsId,
+      leadId: leadsId,
       files: filePaths,
       status,
       employeeEmail: req.user?.userEmail,
@@ -58,7 +62,7 @@ export const getPipelineData = async (req: Request, res: Response) => {
 
 export const getAdminPipelineData = async (req: Request, res: Response) => {
   try {
-    const result = await getMyPipelineDataFromDB(req.user.userEmail);
+    const result = await getAdminPipelineDataFromDB(); // Fixed: Use getAdminPipelineDataFromDB instead of getMyPipelineDataFromDB
     res.status(200).json({
       success: true,
       message: 'Pipeline data retrieved successfully',
@@ -93,13 +97,13 @@ export const getMyWorkData = async (req: Request, res: Response) => {
     const result = await getAllEmployeeWorks(req.user.userEmail);
     res.status(200).json({
       success: true,
-      message: 'Pipeline data retrieved successfully',
+      message: 'Work data retrieved successfully', // Fixed message
       data: result,
     });
   } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: err.message || 'Failed to fetch pipeline data',
+      message: err.message || 'Failed to fetch work data',
     });
   }
 };
@@ -210,6 +214,96 @@ export const updateWorkWithAccountAdmin = async (
     res.status(400).json({
       success: false,
       message: 'Failed to update work entry',
+    });
+  }
+};
+
+export const getAllUnapprovedWorks = async (req: Request, res: Response) => {
+  try {
+    const result = await getAllUnapprovedWorksFromDB();
+    res.status(200).json({
+      success: true,
+      message: 'Unapproved works retrieved successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Failed to fetch unapproved works',
+    });
+  }
+};
+
+export const approveWork = async (req: Request, res: Response) => {
+  try {
+    const result = await approveWorkInDB(req.params.workId);
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Work not found or already approved',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Work approved successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Failed to approve work',
+    });
+  }
+};
+
+export const directApproveWork = async (req: Request, res: Response) => {
+  try {
+    const result = await directApproveWorkInDB(req.params.workId);
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Work not found or already approved',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Work approved successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Failed to approve work',
+    });
+  }
+};
+
+
+// Add the missing controller function
+export const applyForWorkApproval = async (req: Request, res: Response) => {
+  try {
+    const result = await applyForApproveWorkInDB(req.params.workId);
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Work not found or already applied for approval',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Work approval applied successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(500).json({
+      success: false,
+      message: err.message || 'Failed to apply for work approval',
     });
   }
 };

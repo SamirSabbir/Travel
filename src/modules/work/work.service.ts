@@ -37,7 +37,7 @@ export const updateWorkStatusWithEmployee = async (
       country: data.country,
       submissionDate: data.submissionDate,
       employeeEmail: data.employeeEmail,
-      status: data.status,
+      workStatus: data.workStatus,
     },
   );
   if (!result) {
@@ -69,7 +69,7 @@ export const updateWorkStatusSuperAdmin = async (
       employeeEmail: data.employeeEmail,
       payment: data.payment,
       paymentStatus: data.paymentStatus,
-      status: data.status,
+      workStatus: data.workStatus,
     },
   );
   if (!result) {
@@ -104,7 +104,7 @@ export const getPipelineDataFromDB = async (employeeEmail: string) => {
   }).select({
     name: true,
     phone: true,
-    status: true,
+    workStatus: true,
   });
 };
 
@@ -114,7 +114,7 @@ export const getAdminPipelineDataFromDB = async () => {
   }).select({
     name: true,
     phone: true,
-    status: true,
+    workStatus: true,
   });
 };
 
@@ -125,6 +125,52 @@ export const getMyPipelineDataFromDB = async (employeeEmail: string) => {
   }).select({
     name: true,
     phone: true,
-    status: true,
+    workStatus: true,
   });
+};
+
+export const getAllUnapprovedWorksFromDB = async () => {
+  return await WorkModel.find({
+    isApplied: true,
+    workStatus: 'Pending',
+  }).populate('paymentDetails');
+};
+
+export const approveWorkInDB = async (_id: string) => {
+  return await WorkModel.updateOne(
+    {
+      _id,
+      isApplied: true,
+      workStatus: 'Pending',
+    },
+    {
+      workStatus: 'Completed',
+    },
+  );
+};
+
+export const directApproveWorkInDB = async (_id: string) => {
+  return await WorkModel.updateOne(
+    {
+      _id,
+      workStatus: 'Pending',
+    },
+    {
+      workStatus: 'Completed',
+    },
+  );
+};
+
+
+export const applyForApproveWorkInDB = async (_id: string) => {
+  return await WorkModel.updateOne(
+    {
+      _id,
+      isApplied: false,
+      workStatus: 'Pending',
+    },
+    {
+      isApplied: true,
+    },
+  );
 };

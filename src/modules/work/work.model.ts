@@ -21,10 +21,10 @@ const workSchema = new Schema<TWork>(
       type: String,
       required: true,
     },
-    status: {
+    workStatus: {
       type: String,
-      enum: ['Draft', 'Completed', 'Pending'],
-      default: 'Draft',
+      enum: ['Completed', 'Pending'],
+      default: 'Pending',
     },
     leadsStatus: {
       type: String,
@@ -57,6 +57,10 @@ const workSchema = new Schema<TWork>(
       type: Schema.Types.ObjectId,
       ref: 'Payment',
       required: false,
+    },
+    isApplied: {
+      type: Boolean,
+      default: false,
     },
   },
   {
