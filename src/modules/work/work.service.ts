@@ -1,3 +1,5 @@
+import { TPayment } from '../payment/payment.interface';
+import { PaymentModel } from '../payment/payment.model';
 import { WorkRecordModel } from '../workRecords/workRecord.model';
 import { TWork } from './work.interface';
 import { WorkModel } from './work.model';
@@ -173,7 +175,8 @@ export const cancelWorkInDB = async (_id: string) => {
   );
 };
 
-export const directApproveWorkInDB = async (_id: string) => {
+export const directApproveWorkInDB = async (_id: string,data:TPayment) => {
+  await PaymentModel.create({...data})
   return await WorkModel.updateOne(
     {
       _id,
@@ -185,7 +188,8 @@ export const directApproveWorkInDB = async (_id: string) => {
   );
 };
 
-export const applyForApproveWorkInDB = async (_id: string) => {
+export const applyForApproveWorkInDB = async (_id: string,data:TPayment) => {
+  await PaymentModel.create({...data})
   return await WorkModel.updateOne(
     {
       _id,

@@ -286,7 +286,7 @@ export const cancelWorkController = async (req: Request, res: Response) => {
 
 export const directApproveWork = async (req: Request, res: Response) => {
   try {
-    const result = await directApproveWorkInDB(req.params.workId);
+    const result = await directApproveWorkInDB(req.params.workId, req.body);
 
     if (result.modifiedCount === 0) {
       return res.status(404).json({
@@ -311,7 +311,7 @@ export const directApproveWork = async (req: Request, res: Response) => {
 // Add the missing controller function
 export const applyForWorkApproval = async (req: Request, res: Response) => {
   try {
-    const result = await applyForApproveWorkInDB(req.params.workId);
+    const result = await applyForApproveWorkInDB(req.params.workId, req.body);
 
     if (result.modifiedCount === 0) {
       return res.status(404).json({
