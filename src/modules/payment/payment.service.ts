@@ -1,3 +1,4 @@
+import { WorkModel } from '../work/work.model';
 import { TPayment } from './payment.interface';
 import { PaymentModel } from './payment.model';
 
@@ -26,5 +27,15 @@ export const updatePaymentByIdInDB = async (
   id: string,
   updateData: Partial<TPayment>,
 ) => {
-  return await PaymentModel.findByIdAndUpdate(id, updateData, { new: true });
+  const updatedPayment = await PaymentModel.findByIdAndUpdate(id, updateData, {
+    new: true,
+  }).populate('work');
+  if (updatedPayment?.workId) {
+    return await WorkModel.updateOne(
+      { _id: updateData.workId },
+      {
+        payment: updateData.amount,
+      },
+    );
+  }
 };

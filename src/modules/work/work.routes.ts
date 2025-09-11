@@ -1,11 +1,11 @@
 import express from 'express';
-
 import { auth } from '../../middlewares/auth';
 import { upload } from '../../app/multer.config';
 import {
   approveWork,
-  applyForWorkApproval, // Add this import
+  applyForWorkApproval,
   createWorkEntry,
+  directApproveWork,
   getAdminPipelineData,
   getAllEmployeeWorkEntries,
   getAllUnapprovedWorks,
@@ -16,7 +16,7 @@ import {
   updateWorkWithAccountAdmin,
   updateWorkWithEmployee,
   updateWorkWithSuperAdmin,
-  directApproveWork,
+  assignWorkWithEmployeeController,
 } from './work.controller';
 
 const workRoutes = express.Router();
@@ -29,10 +29,6 @@ workRoutes.post(
 );
 
 workRoutes.get('/', auth('Employee', 'SuperAdmin'), getAllWorkEntries);
-
-// Remove the conflicting route - this was incorrectly pointing to getAllWorkEntries
-// workRoutes.patch('/approve-work', auth('AccountAdmin', 'SuperAdmin'), getAllWorkEntries);
-
 workRoutes.get('/pipeline', auth('Employee'), getPipelineData);
 workRoutes.get('/admin-pipeline', auth('SuperAdmin'), getAdminPipelineData);
 workRoutes.get('/my-admin-pipeline', auth('SuperAdmin'), getAdminPipelineData);
@@ -58,20 +54,27 @@ workRoutes.get(
 
 workRoutes.patch(
   '/approve-work/:workId',
-  auth('SuperAdmin', 'AccountAdmin'), // Fixed auth - only admins should approve
+  auth('SuperAdmin', 'AccountAdmin'),
   approveWork,
 );
 
 workRoutes.patch(
   '/direct-approve-work/:workId',
-  auth('SuperAdmin', 'AccountAdmin'), // Fixed auth - only admins should approve
+  auth('SuperAdmin', 'AccountAdmin'),
   directApproveWork,
 );
 
 workRoutes.patch(
   '/apply-approval/:workId',
-  auth('Employee'), // Employees can apply for approval
+  auth('Employee'),
   applyForWorkApproval,
+);
+
+// Work assignment route
+workRoutes.patch(
+  '/assign-work/:workId',
+  auth('Employee', 'SuperAdmin', 'AccountAdmin'),
+  assignWorkWithEmployeeController,
 );
 
 workRoutes.patch(

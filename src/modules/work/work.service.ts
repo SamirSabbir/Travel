@@ -36,23 +36,34 @@ export const updateWorkStatusWithEmployee = async (
       pax: data.pax,
       country: data.country,
       submissionDate: data.submissionDate,
-      employeeEmail: data.employeeEmail,
-      workStatus: data.workStatus,
     },
   );
   if (!result) {
     throw new Error('Invalid work ID');
   }
-  if (data.employeeEmail) {
-    if (data.employeeEmail !== employeeEmail) {
-      await WorkRecordModel.create({
-        workId: _id,
-        assignedTo: data.employeeEmail,
-        assignedBy: employeeEmail,
-      });
-    }
-  }
   return result;
+};
+
+export const assignWorkWithEmployee = async (
+  _id: string,
+  employeeEmail: string,
+  data: { employeeEmail: string },
+) => {
+  if (data.employeeEmail !== employeeEmail) {
+    const result = await WorkModel.findOneAndUpdate(
+      { _id, employeeEmail, workStatus: 'Completed' },
+      {
+        employeeEmail: data.employeeEmail,
+      },
+    );
+    await WorkRecordModel.create({
+      workId: _id,
+      assignedTo: data.employeeEmail,
+      assignedBy: employeeEmail,
+    });
+    return result;
+  }
+  throw Error('Employee already assigned');
 };
 
 export const updateWorkStatusSuperAdmin = async (
@@ -160,7 +171,6 @@ export const directApproveWorkInDB = async (_id: string) => {
     },
   );
 };
-
 
 export const applyForApproveWorkInDB = async (_id: string) => {
   return await WorkModel.updateOne(

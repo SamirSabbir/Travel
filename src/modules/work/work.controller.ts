@@ -14,6 +14,7 @@ import {
   updateWorkStatusSuperAdmin,
   updateWorkStatusWithEmployee,
   directApproveWorkInDB,
+  assignWorkWithEmployee,
 } from './work.service';
 
 export const createWorkEntry = async (req: Request, res: Response) => {
@@ -282,7 +283,6 @@ export const directApproveWork = async (req: Request, res: Response) => {
   }
 };
 
-
 // Add the missing controller function
 export const applyForWorkApproval = async (req: Request, res: Response) => {
   try {
@@ -304,6 +304,30 @@ export const applyForWorkApproval = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: err.message || 'Failed to apply for work approval',
+    });
+  }
+};
+
+export const assignWorkWithEmployeeController = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const result = await assignWorkWithEmployee(
+      req.params.workId as string,
+      req?.user.userEmail,
+      req.body,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'Work assigned successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: err.message || 'Failed to assign work',
     });
   }
 };
