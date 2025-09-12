@@ -4,7 +4,7 @@ type TUser = {
   password: string;
   KPI: number;
   Commission: number;
-  role: 'Admin' | 'Employee' | 'HR' | 'SuperAdmin' | 'AccountAdmin';
+  role: 'OfficeBoy' | 'Employee' | 'HR' | 'SuperAdmin' | 'AccountAdmin';
   isApproved: boolean;
   createdAt: Date;
   updatedAt: Date;

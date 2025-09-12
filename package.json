@@ -26,6 +26,7 @@
     "mongoose": "^8.8.2",
     "multer": "^2.0.1",
     "nodemon": "^3.1.7",
+    "socket.io": "^4.8.1",
     "uuid": "^13.0.0",
     "validator": "^13.12.0"
   },
