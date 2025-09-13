@@ -6,13 +6,10 @@ const NotificationsSchema = new Schema<TNotifications>(
     message: {
       type: String,
       required: true,
-      trim: true,
     },
     userEmail: {
       type: String,
       required: true,
-      trim: true,
-      lowercase: true,
     },
     isNew: {
       type: Boolean,
@@ -24,4 +21,7 @@ const NotificationsSchema = new Schema<TNotifications>(
   },
 );
 
-export const NotificationsModel = model<TNotifications>('Notification', NotificationsSchema);
+export const NotificationsModel = model<TNotifications>(
+  'Notification',
+  NotificationsSchema,
+);

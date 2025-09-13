@@ -10,9 +10,9 @@ const httpServer: HTTPServer = createServer(app);
 // Initialize Socket.IO
 const io = new SocketIOServer(httpServer, {
   cors: {
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
-    methods: ["GET", "POST"]
-  }
+    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    methods: ['GET', 'POST'],
+  },
 });
 
 // Add io to httpServer for access in server.ts
@@ -21,13 +21,13 @@ const io = new SocketIOServer(httpServer, {
 // Socket.IO connection handling
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
-  
+
   // Join room based on user email for targeted notifications
   socket.on('join-user-room', (userEmail) => {
     socket.join(userEmail);
     console.log(`User ${userEmail} joined their room`);
   });
-  
+
   socket.on('disconnect', () => {
     console.log('User disconnected:', socket.id);
   });

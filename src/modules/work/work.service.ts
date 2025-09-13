@@ -189,7 +189,7 @@ export const directApproveWorkInDB = async (_id: string, data: TPayment) => {
 };
 
 export const applyForApproveWorkInDB = async (_id: string, data: TPayment) => {
-  await PaymentModel.updateOne({ workId: id }, { ...data });
+  await PaymentModel.updateOne({ workId: _id }, { ...data });
   return await WorkModel.updateOne(
     {
       _id,
