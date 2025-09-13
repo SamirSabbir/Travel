@@ -15,7 +15,7 @@ router.get('/', auth('SuperAdmin', 'AccountAdmin'), handleGetAllPayments);
 router.get('/:id', auth('SuperAdmin', 'AccountAdmin'), handleGetPaymentById);
 router.get(
   '/:workId',
-  auth('SuperAdmin', 'AccountAdmin'),
+  auth('SuperAdmin', 'AccountAdmin','Employee'),
   handleGetPaymentByWorkId,
 );
 router.patch(
