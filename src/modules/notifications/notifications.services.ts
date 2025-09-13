@@ -6,6 +6,7 @@ export class NotificationService {
 
   static initialize(io: Server) {
     NotificationService.io = io;
+    console.log('NotificationService initialized with Socket.IO');
   }
 
   static async createNotification(
@@ -14,7 +15,6 @@ export class NotificationService {
     context: any = {},
   ) {
     try {
-      // Save notification to database
       const notification = await NotificationsModel.create({
         message,
         userEmail,
@@ -22,11 +22,9 @@ export class NotificationService {
         ...context,
       });
 
-      // Send real-time notification to specific user
       if (NotificationService.io) {
-        NotificationService.io
-          .to(userEmail)
-          .emit('new-notification', notification);
+        NotificationService.io.to(userEmail).emit('new-notification', notification);
+        console.log(`Real-time notification sent to ${userEmail}`);
       }
 
       return notification;
@@ -47,6 +45,13 @@ export class NotificationService {
   static async getUserNotifications(userEmail: string) {
     return await NotificationsModel.find({ userEmail })
       .sort({ createdAt: -1 })
-      .limit(20);
+      .limit(50);
+  }
+
+  static async markAllAsRead(userEmail: string) {
+    return await NotificationsModel.updateMany(
+      { userEmail, isNew: true },
+      { isNew: false }
+    );
   }
 }

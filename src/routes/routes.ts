@@ -13,6 +13,7 @@ import { workRecordRoutes } from '../modules/workRecords/workRecord.routes';
 import { paymentRoutes } from '../modules/payment/payment.routes';
 import leadsManageRoutes from '../modules/leadsManage/leads.route';
 import LeadsRoutes from '../modules/leads/leads.routes';
+import { notificationRoutes } from '../modules/notifications/notifications.routes';
 
 const router = express.Router();
 
@@ -60,6 +61,10 @@ const moduleRoutes = [
   {
     path: '/payment-details',
     route: paymentRoutes,
+  },
+  {
+    path: '/notifications',
+    route: notificationRoutes,
   },
 ];
 
