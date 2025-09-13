@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post('/', auth('SuperAdmin', 'AccountAdmin'), handleCreatePayment);
 router.get('/', auth('SuperAdmin', 'AccountAdmin'), handleGetAllPayments);
-router.get('/:id', auth('SuperAdmin', 'AccountAdmin'), handleGetPaymentById);
+router.get('/:id', auth('SuperAdmin', 'AccountAdmin', 'Employee'), handleGetPaymentById);
 router.get(
   '/:workId',
   auth('SuperAdmin', 'AccountAdmin','Employee'),
