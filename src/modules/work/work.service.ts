@@ -176,7 +176,7 @@ export const cancelWorkInDB = async (_id: string) => {
 };
 
 export const directApproveWorkInDB = async (_id: string,data:TPayment) => {
-  await PaymentModel.create({...data})
+  await PaymentModel.updateOne({...data})
   return await WorkModel.updateOne(
     {
       _id,
