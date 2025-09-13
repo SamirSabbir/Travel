@@ -184,6 +184,9 @@ export const directApproveWorkInDB = async (_id: string, data: TPayment) => {
     },
     {
       workStatus: 'Completed',
+
+      payment: data.amount,
+      paymentStatus: data.paymentStatus,
     },
   );
 };
@@ -198,6 +201,8 @@ export const applyForApproveWorkInDB = async (_id: string, data: TPayment) => {
     },
     {
       isApplied: true,
+      payment: data.amount,
+      paymentStatus: data.paymentStatus,
     },
   );
 };
