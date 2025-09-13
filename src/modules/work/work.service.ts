@@ -175,8 +175,8 @@ export const cancelWorkInDB = async (_id: string) => {
   );
 };
 
-export const directApproveWorkInDB = async (_id: string,data:TPayment) => {
-  await PaymentModel.updateOne({...data})
+export const directApproveWorkInDB = async (_id: string, data: TPayment) => {
+  await PaymentModel.updateOne({ workId: _id }, { ...data });
   return await WorkModel.updateOne(
     {
       _id,
@@ -188,8 +188,8 @@ export const directApproveWorkInDB = async (_id: string,data:TPayment) => {
   );
 };
 
-export const applyForApproveWorkInDB = async (_id: string,data:TPayment) => {
-  await PaymentModel.create({...data})
+export const applyForApproveWorkInDB = async (_id: string, data: TPayment) => {
+  await PaymentModel.updateOne({ workId: id }, { ...data });
   return await WorkModel.updateOne(
     {
       _id,
