@@ -1,5 +1,11 @@
+import { AppointmentDateModel } from '../appointmentDate/appointmentDate.model';
+import { HotelModel } from '../hotel/hotel.model';
 import { TPayment } from '../payment/payment.interface';
 import { PaymentModel } from '../payment/payment.model';
+import { TicketModel } from '../ticket/ticket.model';
+import { TourPackageModel } from '../tourPackage/tourPackage.model';
+import { TransferModel } from '../transfer/transfer.model';
+import { VisaModel } from '../visa/visa.model';
 import { WorkRecordModel } from '../workRecords/workRecord.model';
 import { TWork } from './work.interface';
 import { WorkModel } from './work.model';
@@ -38,7 +44,6 @@ export const updateWorkStatusWithEmployee = async (
       pax: data.pax,
       country: data.country,
       submissionDate: data.submissionDate,
-      service: data.service,
     },
   );
   if (!result) {
@@ -84,7 +89,6 @@ export const updateWorkStatusSuperAdmin = async (
       payment: data.payment,
       paymentStatus: data.paymentStatus,
       workStatus: data.workStatus,
-      service: data.service,
     },
   );
   if (!result) {
@@ -236,4 +240,41 @@ export const applyForApproveWorkInDB = async (_id: string, data: TPayment) => {
       paymentStatus: data.paymentStatus,
     },
   );
+};
+
+export const assignServiceInDB = async (workId: string, data: any) => {
+  const { assignedTo, services } = data;
+  await WorkModel.updateOne({ _id: workId }, { serviceAssignedTo: assignedTo });
+  for (const service of services) {
+    switch (service) {
+      case 'visa':
+        if (data.visa) await VisaModel.create({ workId, assignedTo });
+        break;
+
+      case 'hotel':
+        if (data.hotel) await HotelModel.create({ workId, assignedTo });
+        break;
+
+      case 'transfer':
+        if (data.transfer) await TransferModel.create({ workId, assignedTo });
+        break;
+
+      case 'ticket':
+        if (data.ticket) await TicketModel.create({ workId, assignedTo });
+        break;
+
+      case 'tourPackage':
+        if (data.tourPackage)
+          await TourPackageModel.create({ workId, assignedTo });
+        break;
+
+      case 'appointmentDate':
+        if (data.appointmentDate)
+          await AppointmentDateModel.create({ workId, assignedTo });
+        break;
+
+      default:
+        console.log(`Unknown service: ${service}`);
+    }
+  }
 };

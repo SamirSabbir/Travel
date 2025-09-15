@@ -11,7 +11,7 @@ const workSchema = new Schema<TWork>(
     deliveryDate: {
       type: String,
     },
-    service: {
+    serviceAssignedTo: {
       type: String,
     },
     // uniqueName: {

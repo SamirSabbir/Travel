@@ -1,27 +1,14 @@
-export type TUSVisaPayment = {
-  userName: string;
-  password: string;
-  securityQuestion1: string;
-  securityQuestion2: string;
-  securityQuestion3: string;
-  employeeEmail: string;
-};
+import mongoose from "mongoose";
 
-export type TUSRetrieveDS = {
-  name: string;
-  email: string;
-  applicationId: string;
-  sureNameFirst5Letters: string;
-  yearOfBirth: number;
-  mothersGivenName: string;
-  employeeEmail: string;
-};
-
-export type TNonUS = {
-  name: string;
-  email: string;
-  phone: string;
-  userName: string;
-  password: string;
-  employeeEmail: string;
-};
+// visa.interface.ts
+export interface TVisa {
+  name: string; // Applicant name
+  pax: number; // Number of people
+  country: string; // Country for visa
+  dateOfEntry: Date; // Date of entry
+  close: Date; // Closing/expiry date
+  details: string; // Additional details
+  status: string; // e.g. "Pending", "Approved", "Rejected"
+  assignedTo: string;        // user assigned to this service
+  workId: mongoose.ObjectId;
+}
