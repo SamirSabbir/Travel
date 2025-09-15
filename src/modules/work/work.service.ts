@@ -38,6 +38,7 @@ export const updateWorkStatusWithEmployee = async (
       pax: data.pax,
       country: data.country,
       submissionDate: data.submissionDate,
+      service: data.service,
     },
   );
   if (!result) {
@@ -83,6 +84,7 @@ export const updateWorkStatusSuperAdmin = async (
       payment: data.payment,
       paymentStatus: data.paymentStatus,
       workStatus: data.workStatus,
+      service: data.service,
     },
   );
   if (!result) {

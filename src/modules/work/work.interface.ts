@@ -17,4 +17,5 @@ export type TWork = {
   // uniqueName?: string;
   leadsStatus: string;
   isApplied: boolean;
+  service: string;
 };

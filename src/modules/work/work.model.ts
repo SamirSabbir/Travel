@@ -11,6 +11,9 @@ const workSchema = new Schema<TWork>(
     deliveryDate: {
       type: String,
     },
+    service: {
+      type: String,
+    },
     // uniqueName: {
     //   type: String,
     // },
