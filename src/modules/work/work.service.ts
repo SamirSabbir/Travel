@@ -152,16 +152,20 @@ export const getAllUnapprovedWorksFromDB = async () => {
 };
 
 export const approveWorkInDB = async (_id: string) => {
-  return await WorkModel.updateOne(
-    {
-      _id,
-      isApplied: true,
-      workStatus: 'Pending',
-    },
-    {
-      workStatus: 'Completed',
-    },
-  );
+  const work = await WorkModel.findOne({ _id });
+  if (work?.paymentStatus === 'Partial Payment') {
+    return await WorkModel.updateOne(
+      {
+        _id,
+        isApplied: true,
+        workStatus: 'Pending',
+      },
+      {
+        workStatus: 'Completed',
+      },
+    );
+  } else {
+  }
 };
 
 export const cancelWorkInDB = async (_id: string) => {
@@ -178,19 +182,33 @@ export const cancelWorkInDB = async (_id: string) => {
 };
 
 export const directApproveWorkInDB = async (_id: string, data: TPayment) => {
-  await PaymentModel.updateOne({ workId: _id }, { ...data });
-  return await WorkModel.updateOne(
-    {
-      _id,
-      workStatus: 'Pending',
-    },
-    {
-      workStatus: 'Completed',
+  if (data.paymentStatus === 'Partial Payment') {
+    await PaymentModel.updateOne({ workId: _id }, { ...data });
+    return await WorkModel.updateOne(
+      {
+        _id,
+        workStatus: 'Pending',
+      },
+      {
+        payment: data.amount,
+        paymentStatus: data.paymentStatus,
+      },
+    );
+  } else {
+    await PaymentModel.updateOne({ workId: _id }, { ...data });
+    return await WorkModel.updateOne(
+      {
+        _id,
+        workStatus: 'Pending',
+      },
+      {
+        workStatus: 'Completed',
 
-      payment: data.amount,
-      paymentStatus: data.paymentStatus,
-    },
-  );
+        payment: data.amount,
+        paymentStatus: data.paymentStatus,
+      },
+    );
+  }
 };
 
 export const applyForApproveWorkInDB = async (_id: string, data: TPayment) => {
