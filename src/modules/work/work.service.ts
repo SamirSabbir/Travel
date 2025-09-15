@@ -161,10 +161,21 @@ export const approveWorkInDB = async (_id: string) => {
         workStatus: 'Pending',
       },
       {
-        workStatus: 'Completed',
+        workStatus: 'Pending',
       },
     );
-  } else {
+  }
+  if (work?.paymentStatus === 'Full Payment') {
+    return await WorkModel.updateOne(
+      {
+        _id,
+        isApplied: true,
+        workStatus: 'Pending',
+      },
+      {
+        workStatus: 'Pending',
+      },
+    );
   }
 };
 

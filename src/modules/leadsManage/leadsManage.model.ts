@@ -25,6 +25,10 @@ const LeadSchema = new Schema<TLeadsManage>(
       type: [String],
       required: true,
     },
+    uuId: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

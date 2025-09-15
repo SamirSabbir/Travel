@@ -5,8 +5,8 @@ import LeadsManageModel from './leadsManage.model';
 import { v4 as uuidv4 } from 'uuid';
 
 export const createLeadsManageInDB = async (data: TLeadsManage) => {
-  const result = await LeadsManageModel.create(data);
   const uuId = uuidv4();
+  const result = await LeadsManageModel.create({ ...data, uuId });
 
   if (data) {
     await LeadsModel.create({
