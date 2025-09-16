@@ -6,7 +6,7 @@ export const getAllTransfersFromDB = async () => {
 };
 
 export const getTransferByAssignedToFromDB = async (userEmail: string) => {
-  return await TransferModel.findOne({ assignedTo: userEmail });
+  return await TransferModel.find({ assignedTo: userEmail }).populate('workId');
 };
 
 export const updateTransferByIdInDB = async (
