@@ -4,9 +4,18 @@ import {
   getHotelByAssignedToController,
   updateHotelByIdController,
 } from './hotel.controller';
+import { auth } from '../../middlewares/auth';
 
 export const hotelRoutes = Router();
 
 hotelRoutes.get('/', getAllHotelsController);
-hotelRoutes.get('/user', getHotelByAssignedToController);
-hotelRoutes.patch('/:id', updateHotelByIdController);
+hotelRoutes.get(
+  '/user',
+  auth('SuperAdmin', 'Employee'),
+  getHotelByAssignedToController,
+);
+hotelRoutes.patch(
+  '/:id',
+  auth('SuperAdmin', 'Employee'),
+  updateHotelByIdController,
+);
