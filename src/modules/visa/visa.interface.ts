@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 // visa.interface.ts
 export interface TVisa {
@@ -9,6 +9,9 @@ export interface TVisa {
   close: Date; // Closing/expiry date
   details: string; // Additional details
   status: string; // e.g. "Pending", "Approved", "Rejected"
-  assignedTo: string;        // user assigned to this service
+  assignedTo: string; // user assigned to this service
   workId: mongoose.ObjectId;
+  fullName: string;
+  email: string;
+  phone: string;
 }
