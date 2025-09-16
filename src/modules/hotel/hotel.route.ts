@@ -8,7 +8,7 @@ import { auth } from '../../middlewares/auth';
 
 export const hotelRoutes = Router();
 
-hotelRoutes.get('/', getAllHotelsController);
+hotelRoutes.get('/', auth('SuperAdmin'), getAllHotelsController);
 hotelRoutes.get(
   '/user',
   auth('SuperAdmin', 'Employee'),
