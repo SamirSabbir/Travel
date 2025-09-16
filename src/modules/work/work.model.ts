@@ -71,4 +71,4 @@ const workSchema = new Schema<TWork>(
   },
 );
 
-export const WorkModel = model<TWork>('work', workSchema);
+export const WorkModel = model<TWork>('Work', workSchema);

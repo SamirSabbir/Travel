@@ -11,7 +11,7 @@ const visaSchema = new Schema<TVisa>(
     close: { type: Date },
     details: { type: String },
     assignedTo: { type: String, required: true },
-    workId: { type: Schema.Types.ObjectId, ref: 'work', required: true },
+    workId: { type: Schema.Types.ObjectId, ref: 'Work', required: true },
     status: {
       type: String,
       enum: ['Pending', 'Approved', 'Rejected', 'Closed'],
