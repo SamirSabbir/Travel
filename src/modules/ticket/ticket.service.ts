@@ -6,7 +6,9 @@ export const getAllTicketsFromDB = async () => {
 };
 
 export const getTicketByAssignedToFromDB = async (userEmail: string) => {
-  return await TicketModel.findOne({ assignedTo: userEmail });
+  return await TicketModel.findOne({ assignedTo: userEmail }).populate(
+    'workId',
+  );
 };
 
 export const updateTicketByIdInDB = async (

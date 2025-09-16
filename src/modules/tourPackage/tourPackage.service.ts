@@ -6,7 +6,9 @@ export const getAllTourPackagesFromDB = async () => {
 };
 
 export const getTourPackageByAssignedToFromDB = async (userEmail: string) => {
-  return await TourPackageModel.findOne({ assignedTo: userEmail });
+  return await TourPackageModel.find({ assignedTo: userEmail }).populate(
+    'workId',
+  );
 };
 
 export const updateTourPackageByIdInDB = async (

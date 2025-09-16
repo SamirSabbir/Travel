@@ -6,7 +6,9 @@ export const getAllAppointmentsFromDB = async () => {
 };
 
 export const getAppointmentByAssignedToFromDB = async (userEmail: string) => {
-  return await AppointmentDateModel.findOne({ assignedTo: userEmail });
+  return await AppointmentDateModel.find({ assignedTo: userEmail }).populate(
+    'workId',
+  );
 };
 
 export const updateAppointmentByIdInDB = async (
