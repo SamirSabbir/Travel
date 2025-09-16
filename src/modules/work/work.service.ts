@@ -248,30 +248,27 @@ export const assignServiceInDB = async (workId: string, data: any) => {
   for (const service of services) {
     switch (service) {
       case 'visa':
-        if (services.visa) await VisaModel.create({ workId, assignedTo });
+        await VisaModel.create({ workId, assignedTo });
         break;
 
       case 'hotel':
-        if (services.hotel) await HotelModel.create({ workId, assignedTo });
+        await HotelModel.create({ workId, assignedTo });
         break;
 
       case 'transfer':
-        if (services.transfer)
-          await TransferModel.create({ workId, assignedTo });
+        await TransferModel.create({ workId, assignedTo });
         break;
 
       case 'ticket':
-        if (services.ticket) await TicketModel.create({ workId, assignedTo });
+        await TicketModel.create({ workId, assignedTo });
         break;
 
       case 'tourPackage':
-        if (services.tourPackage)
-          await TourPackageModel.create({ workId, assignedTo });
+        await TourPackageModel.create({ workId, assignedTo });
         break;
 
       case 'appointmentDate':
-        if (services.appointmentDate)
-          await AppointmentDateModel.create({ workId, assignedTo });
+        await AppointmentDateModel.create({ workId, assignedTo });
         break;
 
       default:
