@@ -16,6 +16,8 @@ import LeadsRoutes from '../modules/leads/leads.routes';
 import { notificationRoutes } from '../modules/notifications/notifications.routes';
 import { ticketRoutes } from '../modules/ticket/ticket.route';
 import { transferRoutes } from '../modules/transfer/transfer.route';
+import { hotelRoutes } from '../modules/hotel/hotel.route';
+import { tourPackageRoutes } from '../modules/tourPackage/tourPackage.route';
 
 const router = express.Router();
 
@@ -53,8 +55,16 @@ const moduleRoutes = [
     route: transferRoutes,
   },
   {
-    path: '/visa',
+    path: '/hotel',
+    route: hotelRoutes,
+  },
+  {
+    path: '/appointmentDate',
     route: visaRoutes,
+  },
+  {
+    path: '/tourPackage',
+    route: tourPackageRoutes,
   },
   {
     path: '/invoice',
