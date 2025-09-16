@@ -6,7 +6,7 @@ export const getAllHotelsFromDB = async () => {
 };
 
 export const getHotelByAssignedToFromDB = async (userEmail: string) => {
-  return await HotelModel.findOne({ assignedTo: userEmail });
+  return await HotelModel.find({ assignedTo: userEmail }).populate('workId');
 };
 
 export const updateHotelByIdInDB = async (
