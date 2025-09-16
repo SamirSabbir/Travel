@@ -4,9 +4,10 @@ import {
   getVisaByAssignedToController,
   updateVisaByIdController,
 } from './visa.controller';
+import { auth } from '../../middlewares/auth';
 
 export const visaRoutes = Router();
 
 visaRoutes.get('/', getAllVisasController);
-visaRoutes.get('/user', getVisaByAssignedToController);
+visaRoutes.get('/user', auth('Employee'), getVisaByAssignedToController);
 visaRoutes.patch('/:id', updateVisaByIdController);

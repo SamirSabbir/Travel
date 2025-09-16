@@ -14,7 +14,10 @@ export const getAllVisasController = async (_req: Request, res: Response) => {
   }
 };
 
-export const getVisaByAssignedToController = async (req: Request, res: Response) => {
+export const getVisaByAssignedToController = async (
+  req: Request,
+  res: Response,
+) => {
   try {
     const userEmail = req.user.userEmail;
     const visa = await getVisaByAssignedToFromDB(userEmail);

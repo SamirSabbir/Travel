@@ -14,6 +14,8 @@ import { paymentRoutes } from '../modules/payment/payment.routes';
 import leadsManageRoutes from '../modules/leadsManage/leads.route';
 import LeadsRoutes from '../modules/leads/leads.routes';
 import { notificationRoutes } from '../modules/notifications/notifications.routes';
+import { ticketRoutes } from '../modules/ticket/ticket.route';
+import { transferRoutes } from '../modules/transfer/transfer.route';
 
 const router = express.Router();
 
@@ -37,6 +39,18 @@ const moduleRoutes = [
   {
     path: '/works',
     route: workRoutes,
+  },
+  {
+    path: '/visa',
+    route: visaRoutes,
+  },
+  {
+    path: '/ticket',
+    route: ticketRoutes,
+  },
+  {
+    path: '/transfer',
+    route: transferRoutes,
   },
   {
     path: '/visa',
