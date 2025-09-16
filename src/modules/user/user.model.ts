@@ -16,10 +16,29 @@ const UserSchema = new Schema<TUser>(
       type: String,
       required: true,
     },
+    salary: {
+      type: Number,
+      default: 0,
+    },
+    KPI: {
+      type: Number,
+      default: 0,
+    },
+    Commission: {
+      type: Number,
+      default: 0,
+    },
     role: {
       type: String,
-      enum: ['Employee', 'Admin', 'HR'],
+      enum: ['Employee', 'AccountAdmin', 'HRAdmin', 'HR', 'SuperAdmin'],
       required: true,
+    },
+    isApproved: {
+      type: Boolean,
+      default: false,
+    },
+    photo: {
+      type: String,
     },
   },
   {

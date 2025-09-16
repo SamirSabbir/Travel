@@ -1,0 +1,44 @@
+import express from 'express';
+import {
+  confirmLeads,
+  confirmLeadsWithWorkId,
+  getAllLeads,
+  getEmployeeLeads,
+  getEmployeeLeadsForAdmin,
+  updateLeadsData,
+} from './leads.controller';
+import { auth } from '../../middlewares/auth';
+
+const LeadsRoutes = express.Router();
+
+// LeadsRoutes.post('/', auth('Employee', 'SuperAdmin'), createLeadsEntry);
+LeadsRoutes.get(
+  '/',
+  auth('Employee', 'SuperAdmin', 'AccountAdmin'),
+  getAllLeads,
+);
+LeadsRoutes.get('/my-Leads', auth('Employee', 'SuperAdmin'), getEmployeeLeads);
+LeadsRoutes.get(
+  '/employee-Leads/:employeeEmail',
+  auth('SuperAdmin'),
+  getEmployeeLeadsForAdmin,
+);
+LeadsRoutes.patch(
+  '/confirm-Leads/:LeadsId',
+  auth('Employee', 'SuperAdmin'),
+  confirmLeads,
+);
+
+LeadsRoutes.patch(
+  '/confirm-Leads-workId/:workId',
+  auth('Employee', 'SuperAdmin'),
+  confirmLeadsWithWorkId,
+);
+
+LeadsRoutes.patch(
+  '/update-Leads/:LeadsId',
+  auth('Employee', 'SuperAdmin'),
+  updateLeadsData,
+);
+
+export default LeadsRoutes;
