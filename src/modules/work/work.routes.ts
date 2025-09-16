@@ -18,6 +18,7 @@ import {
   updateWorkWithSuperAdmin,
   assignWorkWithEmployeeController,
   cancelWorkController,
+  assignServiceController,
 } from './work.controller';
 
 const workRoutes = express.Router();
@@ -100,6 +101,11 @@ workRoutes.patch(
   '/update-work-account-admin/:workId',
   auth('AccountAdmin', 'SuperAdmin'),
   updateWorkWithAccountAdmin,
+);
+workRoutes.patch(
+  '/assign-services/:workId',
+  auth('SuperAdmin', 'AccountAdmin', 'HRAdmin'),
+  assignServiceController,
 );
 
 export default workRoutes;

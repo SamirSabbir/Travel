@@ -16,6 +16,7 @@ import {
   directApproveWorkInDB,
   assignWorkWithEmployee,
   cancelWorkInDB,
+  assignServiceInDB,
 } from './work.service';
 
 export const createWorkEntry = async (req: Request, res: Response) => {
@@ -353,6 +354,24 @@ export const assignWorkWithEmployeeController = async (
     res.status(400).json({
       success: false,
       message: err.message || 'Failed to assign work',
+    });
+  }
+};
+
+export const assignServiceController = async (req: Request, res: Response) => {
+  try {
+    const { workId } = req.params;
+    const result = await assignServiceInDB(workId, req.body);
+
+    res.status(200).json({
+      success: true,
+      message: 'Services assigned successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: err.message || 'Failed to assign services',
     });
   }
 };
