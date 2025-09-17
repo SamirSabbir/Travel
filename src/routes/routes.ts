@@ -18,6 +18,9 @@ import { ticketRoutes } from '../modules/ticket/ticket.route';
 import { transferRoutes } from '../modules/transfer/transfer.route';
 import { hotelRoutes } from '../modules/hotel/hotel.route';
 import { tourPackageRoutes } from '../modules/tourPackage/tourPackage.route';
+import { nocRoutes } from '../modules/NOC/noc.route';
+import { specialRequestRoutes } from '../modules/specialRequest/specialRequest.route';
+import { salaryCertificateRoutes } from '../modules/salaryCertificate/salaryCertificate.route';
 
 const router = express.Router();
 
@@ -89,6 +92,18 @@ const moduleRoutes = [
   {
     path: '/notifications',
     route: notificationRoutes,
+  },
+  {
+    path: '/noc',
+    route: nocRoutes,
+  },
+  {
+    path: '/specialRequest',
+    route: specialRequestRoutes,
+  },
+  {
+    path: '/salaryCertificate',
+    route: salaryCertificateRoutes,
   },
 ];
 
