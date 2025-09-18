@@ -8,7 +8,7 @@ export interface TTourPackage {
   transfer: string; // includes airport transfer or not
   night: TNight; // number of nights
   hotel: string; // hotel name
-  sightSeeing: boolean; // list of sightseeing spots
+  sightSeeing: string; // list of sightseeing spots
   flights: string; // includes flights or not
   totalPrice: number; // total package price (set manually)
   assignedTo: string; // user assigned to this service

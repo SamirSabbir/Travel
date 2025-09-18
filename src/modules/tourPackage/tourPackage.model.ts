@@ -19,7 +19,7 @@ const tourPackageSchema = new Schema<TTourPackage>(
     transfer: { type: String },
     night: nightSchema,
     hotel: { type: String },
-    sightSeeing: { type: Boolean },
+    sightSeeing: { type: String },
     flights: { type: String },
     totalPrice: { type: Number },
     assignedTo: { type: String, required: true },
