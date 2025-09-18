@@ -24,9 +24,6 @@ export const updateSalaryCertificateByIdInDB = async (
   return result;
 };
 
-export const createSalaryCertificateInDB = async (
-  employeeId: string,
-  data: ISalaryCertificate,
-) => {
-  return await SalaryCertificateModel.create({ ...data, employeeId });
+export const createSalaryCertificateInDB = async (data: ISalaryCertificate) => {
+  return await SalaryCertificateModel.create(data);
 };

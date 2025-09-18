@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 export interface ISalaryCertificate {
-  employeeId: mongoose.Types.ObjectId; // reference to Employee
+  // employeeId: mongoose.Types.ObjectId; // reference to Employee
   name: string;
   position: string;
   joiningDate: string;
