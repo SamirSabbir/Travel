@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 export interface INOC {
-  employeeId: mongoose.Types.ObjectId;
+  // employeeId: mongoose.Types.ObjectId;
   name: string;
   passportNumber: string;
   joiningDate: string;
@@ -11,5 +11,5 @@ export interface INOC {
   requestDate: string;
   approvedBy?: string;
   approved: boolean;
-  assignedTo?: string;
+  email?: string;
 }

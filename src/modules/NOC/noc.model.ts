@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import { INOC } from './noc.interface';
 
 const nocSchema = new Schema<INOC>({
-  employeeId: { type: Schema.Types.ObjectId, ref: 'Employee', required: true },
+  // employeeId: { type: Schema.Types.ObjectId, ref: 'Employee', required: true },
   name: { type: String, required: true },
   passportNumber: { type: String, required: true },
   joiningDate: { type: String, required: true },
@@ -16,7 +16,7 @@ const nocSchema = new Schema<INOC>({
   requestDate: { type: String, required: true },
   approvedBy: { type: String },
   approved: { type: Boolean, default: false },
-  assignedTo: { type: String },
+  email: { type: String },
 });
 
 export const NOCModel = model<INOC>('NOC', nocSchema);
