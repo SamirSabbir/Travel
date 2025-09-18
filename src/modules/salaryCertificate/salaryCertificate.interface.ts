@@ -9,5 +9,5 @@ export interface ISalaryCertificate {
   requestDate: string; // when employee requested
   approvedBy?: string; // superadmin or HR who approved
   approved: boolean;
-  assignedTo?: string; // assigned HR/Admin email
+  email?: string; // assigned HR/Admin email
 }

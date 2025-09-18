@@ -10,7 +10,7 @@ const salaryCertificateSchema = new Schema<ISalaryCertificate>({
   requestDate: { type: String, required: true },
   approvedBy: { type: String },
   approved: { type: Boolean, default: false },
-  assignedTo: { type: String },
+  email: { type: String },
 });
 
 export const SalaryCertificateModel = model<ISalaryCertificate>(
