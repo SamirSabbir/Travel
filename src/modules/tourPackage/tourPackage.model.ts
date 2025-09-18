@@ -1,5 +1,15 @@
 import { Schema, model } from 'mongoose';
 import { TTourPackage } from './tourPackage.interface';
+import { TNight } from '../hotel/hotel.interface';
+
+const nightSchema = new Schema<TNight>({
+  from: {
+    type: String,
+  },
+  to: {
+    type: String,
+  },
+});
 
 const tourPackageSchema = new Schema<TTourPackage>(
   {
@@ -7,9 +17,9 @@ const tourPackageSchema = new Schema<TTourPackage>(
     name: { type: String },
     country: { type: String },
     transfer: { type: String },
-    night: { type: Number },
+    night: nightSchema,
     hotel: { type: String },
-    sightSeeing: { type: [String], default: [] },
+    sightSeeing: { type: Boolean },
     flights: { type: String },
     totalPrice: { type: Number },
     assignedTo: { type: String, required: true },
