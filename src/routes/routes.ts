@@ -21,6 +21,7 @@ import { tourPackageRoutes } from '../modules/tourPackage/tourPackage.route';
 import { nocRoutes } from '../modules/NOC/noc.route';
 import { specialRequestRoutes } from '../modules/specialRequest/specialRequest.route';
 import { salaryCertificateRoutes } from '../modules/salaryCertificate/salaryCertificate.route';
+import { appointmentDateRoutes } from '../modules/appointmentDate/appointmentDate.route';
 
 const router = express.Router();
 
@@ -63,7 +64,7 @@ const moduleRoutes = [
   },
   {
     path: '/appointmentDate',
-    route: visaRoutes,
+    route: appointmentDateRoutes,
   },
   {
     path: '/tourPackage',
