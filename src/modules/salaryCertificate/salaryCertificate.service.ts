@@ -5,7 +5,9 @@ export const getAllSalaryCertificatesFromDB = async () => {
   return await SalaryCertificateModel.find();
 };
 
-export const getSalaryCertificateByAssignedToFromDB = async (userEmail: string) => {
+export const getSalaryCertificateByAssignedToFromDB = async (
+  userEmail: string,
+) => {
   return await SalaryCertificateModel.findOne({ assignedTo: userEmail });
 };
 
@@ -17,11 +19,14 @@ export const updateSalaryCertificateByIdInDB = async (
   const result = await SalaryCertificateModel.findOneAndUpdate(
     { _id: id, assignedTo: userEmail },
     updateData,
-    { new: true }
+    { new: true },
   );
   return result;
 };
 
-export const createSalaryCertificateInDB = async (data: ISalaryCertificate) => {
-  return await SalaryCertificateModel.create(data);
+export const createSalaryCertificateInDB = async (
+  employeeId: string,
+  data: ISalaryCertificate,
+) => {
+  return await SalaryCertificateModel.create({ ...data, employeeId });
 };

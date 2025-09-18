@@ -5,6 +5,7 @@ import {
   updateSalaryCertificateByIdController,
   createSalaryCertificateController,
 } from './salaryCertificate.controller';
+import { auth } from '../../middlewares/auth';
 
 export const salaryCertificateRoutes = Router();
 
@@ -14,4 +15,4 @@ salaryCertificateRoutes.get(
   getSalaryCertificateByAssignedToController,
 );
 salaryCertificateRoutes.patch('/:id', updateSalaryCertificateByIdController);
-salaryCertificateRoutes.post('/', createSalaryCertificateController);
+salaryCertificateRoutes.post('/', auth('Employee'),createSalaryCertificateController);
