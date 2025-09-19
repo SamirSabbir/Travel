@@ -29,6 +29,11 @@ nocRoutes.patch(
   auth('SuperAdmin', 'AccountAdmin'),
   approveNOCByIdController,
 );
+nocRoutes.patch(
+  '/cancel/:id',
+  auth('SuperAdmin', 'AccountAdmin'),
+  approveNOCByIdController,
+);
 
 // Employee can create request
 nocRoutes.post('/', auth('Employee'), createNOCController);

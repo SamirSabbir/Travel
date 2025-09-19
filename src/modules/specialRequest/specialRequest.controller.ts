@@ -4,6 +4,7 @@ import {
   getSpecialRequestByAssignedToFromDB,
   createSpecialRequestInDB,
   approveSpecialRequestByIdInDB,
+  cancelSpecialRequestByIdInDB,
 } from './specialRequest.service';
 
 export const getAllSpecialRequestsController = async (
@@ -40,6 +41,21 @@ export const approveSpecialRequestByIdController = async (
     const userEmail = req.user.userEmail;
 
     const updated = await approveSpecialRequestByIdInDB(id, userEmail);
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to update request', error: err });
+  }
+};
+
+export const cancelSpecialRequestByIdController = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const { id } = req.params;
+    const userEmail = req.user.userEmail;
+
+    const updated = await cancelSpecialRequestByIdInDB(id, userEmail);
     res.json(updated);
   } catch (err) {
     res.status(500).json({ message: 'Failed to update request', error: err });

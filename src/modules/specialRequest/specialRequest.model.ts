@@ -13,7 +13,9 @@ const specialRequestSchema = new Schema<ISpecialRequest>({
   commissionAmount: { type: Number },
   requestDate: { type: String, required: true },
   approvedBy: { type: String },
+  cancelledBy: { type: String },
   approved: { type: Boolean, default: false },
+  cancelled: { type: Boolean, default: false },
   assignedTo: { type: String },
 });
 

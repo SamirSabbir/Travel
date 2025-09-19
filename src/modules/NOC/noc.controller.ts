@@ -4,6 +4,7 @@ import {
   getNOCByAssignedToFromDB,
   createNOCInDB,
   ApproveNOCByIdInDB,
+  cancelNOCByIdInDB,
 } from './noc.service';
 
 export const getAllNOCsController = async (_req: Request, res: Response) => {
@@ -39,6 +40,19 @@ export const approveNOCByIdController = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Failed to update NOC', error: err });
   }
 };
+
+export const cancelNOCByIdController = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const userEmail = req.user.userEmail;
+
+    const updated = await cancelNOCByIdInDB(id, userEmail);
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to update NOC', error: err });
+  }
+};
+
 
 export const createNOCController = async (req: Request, res: Response) => {
   try {

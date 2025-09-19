@@ -11,5 +11,7 @@ export interface INOC {
   requestDate: string;
   approvedBy?: string;
   approved: boolean;
+  cancelled: boolean;
+  cancelledBy: string;
   email?: string;
 }

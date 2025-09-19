@@ -22,6 +22,17 @@ export const approveSpecialRequestByIdInDB = async (
   return result;
 };
 
+export const cancelSpecialRequestByIdInDB = async (
+  id: string,
+  userEmail: string,
+) => {
+  const result = await SpecialRequestModel.findOneAndUpdate(
+    { _id: id },
+    { cancelled: true, cancelledBy: userEmail },
+  );
+  return result;
+};
+
 export const createSpecialRequestInDB = async (data: ISpecialRequest) => {
   // Enforce casual leave max 2 days
   if (

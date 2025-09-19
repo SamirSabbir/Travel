@@ -4,6 +4,7 @@ import {
   getSpecialRequestByAssignedToController,
   createSpecialRequestController,
   approveSpecialRequestByIdController,
+  cancelSpecialRequestByIdController,
 } from './specialRequest.controller';
 import { auth } from '../../middlewares/auth';
 
@@ -28,6 +29,12 @@ specialRequestRoutes.patch(
   '/approve/:id',
   auth('SuperAdmin', 'AccountAdmin'),
   approveSpecialRequestByIdController,
+);
+
+specialRequestRoutes.patch(
+  '/cancel/:id',
+  auth('SuperAdmin', 'AccountAdmin'),
+  cancelSpecialRequestByIdController,
 );
 
 // Employee can create request

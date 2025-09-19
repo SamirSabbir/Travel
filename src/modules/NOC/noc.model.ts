@@ -15,7 +15,9 @@ const nocSchema = new Schema<INOC>({
   },
   requestDate: { type: String, required: true },
   approvedBy: { type: String },
+  cancelledBy: { type: String },
   approved: { type: Boolean, default: false },
+  cancelled: { type: Boolean, default: false },
   email: { type: String },
 });
 

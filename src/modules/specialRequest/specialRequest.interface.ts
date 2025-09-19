@@ -8,6 +8,8 @@ export interface ISpecialRequest {
   commissionAmount?: number; // for commission withdrawal
   requestDate: string;
   approvedBy?: string;
+  cancelledBy?: string;
   approved: boolean;
+  cancelled: boolean;
   assignedTo?: string;
 }
