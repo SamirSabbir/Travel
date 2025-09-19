@@ -19,7 +19,10 @@ salaryCertificateRoutes.get(
   auth('SuperAdmin', 'AccountAdmin'),
   getSalaryCertificateByAssignedToController,
 );
-salaryCertificateRoutes.patch('/:id', approveSalaryCertificateByIdController);
+salaryCertificateRoutes.patch(
+  '/approve/:id',
+  approveSalaryCertificateByIdController,
+);
 salaryCertificateRoutes.post(
   '/',
   auth('Employee'),

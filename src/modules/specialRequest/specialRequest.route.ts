@@ -25,7 +25,7 @@ specialRequestRoutes.get(
 
 // Update only assigned employee can update
 specialRequestRoutes.patch(
-  '/:id',
+  '/approve/:id',
   auth('SuperAdmin', 'AccountAdmin'),
   approveSpecialRequestByIdController,
 );
