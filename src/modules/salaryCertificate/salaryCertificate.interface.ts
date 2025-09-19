@@ -8,6 +8,8 @@ export interface ISalaryCertificate {
   monthlySalary: number;
   requestDate: string; // when employee requested
   approvedBy?: string; // superadmin or HR who approved
+  cancelledBy?: string; // superadmin or HR who approved
   approved: boolean;
   email?: string; // assigned HR/Admin email
+  cancelled: boolean;
 }

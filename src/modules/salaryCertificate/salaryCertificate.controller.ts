@@ -4,6 +4,7 @@ import {
   getSalaryCertificateByAssignedToFromDB,
   approveSalaryCertificateByIdInDB,
   createSalaryCertificateInDB,
+  cancelSalaryCertificateByIdInDB,
 } from './salaryCertificate.service';
 
 // Get all
@@ -47,6 +48,24 @@ export const approveSalaryCertificateByIdController = async (
     const userEmail = req.user.userEmail;
 
     const updated = await approveSalaryCertificateByIdInDB(id, userEmail);
+    res.json(updated);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: 'Failed to update certificate', error: err });
+  }
+};
+
+
+export const cancelSalaryCertificateByIdController = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const { id } = req.params;
+    const userEmail = req.user.userEmail;
+
+    const updated = await cancelSalaryCertificateByIdInDB(id, userEmail);
     res.json(updated);
   } catch (err) {
     res

@@ -9,7 +9,9 @@ const salaryCertificateSchema = new Schema<ISalaryCertificate>({
   monthlySalary: { type: Number, required: true },
   requestDate: { type: String, required: true },
   approvedBy: { type: String },
+  cancelledBy: { type: String },
   approved: { type: Boolean, default: false },
+  cancelled: { type: Boolean, default: false },
   email: { type: String },
 });
 

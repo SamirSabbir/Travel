@@ -4,6 +4,7 @@ import {
   getSalaryCertificateByAssignedToController,
   approveSalaryCertificateByIdController,
   createSalaryCertificateController,
+  cancelSalaryCertificateByIdController,
 } from './salaryCertificate.controller';
 import { auth } from '../../middlewares/auth';
 
@@ -24,6 +25,13 @@ salaryCertificateRoutes.patch(
   auth('SuperAdmin', 'AccountAdmin'),
   approveSalaryCertificateByIdController,
 );
+
+salaryCertificateRoutes.patch(
+  '/cancel/:id',
+  auth('SuperAdmin', 'AccountAdmin'),
+  cancelSalaryCertificateByIdController,
+);
+
 salaryCertificateRoutes.post(
   '/',
   auth('Employee'),
