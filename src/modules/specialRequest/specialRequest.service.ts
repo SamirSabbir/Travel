@@ -2,7 +2,7 @@ import { SpecialRequestModel } from './specialRequest.model';
 import { ISpecialRequest } from './specialRequest.interface';
 
 export const getAllSpecialRequestsFromDB = async () => {
-  return await SpecialRequestModel.find();
+  return await SpecialRequestModel.find({approved:false,cancelled:false});
 };
 
 export const getSpecialRequestByAssignedToFromDB = async (
