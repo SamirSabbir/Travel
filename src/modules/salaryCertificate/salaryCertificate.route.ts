@@ -9,10 +9,19 @@ import { auth } from '../../middlewares/auth';
 
 export const salaryCertificateRoutes = Router();
 
-salaryCertificateRoutes.get('/', getAllSalaryCertificatesController);
+salaryCertificateRoutes.get(
+  '/',
+  auth('AccountAdmin', 'SuperAdmin'),
+  getAllSalaryCertificatesController,
+);
 salaryCertificateRoutes.get(
   '/user',
+  auth('SuperAdmin', 'AccountAdmin'),
   getSalaryCertificateByAssignedToController,
 );
 salaryCertificateRoutes.patch('/:id', updateSalaryCertificateByIdController);
-salaryCertificateRoutes.post('/', auth('Employee'),createSalaryCertificateController);
+salaryCertificateRoutes.post(
+  '/',
+  auth('Employee'),
+  createSalaryCertificateController,
+);

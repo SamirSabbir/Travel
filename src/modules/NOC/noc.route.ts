@@ -17,7 +17,11 @@ nocRoutes.get(
 );
 
 // Employee sees only their own
-nocRoutes.get('/user', auth('Employee'), getNOCByAssignedToController);
+nocRoutes.get(
+  '/user',
+  auth('SuperAdmin', 'AccountAdmin'),
+  getNOCByAssignedToController,
+);
 
 // Update only assigned employee can update
 nocRoutes.patch('/:id', auth('Employee'), updateNOCByIdController);
