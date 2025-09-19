@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {
   getAllSalaryCertificatesController,
   getSalaryCertificateByAssignedToController,
-  updateSalaryCertificateByIdController,
+  approveSalaryCertificateByIdController,
   createSalaryCertificateController,
 } from './salaryCertificate.controller';
 import { auth } from '../../middlewares/auth';
@@ -19,7 +19,7 @@ salaryCertificateRoutes.get(
   auth('SuperAdmin', 'AccountAdmin'),
   getSalaryCertificateByAssignedToController,
 );
-salaryCertificateRoutes.patch('/:id', updateSalaryCertificateByIdController);
+salaryCertificateRoutes.patch('/:id', approveSalaryCertificateByIdController);
 salaryCertificateRoutes.post(
   '/',
   auth('Employee'),

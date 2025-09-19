@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import {
   getAllSpecialRequestsFromDB,
   getSpecialRequestByAssignedToFromDB,
-  updateSpecialRequestByIdInDB,
   createSpecialRequestInDB,
+  approveSpecialRequestByIdInDB,
 } from './specialRequest.service';
 
 export const getAllSpecialRequestsController = async (
@@ -31,20 +31,15 @@ export const getSpecialRequestByAssignedToController = async (
   }
 };
 
-export const updateSpecialRequestByIdController = async (
+export const approveSpecialRequestByIdController = async (
   req: Request,
   res: Response,
 ) => {
   try {
     const { id } = req.params;
     const userEmail = req.user.userEmail;
-    const updateData = req.body;
 
-    const updated = await updateSpecialRequestByIdInDB(
-      id,
-      userEmail,
-      updateData,
-    );
+    const updated = await approveSpecialRequestByIdInDB(id, userEmail);
     res.json(updated);
   } catch (err) {
     res.status(500).json({ message: 'Failed to update request', error: err });

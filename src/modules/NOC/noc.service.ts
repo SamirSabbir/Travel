@@ -9,15 +9,10 @@ export const getNOCByAssignedToFromDB = async (userEmail: string) => {
   return await NOCModel.findOne({ assignedTo: userEmail });
 };
 
-export const updateNOCByIdInDB = async (
-  id: string,
-  userEmail: string,
-  updateData: Partial<INOC>,
-) => {
+export const ApproveNOCByIdInDB = async (id: string, userEmail: string) => {
   const result = await NOCModel.findOneAndUpdate(
-    { _id: id, assignedTo: userEmail },
-    updateData,
-    { new: true },
+    { _id: id },
+    { approved: true, approvedBy: userEmail },
   );
   return result;
 };

@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {
   getAllNOCsController,
   getNOCByAssignedToController,
-  updateNOCByIdController,
+  approveNOCByIdController,
   createNOCController,
 } from './noc.controller';
 import { auth } from '../../middlewares/auth';
@@ -24,7 +24,11 @@ nocRoutes.get(
 );
 
 // Update only assigned employee can update
-nocRoutes.patch('/:id', auth('Employee'), updateNOCByIdController);
+nocRoutes.patch(
+  '/approve/:id',
+  auth('SuperAdmin', 'AccountAdmin'),
+  approveNOCByIdController,
+);
 
 // Employee can create request
 nocRoutes.post('/', auth('Employee'), createNOCController);

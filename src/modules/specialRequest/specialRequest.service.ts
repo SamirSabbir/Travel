@@ -11,15 +11,13 @@ export const getSpecialRequestByAssignedToFromDB = async (
   return await SpecialRequestModel.findOne({ assignedTo: userEmail });
 };
 
-export const updateSpecialRequestByIdInDB = async (
+export const approveSpecialRequestByIdInDB = async (
   id: string,
   userEmail: string,
-  updateData: Partial<ISpecialRequest>,
 ) => {
   const result = await SpecialRequestModel.findOneAndUpdate(
-    { _id: id, assignedTo: userEmail },
-    updateData,
-    { new: true },
+    { _id: id },
+    { approved: true, approvedBy: userEmail },
   );
   return result;
 };

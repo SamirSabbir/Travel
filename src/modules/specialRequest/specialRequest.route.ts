@@ -2,8 +2,8 @@ import { Router } from 'express';
 import {
   getAllSpecialRequestsController,
   getSpecialRequestByAssignedToController,
-  updateSpecialRequestByIdController,
   createSpecialRequestController,
+  approveSpecialRequestByIdController,
 } from './specialRequest.controller';
 import { auth } from '../../middlewares/auth';
 
@@ -26,8 +26,8 @@ specialRequestRoutes.get(
 // Update only assigned employee can update
 specialRequestRoutes.patch(
   '/:id',
-  auth('Employee'),
-  updateSpecialRequestByIdController,
+  auth('SuperAdmin', 'AccountAdmin'),
+  approveSpecialRequestByIdController,
 );
 
 // Employee can create request

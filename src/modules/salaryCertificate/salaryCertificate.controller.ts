@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import {
   getAllSalaryCertificatesFromDB,
   getSalaryCertificateByAssignedToFromDB,
-  updateSalaryCertificateByIdInDB,
+  approveSalaryCertificateByIdInDB,
   createSalaryCertificateInDB,
 } from './salaryCertificate.service';
 
@@ -38,20 +38,15 @@ export const getSalaryCertificateByAssignedToController = async (
 };
 
 // Update by ID
-export const updateSalaryCertificateByIdController = async (
+export const approveSalaryCertificateByIdController = async (
   req: Request,
   res: Response,
 ) => {
   try {
     const { id } = req.params;
     const userEmail = req.user.userEmail;
-    const updateData = req.body;
 
-    const updated = await updateSalaryCertificateByIdInDB(
-      id,
-      userEmail,
-      updateData,
-    );
+    const updated = await approveSalaryCertificateByIdInDB(id, userEmail);
     res.json(updated);
   } catch (err) {
     res

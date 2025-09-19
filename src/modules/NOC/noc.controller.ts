@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import {
   getAllNOCsFromDB,
   getNOCByAssignedToFromDB,
-  updateNOCByIdInDB,
   createNOCInDB,
+  ApproveNOCByIdInDB,
 } from './noc.service';
 
 export const getAllNOCsController = async (_req: Request, res: Response) => {
@@ -28,13 +28,12 @@ export const getNOCByAssignedToController = async (
   }
 };
 
-export const updateNOCByIdController = async (req: Request, res: Response) => {
+export const approveNOCByIdController = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const userEmail = req.user.userEmail;
-    const updateData = req.body;
 
-    const updated = await updateNOCByIdInDB(id, userEmail, updateData);
+    const updated = await ApproveNOCByIdInDB(id, userEmail);
     res.json(updated);
   } catch (err) {
     res.status(500).json({ message: 'Failed to update NOC', error: err });
