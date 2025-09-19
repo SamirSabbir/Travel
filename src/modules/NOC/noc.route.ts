@@ -4,6 +4,7 @@ import {
   getNOCByAssignedToController,
   approveNOCByIdController,
   createNOCController,
+  cancelNOCByIdController,
 } from './noc.controller';
 import { auth } from '../../middlewares/auth';
 
@@ -32,7 +33,7 @@ nocRoutes.patch(
 nocRoutes.patch(
   '/cancel/:id',
   auth('SuperAdmin', 'AccountAdmin'),
-  approveNOCByIdController,
+  cancelNOCByIdController,
 );
 
 // Employee can create request
