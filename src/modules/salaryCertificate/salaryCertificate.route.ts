@@ -21,6 +21,7 @@ salaryCertificateRoutes.get(
 );
 salaryCertificateRoutes.patch(
   '/approve/:id',
+  auth('SuperAdmin', 'AccountAdmin'),
   approveSalaryCertificateByIdController,
 );
 salaryCertificateRoutes.post(
