@@ -126,7 +126,7 @@ export const findAllEmployeesFromDB = async () => {
 export const approveUserIntoDB = async (email: string) => {
   const user = await UserModel.findOne({
     email,
-    role: { $in: ['Admin', 'HR', 'AccountAdmin', 'Employee', 'HRAdmin'] },
+    role: { $in: ['Admin', 'HR', 'OfficeBoy' ,'AccountAdmin', 'Employee', 'HRAdmin'] },
   });
 
   if (!user) {

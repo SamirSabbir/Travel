@@ -11,8 +11,11 @@ export interface TVisa {
     fiveLettersOfSurname: string;
     yearOfBirth: string;
     motherGivenName: string;
-    userName:string,
-    
+    userName: string;
+    password: string;
+    sq1: string;
+    sq2: string;
+    sq3: string;
   } | null;
   schengenDetails: {} | null;
   dateOfEntry: Date; // Date of entry
