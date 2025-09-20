@@ -20,3 +20,15 @@ export const updateVisaByIdInDB = async (
   ).populate('workId');
   return result;
 };
+
+export const updateVisaCustomerDetailsByIdInDB = async (
+  id: string,
+  userEmail: string,
+  updateData: Partial<TVisa>,
+) => {
+  const result = await VisaModel.findOneAndUpdate(
+    { _id: id, assignedTo: userEmail },
+    updateData,
+  ).populate('workId');
+  return result;
+};

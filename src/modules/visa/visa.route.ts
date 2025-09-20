@@ -11,3 +11,4 @@ export const visaRoutes = Router();
 visaRoutes.get('/', auth('SuperAdmin'), getAllVisasController);
 visaRoutes.get('/user', auth('Employee'), getVisaByAssignedToController);
 visaRoutes.patch('/:id', auth('Employee'), updateVisaByIdController);
+visaRoutes.patch('/update-customer-details/:id', auth('Employee'), updateVisaByIdController);

@@ -5,6 +5,7 @@ export const USER_ROLE = {
   SuperAdmin: 'SuperAdmin',
   HRAdmin: 'HRAdmin',
   AccountAdmin: 'AccountAdmin',
+  officeBoy: 'officeBoy',
 } as const;
 
-export type  TUserRole = keyof typeof USER_ROLE;
+export type TUserRole = keyof typeof USER_ROLE;

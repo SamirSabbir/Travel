@@ -3,6 +3,7 @@ import {
   getAllVisasFromDB,
   getVisaByAssignedToFromDB,
   updateVisaByIdInDB,
+  updateVisaCustomerDetailsByIdInDB,
 } from './visa.service';
 
 export const getAllVisasController = async (_req: Request, res: Response) => {
@@ -33,7 +34,7 @@ export const updateVisaByIdController = async (req: Request, res: Response) => {
     const userEmail = req.user.userEmail;
     const updateData = req.body;
 
-    const updatedVisa = await updateVisaByIdInDB(id, userEmail, updateData);
+    const updatedVisa = await updateVisaCustomerDetailsByIdInDB(id, userEmail, updateData);
     res.json(updatedVisa);
   } catch (err) {
     res.status(500).json({ message: 'Failed to update visa', error: err });
