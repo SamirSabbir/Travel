@@ -5,6 +5,7 @@ export interface TVisa {
   name: string; // Applicant name
   pax: number; // Number of people
   country: string; // Country for visa
+  isSubmitted: boolean;
   visaType: 'USA' | 'Schengen';
   usaDetails: {
     applicationId: string;

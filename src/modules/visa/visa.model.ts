@@ -33,6 +33,7 @@ const visaSchema = new Schema<TVisa>(
     name: { type: String }, // applicant name
     pax: { type: Number, min: 1 },
     country: { type: String },
+    isSubmitted: { type: Boolean, default: false },
     visaType: { type: String, enum: ['USA', 'Schengen'] },
 
     // Nested objects
