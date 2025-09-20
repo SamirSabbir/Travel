@@ -17,7 +17,10 @@ export interface TVisa {
     sq2: string;
     sq3: string;
   } | null;
-  schengenDetails: {} | null;
+  schengenDetails: {
+    userName: string;
+    password: string;
+  } | null;
   dateOfEntry: Date; // Date of entry
   close: Date; // Closing/expiry date
   details: string; // Additional details
