@@ -28,7 +28,9 @@ export const updateVisaCustomerDetailsByIdInDB = async (
 ) => {
   const result = await VisaModel.findOneAndUpdate(
     { _id: id, assignedTo: userEmail },
-    updateData,
+    { $set: updateData }, // <-- ensure nested fields are updated
+    { new: true, runValidators: true },
   ).populate('workId');
+
   return result;
 };
