@@ -28,7 +28,11 @@ userRoutes.post(
 userRoutes.patch('/approve/:email', auth('SuperAdmin'), approveUser);
 userRoutes.delete('/delete/:email', auth('SuperAdmin'), deleteUser);
 userRoutes.get('/findUnapprovedUsers', auth('SuperAdmin'), findUnapprovedUsers);
-userRoutes.get('/findAllUsers', auth('SuperAdmin'), findAllUsers);
+userRoutes.get(
+  '/findAllUsers',
+  auth('SuperAdmin', 'Employee', 'OfficeBoy', 'AccountAdmin'),
+  findAllUsers,
+);
 userRoutes.get(
   '/findEmployeeUsers',
   auth('SuperAdmin', 'HRAdmin', 'AccountAdmin', 'Employee'),
