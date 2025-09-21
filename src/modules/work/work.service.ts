@@ -178,7 +178,7 @@ export const approveWorkInDB = async (_id: string) => {
         workStatus: 'Pending',
       },
       {
-        workStatus: 'Pending',
+        workStatus: 'Completed',
       },
     );
   }
