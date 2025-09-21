@@ -166,6 +166,7 @@ export const approveWorkInDB = async (_id: string) => {
       },
       {
         workStatus: 'Pending',
+        isApplied: false,
       },
     );
   }
