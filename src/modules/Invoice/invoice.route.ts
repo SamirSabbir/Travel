@@ -1,11 +1,54 @@
-import { auth } from "../../middlewares/auth";
-import { handleCreateInvoice, handleGetAllInvoices, handleGetInvoiceById } from './invoice.controller';
-import express from 'express';
+import { Router } from 'express';
+import {
+  createInvoiceController,
+  getAllInvoicesController,
+  getInvoiceByIdController,
+  getInvoiceByWorkIdController,
+  updateInvoiceByIdController,
+  deleteInvoiceByIdController,
+} from './invoice.controller';
+import { auth } from '../../middlewares/auth';
 
-const router = express.Router();
+export const invoiceRoutes = Router();
 
-router.post('/', auth('SuperAdmin', 'AccountAdmin'), handleCreateInvoice);
-router.get('/', auth('SuperAdmin', 'AccountAdmin'), handleGetAllInvoices);
-router.get('/:id', auth('SuperAdmin', 'AccountAdmin'), handleGetInvoiceById);
+// ✅ SuperAdmin & Accounts can see all invoices
+invoiceRoutes.get(
+  '/',
+  auth('SuperAdmin', 'AccountAdmin'),
+  getAllInvoicesController,
+);
 
-export const invoiceRoutes = router;
+// ✅ Employees can fetch their invoice by workId
+invoiceRoutes.get(
+  '/work/:workId',
+  auth('Employee'),
+  getInvoiceByWorkIdController,
+);
+
+// ✅ Fetch invoice by ID (SuperAdmin/Accounts)
+invoiceRoutes.get(
+  '/:id',
+  auth('SuperAdmin', 'AccountAdmin'),
+  getInvoiceByIdController,
+);
+
+// ✅ Create invoice (SuperAdmin/Accounts)
+invoiceRoutes.post(
+  '/',
+  auth('SuperAdmin', 'AccountAdmin'),
+  createInvoiceController,
+);
+
+// ✅ Update invoice (SuperAdmin/Accounts)
+invoiceRoutes.patch(
+  '/:id',
+  auth('SuperAdmin', 'AccountAdmin'),
+  updateInvoiceByIdController,
+);
+
+// ✅ Delete invoice (SuperAdmin/Accounts)
+invoiceRoutes.delete(
+  '/:id',
+  auth('SuperAdmin', 'AccountAdmin'),
+  deleteInvoiceByIdController,
+);

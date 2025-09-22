@@ -1,60 +1,78 @@
 import { Request, Response } from 'express';
 import {
-  createInvoice,
+  createInvoiceInDB,
   getAllInvoicesFromDB,
   getInvoiceByIdFromDB,
+  getInvoiceByWorkIdFromDB,
+  updateInvoiceByIdInDB,
+  deleteInvoiceByIdInDB,
 } from './invoice.service';
 
-export const handleCreateInvoice = async (req: Request, res: Response) => {
+// ✅ Create
+export const createInvoiceController = async (req: Request, res: Response) => {
   try {
-    const result = await createInvoice(req.body, req?.user?.userEmail);
-    res.status(201).json({
-      success: true,
-      message: 'Invoice created successfully',
-      data: result,
-    });
-  } catch (err: any) {
-    res.status(400).json({
-      success: false,
-      message: err.message || 'Failed to create invoice',
-    });
+    const invoice = await createInvoiceInDB(req.body);
+    res.status(201).json(invoice);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to create invoice', error: err });
   }
 };
 
-export const handleGetAllInvoices = async (req: Request, res: Response) => {
+// ✅ Get all
+export const getAllInvoicesController = async (_req: Request, res: Response) => {
   try {
-    const result = await getAllInvoicesFromDB(req?.user?.userEmail);
-    res.status(200).json({
-      success: true,
-      message: 'Fetched all invoices',
-      data: result,
-    });
-  } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err.message || 'Failed to fetch invoices',
-    });
+    const invoices = await getAllInvoicesFromDB();
+    res.json(invoices);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch invoices', error: err });
   }
 };
 
-export const handleGetInvoiceById = async (req: Request, res: Response) => {
+// ✅ Get by ID
+export const getInvoiceByIdController = async (req: Request, res: Response) => {
   try {
-    const result = await getInvoiceByIdFromDB(req.params.id);
-    if (!result) {
-      return res.status(404).json({
-        success: false,
-        message: 'Invoice not found',
-      });
-    }
-    res.status(200).json({
-      success: true,
-      message: 'Fetched invoice',
-      data: result,
-    });
-  } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err.message || 'Failed to fetch invoice',
-    });
+    const invoice = await getInvoiceByIdFromDB(req.params.id);
+    res.json(invoice);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch invoice', error: err });
+  }
+};
+
+// ✅ Get by WorkId
+export const getInvoiceByWorkIdController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const invoice = await getInvoiceByWorkIdFromDB(req.params.workId);
+    res.json(invoice);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch invoice by workId', error: err });
+  }
+};
+
+// ✅ Update
+export const updateInvoiceByIdController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const updatedInvoice = await updateInvoiceByIdInDB(
+      req.params.id,
+      req.body
+    );
+    res.json(updatedInvoice);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to update invoice', error: err });
+  }
+};
+
+// ✅ Delete
+export const deleteInvoiceByIdController = async (req: Request, res: Response) => {
+  try {
+    await deleteInvoiceByIdInDB(req.params.id);
+    res.json({ message: 'Invoice deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to delete invoice', error: err });
   }
 };
