@@ -5,8 +5,6 @@ import { ExpenseModel } from '../expense/expense.model';
 export const createNotaryInDB = async (payload: TNotary) => {
   const notary = await NotaryModel.create(payload);
 
-  // Also create expense entry
-  if (payload.bill && payload.bill > 0) {
     await ExpenseModel.create({
       title: `Notary Service - ${payload.clientName || 'Unknown Client'}`,
       category: 'Notary',
@@ -16,7 +14,7 @@ export const createNotaryInDB = async (payload: TNotary) => {
       description: `Notary expense for ${payload.documents || 'documents'}`,
       createdBy: notary.employee, // employee id if available
     });
-  }
+  
 
   return notary;
 };
