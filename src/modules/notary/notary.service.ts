@@ -5,15 +5,16 @@ import { ExpenseModel } from '../expense/expense.model';
 export const createNotaryInDB = async (payload: TNotary) => {
   const notary = await NotaryModel.create(payload);
 
-  await ExpenseModel.create({
-    title: `Notary Service - ${payload.clientName || 'Unknown Client'}`,
-    category: 'Notary',
-    amount: payload?.bill,
-    date: payload?.date || new Date(),
-    paymentMethod: 'Cash', // or dynamic from payload
-    description: `Notary expense for ${payload.documents || 'documents'}`,
-    createdBy: payload?.employee, // employee id if available
-  });
+    await ExpenseModel.create({
+      title: `Notary Service - ${payload.clientName || 'Unknown Client'}`,
+      category: 'Notary',
+      amount: payload.bill,
+      date: payload.date || new Date(),
+      paymentMethod: 'Cash', // or dynamic from payload
+      description: `Notary expense for ${payload.documents || 'documents'}`,
+      createdBy: notary?.employee, // employee id if available
+    });
+  
 
   return notary;
 };
