@@ -58,7 +58,6 @@ export const cancelSpecialRequestByIdInDB = async (
 };
 
 export const createSpecialRequestInDB = async (
-  userName: string,
   userEmail: string,
   data: ISpecialRequest,
 ) => {
@@ -95,7 +94,6 @@ export const createSpecialRequestInDB = async (
 
   return await SpecialRequestModel.create({
     ...data,
-    userName,
     userEmail,
     userRole: user.role,
   });
