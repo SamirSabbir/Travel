@@ -78,11 +78,13 @@ export const employeeAdminUpdateIntoDB = async (
   updatedData: TUser,
 ) => {
   const result = await UserModel.findOneAndUpdate(
-    { email, role: 'Employee' },
+    { email, role: { $in: ['Employee', 'AccountAdmin'] } },
     {
       KPI: updatedData.KPI,
       salary: updatedData.salary,
       Commission: updatedData.Commission,
+      remainingCasualLeaves: updatedData.remainingCasualLeaves,
+      remainingSickLeaves: updatedData.remainingSickLeaves,
     },
     { new: true },
   );
