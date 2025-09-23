@@ -23,6 +23,7 @@ import { specialRequestRoutes } from '../modules/specialRequest/specialRequest.r
 import { salaryCertificateRoutes } from '../modules/salaryCertificate/salaryCertificate.route';
 import { appointmentDateRoutes } from '../modules/appointmentDate/appointmentDate.route';
 import { ExpenseRoutes } from '../modules/expense/expense.route';
+import { notaryRoutes } from '../modules/notary/notary.route';
 
 const router = express.Router();
 
@@ -98,6 +99,10 @@ const moduleRoutes = [
   {
     path: '/noc',
     route: nocRoutes,
+  },
+  {
+    path: '/notary',
+    route: notaryRoutes,
   },
   {
     path: '/specialRequest',
