@@ -33,7 +33,7 @@ const loginUser = async (payload: TLoginUser) => {
       userRole: isUserExist.role,
       userName: isUserExist.name,
       photo: isUserExist.photo,
-      comission: isUserExist.Commission,
+      commission: isUserExist.Commission,
     };
 
     const accessToken = jwt.sign(tokenPayload, config.secret as string, {
