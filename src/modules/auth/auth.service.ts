@@ -27,13 +27,15 @@ const loginUser = async (payload: TLoginUser) => {
 
   let tokenPayload = {};
 
-  if (isUserExist.role === 'Employee') {
+  if (isUserExist.role === 'Employee' || isUserExist.role === 'AccountAdmin') {
     tokenPayload = {
       userEmail: isUserExist.email,
       userRole: isUserExist.role,
       userName: isUserExist.name,
       photo: isUserExist.photo,
       commission: isUserExist.Commission,
+      sickLeaves: isUserExist.remainingCasualLeaves,
+      casualLeaves: isUserExist.remainingSickLeaves,
     };
 
     const accessToken = jwt.sign(tokenPayload, config.secret as string, {
