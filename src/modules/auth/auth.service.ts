@@ -25,7 +25,25 @@ const loginUser = async (payload: TLoginUser) => {
     throw new Error('Invalid credentials');
   }
 
-  const tokenPayload = {
+  let tokenPayload = {};
+
+  if (isUserExist.role === 'Employee') {
+    tokenPayload = {
+      userEmail: isUserExist.email,
+      userRole: isUserExist.role,
+      userName: isUserExist.name,
+      photo: isUserExist.photo,
+      comission: isUserExist.Commission,
+    };
+
+    const accessToken = jwt.sign(tokenPayload, config.secret as string, {
+      expiresIn: 60 * 60 * 24, // 1 day
+    });
+
+    return accessToken;
+  }
+
+  tokenPayload = {
     userEmail: isUserExist.email,
     userRole: isUserExist.role,
     userName: isUserExist.name,
