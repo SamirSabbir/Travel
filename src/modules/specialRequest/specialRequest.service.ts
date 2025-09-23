@@ -33,7 +33,7 @@ export const cancelSpecialRequestByIdInDB = async (
   return result;
 };
 
-export const createSpecialRequestInDB = async (data: ISpecialRequest) => {
+export const createSpecialRequestInDB = async (userName:string,userEmail:string,data: ISpecialRequest) => {
   // Enforce casual leave max 2 days
   if (
     data.type === 'CasualLeave' &&
@@ -42,5 +42,5 @@ export const createSpecialRequestInDB = async (data: ISpecialRequest) => {
   ) {
     throw new Error('Cannot select more than 2 days for casual leave');
   }
-  return await SpecialRequestModel.create(data);
+  return await SpecialRequestModel.create({...data, employeeName:userName,employeeEmail:userEmail});
 };

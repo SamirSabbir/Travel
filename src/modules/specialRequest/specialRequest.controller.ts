@@ -68,11 +68,11 @@ export const createSpecialRequestController = async (
 ) => {
   try {
     const data = req.body;
-    const created = await createSpecialRequestInDB({
-      ...data,
-      employeeName: req.user.userName,
-      employeeEmail: req.user.userEmail,
-    });
+    const created = await createSpecialRequestInDB(
+      req.user.userName,
+      req.user.userEmail,
+      data,
+    );
     res.json(created);
   } catch (err: any) {
     res
