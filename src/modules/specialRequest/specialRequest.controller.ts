@@ -71,6 +71,7 @@ export const createSpecialRequestController = async (
     const created = await createSpecialRequestInDB(
       req.user.userName,
       req.user.userEmail,
+      req.user.userRole,
       data,
     );
     res.json(created);

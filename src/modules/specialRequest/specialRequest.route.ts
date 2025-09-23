@@ -40,6 +40,6 @@ specialRequestRoutes.patch(
 // Employee can create request
 specialRequestRoutes.post(
   '/',
-  auth('Employee'),
+  auth('Employee', 'AccountAdmin'),
   createSpecialRequestController,
 );

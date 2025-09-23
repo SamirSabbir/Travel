@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
 export interface ISpecialRequest {
-  employeeEmail: string;
-  employeeName: string;
+  userEmail: string;
+  userName: string;
   type: 'CasualLeave' | 'SickLeave' | 'CommissionWithdrawal' | 'Other';
   message?: string; // for other requests
   leaveDates?: string[]; // for casual or sick leave
@@ -11,4 +11,5 @@ export interface ISpecialRequest {
   cancelledBy?: string;
   approved: boolean;
   cancelled: boolean;
+  userRole: string;
 }

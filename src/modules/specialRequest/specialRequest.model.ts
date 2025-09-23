@@ -3,8 +3,8 @@ import { ISpecialRequest } from './specialRequest.interface';
 
 const specialRequestSchema = new Schema<ISpecialRequest>(
   {
-    employeeName: { type: String },
-    employeeEmail: { type: String, required: true },
+    userName: { type: String },
+    userEmail: { type: String, required: true },
     type: {
       type: String,
       enum: ['CasualLeave', 'SickLeave', 'CommissionWithdrawal', 'Other'],
@@ -17,6 +17,7 @@ const specialRequestSchema = new Schema<ISpecialRequest>(
     cancelledBy: { type: String },
     approved: { type: Boolean, default: false },
     cancelled: { type: Boolean, default: false },
+    userRole: { type: String, required: true },
   },
   {
     timestamps: true,
