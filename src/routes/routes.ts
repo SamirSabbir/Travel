@@ -22,6 +22,7 @@ import { nocRoutes } from '../modules/NOC/noc.route';
 import { specialRequestRoutes } from '../modules/specialRequest/specialRequest.route';
 import { salaryCertificateRoutes } from '../modules/salaryCertificate/salaryCertificate.route';
 import { appointmentDateRoutes } from '../modules/appointmentDate/appointmentDate.route';
+import { ExpenseRoutes } from '../modules/expense/expense.route';
 
 const router = express.Router();
 
@@ -105,6 +106,10 @@ const moduleRoutes = [
   {
     path: '/salaryCertificate',
     route: salaryCertificateRoutes,
+  },
+  {
+    path: '/expense',
+    route: ExpenseRoutes,
   },
 ];
 
