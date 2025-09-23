@@ -1,10 +1,24 @@
 import { NotaryModel } from './notary.model';
 import { TNotary } from './notary.interface';
+import { ExpenseModel } from '../expense/expense.model';
 
-// Create notary entry
 export const createNotaryInDB = async (payload: TNotary) => {
-  return await NotaryModel.create(payload);
+  // Create Notary entry
+  const notary = await NotaryModel.create(payload);
+
+  // Also create Expense entry
+  if (notary.bill && notary.bill > 0) {
+    await ExpenseModel.create({
+      category: 'Notary',
+      amount: notary.bill,
+      date: notary.date || new Date(),
+      description: `Notary expense - Client: ${notary.clientName || 'N/A'}`,
+    });
+  }
+
+  return notary;
 };
+
 
 // Get all notary records
 export const getAllNotariesFromDB = async () => {
