@@ -3,7 +3,7 @@ import { ISpecialRequest } from './specialRequest.interface';
 
 const specialRequestSchema = new Schema<ISpecialRequest>(
   {
-    employeeName: { type: String, required: true },
+    employeeName: { type: String },
     employeeEmail: { type: String, required: true },
     type: {
       type: String,
