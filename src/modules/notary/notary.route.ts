@@ -10,7 +10,7 @@ import { auth } from '../../middlewares/auth';
 
 export const notaryRoutes = Router();
 
-notaryRoutes.post('/', auth('Employee'), createNotaryController);
+notaryRoutes.post('/', auth('OfficeBoy'), createNotaryController);
 notaryRoutes.get('/', auth('SuperAdmin', 'AccountAdmin'), getAllNotariesController);
 notaryRoutes.patch('/:id', auth('Employee'), updateNotaryByIdController);
 notaryRoutes.delete(
