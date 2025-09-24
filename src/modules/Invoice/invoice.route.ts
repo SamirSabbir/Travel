@@ -22,7 +22,7 @@ invoiceRoutes.get(
 // ✅ Employees can fetch their invoice by workId
 invoiceRoutes.get(
   '/work/:workId',
-  auth('Employee'),
+  auth('SuperAdmin','AccountAdmin'),
   getInvoiceByWorkIdController,
 );
 
