@@ -6,6 +6,7 @@ import {
   getInvoiceByWorkIdFromDB,
   updateInvoiceByIdInDB,
   deleteInvoiceByIdInDB,
+  generateInvoicePDFInDB,
 } from './invoice.service';
 
 // ✅ Create
@@ -39,10 +40,7 @@ export const getInvoiceByIdController = async (req: Request, res: Response) => {
 };
 
 // ✅ Get by WorkId
-export const getInvoiceByWorkIdController = async (
-  req: Request,
-  res: Response
-) => {
+export const getInvoiceByWorkIdController = async (req: Request, res: Response) => {
   try {
     const invoice = await getInvoiceByWorkIdFromDB(req.params.workId);
     res.json(invoice);
@@ -52,15 +50,9 @@ export const getInvoiceByWorkIdController = async (
 };
 
 // ✅ Update
-export const updateInvoiceByIdController = async (
-  req: Request,
-  res: Response
-) => {
+export const updateInvoiceByIdController = async (req: Request, res: Response) => {
   try {
-    const updatedInvoice = await updateInvoiceByIdInDB(
-      req.params.id,
-      req.body
-    );
+    const updatedInvoice = await updateInvoiceByIdInDB(req.params.id, req.body);
     res.json(updatedInvoice);
   } catch (err) {
     res.status(500).json({ message: 'Failed to update invoice', error: err });
@@ -74,5 +66,14 @@ export const deleteInvoiceByIdController = async (req: Request, res: Response) =
     res.json({ message: 'Invoice deleted successfully' });
   } catch (err) {
     res.status(500).json({ message: 'Failed to delete invoice', error: err });
+  }
+};
+
+// ✅ Download PDF
+export const downloadInvoicePDFController = async (req: Request, res: Response) => {
+  try {
+    await generateInvoicePDFInDB(req.params.id, res);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to download invoice PDF', error: err });
   }
 };

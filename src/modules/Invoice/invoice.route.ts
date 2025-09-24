@@ -6,6 +6,7 @@ import {
   getInvoiceByWorkIdController,
   updateInvoiceByIdController,
   deleteInvoiceByIdController,
+  downloadInvoicePDFController,
 } from './invoice.controller';
 import { auth } from '../../middlewares/auth';
 
@@ -51,4 +52,11 @@ invoiceRoutes.delete(
   '/:id',
   auth('SuperAdmin', 'AccountAdmin'),
   deleteInvoiceByIdController,
+);
+
+// ✅ Download invoice as PDF (SuperAdmin/Accounts)
+invoiceRoutes.get(
+  '/:id/download',
+  auth('SuperAdmin', 'AccountAdmin'),
+  downloadInvoicePDFController,
 );
