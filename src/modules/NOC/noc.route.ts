@@ -20,7 +20,7 @@ nocRoutes.get(
 // Employee sees only their own
 nocRoutes.get(
   '/user',
-  auth('SuperAdmin', 'AccountAdmin'),
+  auth('SuperAdmin', 'AccountAdmin','OfficeBoy','Employee'),
   getNOCByAssignedToController,
 );
 
@@ -37,4 +37,4 @@ nocRoutes.patch(
 );
 
 // Employee can create request
-nocRoutes.post('/', auth('Employee'), createNOCController);
+nocRoutes.post('/', auth('Employee','AccountAdmin','OfficeBoy'), createNOCController);

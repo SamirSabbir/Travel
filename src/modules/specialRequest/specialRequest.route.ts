@@ -20,7 +20,7 @@ specialRequestRoutes.get(
 // Employee sees only their own
 specialRequestRoutes.get(
   '/user',
-  auth('Employee'),
+  auth('Employee', 'AccountAdmin', 'OfficeBoy'),
   getSpecialRequestByAssignedToController,
 );
 
@@ -40,6 +40,6 @@ specialRequestRoutes.patch(
 // Employee can create request
 specialRequestRoutes.post(
   '/',
-  auth('Employee', 'AccountAdmin'),
+  auth('Employee', 'AccountAdmin', 'OfficeBoy'),
   createSpecialRequestController,
 );

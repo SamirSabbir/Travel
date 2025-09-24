@@ -17,7 +17,7 @@ salaryCertificateRoutes.get(
 );
 salaryCertificateRoutes.get(
   '/user',
-  auth('SuperAdmin', 'AccountAdmin'),
+  auth('SuperAdmin', 'AccountAdmin', 'OfficeBoy', 'Employee'),
   getSalaryCertificateByAssignedToController,
 );
 salaryCertificateRoutes.patch(
@@ -34,6 +34,6 @@ salaryCertificateRoutes.patch(
 
 salaryCertificateRoutes.post(
   '/',
-  auth('Employee'),
+  auth('Employee', 'AccountAdmin', 'OfficeBoy'),
   createSalaryCertificateController,
 );
