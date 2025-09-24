@@ -1,9 +1,28 @@
 import { OfficeSuppliesModel } from './officeSupplies.model';
 import { TOfficeSupplies } from './officeSupplies.interface';
+import { ExpenseModel } from '../expense/expense.model';
 
 // Create office supply entry
 export const createOfficeSupplyInDB = async (payload: TOfficeSupplies) => {
-  return await OfficeSuppliesModel.create(payload);
+  // 1️⃣ Create office supply record
+  const supply = await OfficeSuppliesModel.create(payload);
+
+  // 2️⃣ Create corresponding expense entry
+  await ExpenseModel.create({
+    title: `Office Supply - ${payload.items || 'Unknown Item'}`,
+    category: 'Office Supplies',
+    amount: Number(payload.total) || 0,
+    date: payload.date ? new Date(payload.date) : new Date(),
+    paymentMethod: 'Cash', // adjust if needed
+    description: `Purchased ${payload.quantity || 0} x ${
+      payload.items || 'item'
+    } @ ${payload.unitPrice || 0} each. Note: ${
+      payload.productDescription || 'N/A'
+    }`,
+    createdBy: undefined, // not included in TOfficeSupplies
+  });
+
+  return supply;
 };
 
 // Get all office supplies
