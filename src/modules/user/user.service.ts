@@ -17,10 +17,12 @@ export const createUserIntoDB = async (userData: TUser) => {
 
 // Employee profile fetch
 export const employeeProfileIntoDB = async (email: string) => {
-  const result = await UserModel.findOne({ email, role: 'Employee' });
+  const result = await UserModel.findOne({
+    email,
+    role: { $in: ['Employee', 'OfficeBoy'] },
+  });
   return result;
 };
-
 
 // Admin profile fetch (excluding sensitive fields)
 export const adminProfileIntoDB = async (email: string, role: string) => {
