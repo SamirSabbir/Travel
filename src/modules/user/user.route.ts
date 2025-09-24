@@ -12,6 +12,7 @@ import {
   updateEmployeeUser,
   getAdminProfileUser,
   updateAdminProfileUser,
+  getOfficeBoyUser,
 } from './user.controller';
 import { auth } from '../../middlewares/auth';
 import { upload } from '../../app/multer.config';
@@ -39,6 +40,7 @@ userRoutes.get(
   findAllEmployeeUsers,
 );
 userRoutes.get('/employeeProfile', auth('Employee'), getEmployeeUser);
+userRoutes.get('/officeBoyProfile', auth('OfficeBoy'), getOfficeBoyUser);
 userRoutes.get(
   '/admin-profile',
   auth('AccountAdmin', 'SuperAdmin', 'HRAdmin'),

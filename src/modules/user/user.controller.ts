@@ -12,6 +12,7 @@ import {
   employeeAdminUpdateIntoDB,
   adminProfileIntoDB,
   updateAdminProfileIntoDB,
+  officeBoyProfileIntoDB,
 } from './user.service';
 
 export const createAdminUser = async (req: Request, res: Response) => {
@@ -159,6 +160,26 @@ export const getEmployeeUser = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getOfficeBoyUser = async (req: Request, res: Response) => {
+  try {
+    const result = await officeBoyProfileIntoDB(req?.user.userEmail);
+    res.status(200).json({
+      success: true,
+      message: 'All users retrieved successfully',
+      statusCode: 200,
+      data: result,
+    });
+  } catch (err: any) {
+    res.status(400).json({
+      success: false,
+      message: 'Failed to get all users',
+      statusCode: 400,
+      error: err.message,
+    });
+  }
+};
+
 
 export const getAdminProfileUser = async (req: Request, res: Response) => {
   try {
