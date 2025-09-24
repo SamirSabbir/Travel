@@ -56,7 +56,7 @@ invoiceRoutes.delete(
 
 // ✅ Download invoice as PDF (SuperAdmin/Accounts)
 invoiceRoutes.get(
-  '/:id/download',
+  '/download/:id',
   auth('SuperAdmin', 'AccountAdmin'),
   downloadInvoicePDFController,
 );

@@ -20,7 +20,10 @@ export const createInvoiceController = async (req: Request, res: Response) => {
 };
 
 // ✅ Get all
-export const getAllInvoicesController = async (_req: Request, res: Response) => {
+export const getAllInvoicesController = async (
+  _req: Request,
+  res: Response,
+) => {
   try {
     const invoices = await getAllInvoicesFromDB();
     res.json(invoices);
@@ -40,17 +43,25 @@ export const getInvoiceByIdController = async (req: Request, res: Response) => {
 };
 
 // ✅ Get by WorkId
-export const getInvoiceByWorkIdController = async (req: Request, res: Response) => {
+export const getInvoiceByWorkIdController = async (
+  req: Request,
+  res: Response,
+) => {
   try {
     const invoice = await getInvoiceByWorkIdFromDB(req.params.workId);
     res.json(invoice);
   } catch (err) {
-    res.status(500).json({ message: 'Failed to fetch invoice by workId', error: err });
+    res
+      .status(500)
+      .json({ message: 'Failed to fetch invoice by workId', error: err });
   }
 };
 
 // ✅ Update
-export const updateInvoiceByIdController = async (req: Request, res: Response) => {
+export const updateInvoiceByIdController = async (
+  req: Request,
+  res: Response,
+) => {
   try {
     const updatedInvoice = await updateInvoiceByIdInDB(req.params.id, req.body);
     res.json(updatedInvoice);
@@ -60,7 +71,10 @@ export const updateInvoiceByIdController = async (req: Request, res: Response) =
 };
 
 // ✅ Delete
-export const deleteInvoiceByIdController = async (req: Request, res: Response) => {
+export const deleteInvoiceByIdController = async (
+  req: Request,
+  res: Response,
+) => {
   try {
     await deleteInvoiceByIdInDB(req.params.id);
     res.json({ message: 'Invoice deleted successfully' });
@@ -70,10 +84,15 @@ export const deleteInvoiceByIdController = async (req: Request, res: Response) =
 };
 
 // ✅ Download PDF
-export const downloadInvoicePDFController = async (req: Request, res: Response) => {
+export const downloadInvoicePDFController = async (
+  req: Request,
+  res: Response,
+) => {
   try {
     await generateInvoicePDFInDB(req.params.id, res);
   } catch (err) {
-    res.status(500).json({ message: 'Failed to download invoice PDF', error: err });
+    res
+      .status(500)
+      .json({ message: 'Failed to download invoice PDF', error: err });
   }
 };
