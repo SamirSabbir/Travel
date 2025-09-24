@@ -7,7 +7,7 @@ export interface TInvoice {
   invoiceFor: string; // Invoice for (e.g. client/project name)
   payableTo: string; // Default: "Trip and Travel"
   service: string; // Dropdown of services (Visa, Hotel, Ticket, etc.)
-  invoiceNo: number; // Unique number from Leads Management
+  invoiceNo: string; // Unique number from Leads Management
   dueDate: Date; // Due date
   notes?: string; // Optional notes
 

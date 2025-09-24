@@ -18,7 +18,7 @@ const invoiceSchema = new Schema<TInvoice>(
     invoiceFor: { type: String, },
     payableTo: { type: String, default: 'Trip and Travel' },
     service: { type: String, },
-    invoiceNo: { type: Number, unique: true },
+    invoiceNo: { type: String, unique: true },
     dueDate: { type: Date, required: true },
     notes: { type: String },
 
