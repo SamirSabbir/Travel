@@ -24,6 +24,8 @@ import { salaryCertificateRoutes } from '../modules/salaryCertificate/salaryCert
 import { appointmentDateRoutes } from '../modules/appointmentDate/appointmentDate.route';
 import { ExpenseRoutes } from '../modules/expense/expense.route';
 import { notaryRoutes } from '../modules/notary/notary.route';
+import { lunchRoutes } from '../modules/lunch/lunch.route';
+import { officeSuppliesRoutes } from '../modules/officeSupplies/officeSupplies.route';
 
 const router = express.Router();
 
@@ -106,11 +108,11 @@ const moduleRoutes = [
   },
    {
     path: '/lunch',
-    route: notaryRoutes,
+    route: lunchRoutes,
   },
    {
     path: '/office-supplies',
-    route: notaryRoutes,
+    route: officeSuppliesRoutes,
   },
   {
     path: '/specialRequest',
