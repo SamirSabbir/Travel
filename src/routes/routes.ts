@@ -106,11 +106,11 @@ const moduleRoutes = [
     path: '/notary',
     route: notaryRoutes,
   },
-   {
+  {
     path: '/lunch',
     route: lunchRoutes,
   },
-   {
+  {
     path: '/office-supplies',
     route: officeSuppliesRoutes,
   },
