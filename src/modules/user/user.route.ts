@@ -39,8 +39,11 @@ userRoutes.get(
   auth('SuperAdmin', 'HRAdmin', 'AccountAdmin', 'Employee'),
   findAllEmployeeUsers,
 );
-userRoutes.get('/employeeProfile', auth('Employee'), getEmployeeUser);
-userRoutes.get('/officeBoyProfile', auth('OfficeBoy'), getOfficeBoyUser);
+userRoutes.get(
+  '/employeeProfile',
+  auth('Employee', 'OfficeBoy'),
+  getEmployeeUser,
+);
 userRoutes.get(
   '/admin-profile',
   auth('AccountAdmin', 'SuperAdmin', 'HRAdmin'),
@@ -53,7 +56,7 @@ userRoutes.patch(
 );
 userRoutes.patch(
   '/employeeProfileUpdate',
-  auth('Employee'),
+  auth('Employee', 'OfficeBoy'),
   updateEmployeeUser,
 );
 userRoutes.patch(
