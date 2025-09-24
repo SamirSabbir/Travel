@@ -104,6 +104,14 @@ const moduleRoutes = [
     path: '/notary',
     route: notaryRoutes,
   },
+   {
+    path: '/lunch',
+    route: notaryRoutes,
+  },
+   {
+    path: '/office-supplies',
+    route: notaryRoutes,
+  },
   {
     path: '/specialRequest',
     route: specialRequestRoutes,

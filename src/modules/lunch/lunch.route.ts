@@ -10,10 +10,10 @@ import { auth } from '../../middlewares/auth';
 
 export const lunchRoutes = Router();
 
-lunchRoutes.post('/', auth('Employee'), createLunchController);
+lunchRoutes.post('/', auth('OfficeBoy'), createLunchController);
 lunchRoutes.get(
   '/',
-  auth('SuperAdmin', 'AccountAdmin'),
+  auth('SuperAdmin', 'AccountAdmin','OfficeBoy'),
   getAllLunchesController,
 );
 lunchRoutes.patch('/:id', auth('Employee'), updateLunchByIdController);

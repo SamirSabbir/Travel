@@ -10,10 +10,10 @@ import { auth } from '../../middlewares/auth';
 
 export const officeSuppliesRoutes = Router();
 
-officeSuppliesRoutes.post('/', auth('Employee'), createOfficeSupplyController);
+officeSuppliesRoutes.post('/', auth('OfficeBoy'), createOfficeSupplyController);
 officeSuppliesRoutes.get(
   '/',
-  auth('SuperAdmin', 'AccountAdmin'),
+  auth('SuperAdmin', 'AccountAdmin','OfficeBoy'),
   getAllOfficeSuppliesController,
 );
 officeSuppliesRoutes.patch(
