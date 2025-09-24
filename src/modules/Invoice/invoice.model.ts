@@ -4,27 +4,26 @@ import { TInvoice } from './invoice.interface';
 
 const itemSchema = new Schema(
   {
-    description: { type: String, required: true },
-    quantity: { type: Number, required: true, min: 1 },
-    unitPrice: { type: Number, required: true, min: 0 },
+    description: { type: String, },
+    quantity: { type: Number,  min: 1 },
+    unitPrice: { type: Number, min: 0 },
   },
   { _id: false },
 );
 
 const invoiceSchema = new Schema<TInvoice>(
   {
-    workId: { type: Schema.Types.ObjectId, ref: 'Work', required: true },
+    workId: { type: Schema.Types.ObjectId, ref: 'Work',  },
     submittedOn: { type: Date, default: Date.now },
-    invoiceFor: { type: String, required: true },
+    invoiceFor: { type: String, },
     payableTo: { type: String, default: 'Trip and Travel' },
-    service: { type: String, required: true },
-    invoiceNo: { type: Number, required: true, unique: true },
+    service: { type: String, },
+    invoiceNo: { type: Number, unique: true },
     dueDate: { type: Date, required: true },
     notes: { type: String },
 
     items: {
       type: [itemSchema],
-      required: true,
       validate: [
         (val: any[]) => val.length > 0,
         'At least one item is required',
