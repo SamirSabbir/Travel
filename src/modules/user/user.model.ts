@@ -24,7 +24,11 @@ const UserSchema = new Schema<TUser>(
     },
     isApproved: { type: Boolean, default: false },
     photo: { type: String },
-
+    address: { type: String },
+    phoneNo: { type: String },
+    emergencyPhoneNo: { type: String },
+    passportNo: { type: String },
+    passwordExpiryDate: { type: String },
     // New fields
     remainingCasualLeaves: { type: Number, default: 0 },
     remainingSickLeaves: { type: Number, default: 0 },

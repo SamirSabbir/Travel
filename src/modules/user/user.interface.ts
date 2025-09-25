@@ -12,7 +12,11 @@ type TUser = {
   updatedAt: Date;
   photo: string;
   salary: number;
-
+  passportNo: string;
+  passwordExpiryDate: string;
+  phoneNo: string;
+  address: string;
+  emergencyPhoneNo: string;
   // New fields
   remainingCasualLeaves: number;
   remainingSickLeaves: number;
