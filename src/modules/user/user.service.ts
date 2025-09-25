@@ -85,7 +85,7 @@ export const employeeAdminUpdateIntoDB = async (
     {
       KPI: updatedData.KPI,
       salary: updatedData.salary,
-      Commission: updatedData.Commission,
+      Commission: updatedData.commission,
       remainingCasualLeaves: updatedData.remainingCasualLeaves,
       remainingSickLeaves: updatedData.remainingSickLeaves,
       joiningDate: updatedData.joiningDate,
@@ -99,10 +99,10 @@ export const employeeAdminUpdateIntoDB = async (
       KPI: updatedData.KPI,
     });
   }
-  if (updatedData.Commission) {
+  if (updatedData.commission) {
     await CommissionChartModel.create({
       employeeId: result?._id,
-      commission: updatedData.Commission,
+      commission: updatedData.commission,
     });
   }
   return result;

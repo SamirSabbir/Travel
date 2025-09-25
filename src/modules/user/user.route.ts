@@ -12,7 +12,6 @@ import {
   updateEmployeeUser,
   getAdminProfileUser,
   updateAdminProfileUser,
-  getOfficeBoyUser,
 } from './user.controller';
 import { auth } from '../../middlewares/auth';
 import { upload } from '../../app/multer.config';

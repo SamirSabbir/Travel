@@ -5,7 +5,7 @@ type TUser = {
   email: string;
   password: string;
   KPI: number;
-  Commission: number; // Current available commission
+  commission: number; // Current available commission
   role: 'OfficeBoy' | 'Employee' | 'HR' | 'SuperAdmin' | 'AccountAdmin';
   isApproved: boolean;
   createdAt: Date;
@@ -16,7 +16,7 @@ type TUser = {
   passwordExpiryDate: string;
   phoneNo: string;
   address: string;
-  joiningDate: string,
+  joiningDate: string;
   emergencyPhoneNo: string;
   // New fields
   remainingCasualLeaves: number;

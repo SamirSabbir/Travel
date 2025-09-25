@@ -9,7 +9,7 @@ const UserSchema = new Schema<TUser>(
     password: { type: String, required: true },
     salary: { type: Number, default: 0 },
     KPI: { type: Number, default: 0 },
-    Commission: { type: Number, default: 0 },
+    commission: { type: Number, default: 0 },
     role: {
       type: String,
       enum: [

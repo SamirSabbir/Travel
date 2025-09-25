@@ -11,8 +11,7 @@ import {
   employeeProfileUpdateIntoDB,
   employeeAdminUpdateIntoDB,
   adminProfileIntoDB,
-  updateAdminProfileIntoDB,
-  officeBoyProfileIntoDB,
+  updateAdminProfileIntoDB
 } from './user.service';
 
 export const createAdminUser = async (req: Request, res: Response) => {
