@@ -1,4 +1,4 @@
-import { KPIChartModel } from './chart.model';
+import { CommissionChartModel, KPIChartModel } from './chart.model';
 
 export const getKPIOfEmployeeFromDB = async (employeeId: string) => {
   console.log(employeeId);
@@ -9,6 +9,6 @@ export const getKPIOfEmployeeFromDB = async (employeeId: string) => {
 };
 
 export const getCommissionOfEmployeeFromDB = async (employeeId: string) => {
-  const result = await KPIChartModel.find({ employeeId });
+  const result = await CommissionChartModel.find({ employeeId });
   return result;
 };

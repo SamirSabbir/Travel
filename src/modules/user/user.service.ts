@@ -90,7 +90,6 @@ export const employeeAdminUpdateIntoDB = async (
       remainingSickLeaves: updatedData.remainingSickLeaves,
       joiningDate: updatedData.joiningDate,
     },
-    { new: true },
   );
 
   if (updatedData.KPI) {
