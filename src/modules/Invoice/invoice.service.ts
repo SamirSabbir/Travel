@@ -1,6 +1,8 @@
 import { InvoiceModel } from './invoice.model';
 import { TInvoice } from './invoice.interface';
 import PdfPrinter from 'pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
 
 // ✅ Create invoice
 export const createInvoiceInDB = async (data: TInvoice) => {
@@ -44,12 +46,15 @@ export const generateInvoicePDFInDB = async (invoiceId: string, res: any) => {
   const invoice = await InvoiceModel.findById(invoiceId).populate('workId');
   if (!invoice) throw new Error('Invoice not found');
 
+  // 🔑 Correctly grab vfs from pdfFonts
+  const vfs: any = (pdfFonts as any).pdfMake.vfs;
+
   const fonts = {
     Roboto: {
-      normal: 'node_modules/pdfmake/fonts/Roboto-Regular.ttf',
-      bold: 'node_modules/pdfmake/fonts/Roboto-Medium.ttf',
-      italics: 'node_modules/pdfmake/fonts/Roboto-Italic.ttf',
-      bolditalics: 'node_modules/pdfmake/fonts/Roboto-MediumItalic.ttf',
+      normal: Buffer.from(vfs['Roboto-Regular.ttf'], 'base64'),
+      bold: Buffer.from(vfs['Roboto-Medium.ttf'], 'base64'),
+      italics: Buffer.from(vfs['Roboto-Italic.ttf'], 'base64'),
+      bolditalics: Buffer.from(vfs['Roboto-MediumItalic.ttf'], 'base64'),
     },
   };
 
