@@ -88,6 +88,7 @@ export const employeeAdminUpdateIntoDB = async (
       Commission: updatedData.Commission,
       remainingCasualLeaves: updatedData.remainingCasualLeaves,
       remainingSickLeaves: updatedData.remainingSickLeaves,
+      joiningDate: updatedData.joiningDate,
     },
     { new: true },
   );

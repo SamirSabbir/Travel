@@ -16,6 +16,7 @@ type TUser = {
   passwordExpiryDate: string;
   phoneNo: string;
   address: string;
+  joiningDate: string,
   emergencyPhoneNo: string;
   // New fields
   remainingCasualLeaves: number;

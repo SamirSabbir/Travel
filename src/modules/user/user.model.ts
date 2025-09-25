@@ -29,6 +29,7 @@ const UserSchema = new Schema<TUser>(
     emergencyPhoneNo: { type: String },
     passportNo: { type: String },
     passwordExpiryDate: { type: String },
+    joiningDate: { type:String,},
     // New fields
     remainingCasualLeaves: { type: Number, default: 0 },
     remainingSickLeaves: { type: Number, default: 0 },
