@@ -1,4 +1,4 @@
-import { KPIChartModel } from '../chart/chart.model';
+import { CommissionChartModel, KPIChartModel } from '../chart/chart.model';
 import TUser from './user.interface';
 import { UserModel } from './user.model';
 import bcrypt from 'bcrypt';
@@ -97,6 +97,12 @@ export const employeeAdminUpdateIntoDB = async (
     await KPIChartModel.create({
       employeeId: result?._id,
       KPI: updatedData.KPI,
+    });
+  }
+  if (updatedData.Commission) {
+    await CommissionChartModel.create({
+      employeeId: result?._id,
+      commission: updatedData.Commission,
     });
   }
   return result;
