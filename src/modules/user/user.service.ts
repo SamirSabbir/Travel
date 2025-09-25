@@ -85,7 +85,7 @@ export const employeeAdminUpdateIntoDB = async (
     {
       KPI: updatedData.KPI,
       salary: updatedData.salary,
-      Commission: updatedData.commission,
+      commission: updatedData.commission,
       remainingCasualLeaves: updatedData.remainingCasualLeaves,
       remainingSickLeaves: updatedData.remainingSickLeaves,
       joiningDate: updatedData.joiningDate,
