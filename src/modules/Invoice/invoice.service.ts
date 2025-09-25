@@ -1,7 +1,6 @@
 import { InvoiceModel } from './invoice.model';
 import { TInvoice } from './invoice.interface';
 import PdfPrinter from 'pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 // ✅ Create invoice
 export const createInvoiceInDB = async (data: TInvoice) => {
@@ -40,22 +39,19 @@ export const deleteInvoiceByIdInDB = async (id: string) => {
   return await InvoiceModel.findByIdAndDelete(id);
 };
 
-// ✅ Generate Invoice PDF
+
+// ✅ Generate Invoice PDF (without extra fonts)
 export const generateInvoicePDFInDB = async (invoiceId: string, res: any) => {
-  const invoice = await InvoiceModel.findOne({ _id: invoiceId }).populate(
-    'workId',
-  );
+  const invoice = await InvoiceModel.findById(invoiceId).populate('workId');
   if (!invoice) throw new Error('Invoice not found');
 
-  // 🔑 Correctly grab vfs from pdfFonts
-  const vfs: any = (pdfFonts as any).pdfMake.vfs;
-
+  // ✅ Just use Helvetica everywhere
   const fonts = {
-    Roboto: {
-      normal: Buffer.from(vfs['Roboto-Regular.ttf'], 'base64'),
-      bold: Buffer.from(vfs['Roboto-Medium.ttf'], 'base64'),
-      italics: Buffer.from(vfs['Roboto-Italic.ttf'], 'base64'),
-      bolditalics: Buffer.from(vfs['Roboto-MediumItalic.ttf'], 'base64'),
+    Helvetica: {
+      normal: 'Helvetica',
+      bold: 'Helvetica-Bold',
+      italics: 'Helvetica-Oblique',
+      bolditalics: 'Helvetica-BoldOblique',
     },
   };
 
@@ -64,7 +60,6 @@ export const generateInvoicePDFInDB = async (invoiceId: string, res: any) => {
   const docDefinition: any = {
     content: [
       { text: 'INVOICE', style: 'header' },
-
       { text: `Invoice No: ${invoice.invoiceNo}`, margin: [0, 10, 0, 5] },
       { text: `Submitted On: ${new Date(invoice.submittedOn).toDateString()}` },
       { text: `Invoice For: ${invoice.invoiceFor}` },
@@ -90,7 +85,6 @@ export const generateInvoicePDFInDB = async (invoiceId: string, res: any) => {
       },
 
       { text: `\nTotal Amount: ${invoice.totalAmount}`, style: 'total' },
-
       {
         text: '\nThis is a system generated certificate and requires no signature.',
         style: 'footer',
@@ -107,9 +101,13 @@ export const generateInvoicePDFInDB = async (invoiceId: string, res: any) => {
         margin: [0, 20, 0, 0],
       },
     },
+    defaultStyle: {
+      font: 'Helvetica',
+    },
   };
 
   const pdfDoc = printer.createPdfKitDocument(docDefinition);
+
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader(
     'Content-Disposition',
