@@ -3,7 +3,6 @@ import { TInvoice } from './invoice.interface';
 import PdfPrinter from 'pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
-
 // ✅ Create invoice
 export const createInvoiceInDB = async (data: TInvoice) => {
   const invoice = new InvoiceModel(data);
@@ -43,7 +42,9 @@ export const deleteInvoiceByIdInDB = async (id: string) => {
 
 // ✅ Generate Invoice PDF
 export const generateInvoicePDFInDB = async (invoiceId: string, res: any) => {
-  const invoice = await InvoiceModel.findById(invoiceId).populate('workId');
+  const invoice = await InvoiceModel.findOne({ _id: invoiceId }).populate(
+    'workId',
+  );
   if (!invoice) throw new Error('Invoice not found');
 
   // 🔑 Correctly grab vfs from pdfFonts
