@@ -40,11 +40,7 @@ export const updateWorkStatusWithEmployee = async (
 ) => {
   const result = await WorkModel.findOneAndUpdate(
     { _id, employeeEmail, isApplied: false },
-    {
-      pax: data.pax,
-      country: data.country,
-      submissionDate: data.submissionDate,
-    },
+    data
   );
   if (!result) {
     throw new Error('Invalid work ID');
@@ -124,7 +120,7 @@ export const getPipelineDataFromDB = async (employeeEmail: string) => {
     name: true,
     phone: true,
     workStatus: true,
-    leadsStatus: true,
+    leadStatus: true,
   });
 };
 
@@ -135,7 +131,7 @@ export const getAdminPipelineDataFromDB = async () => {
     name: true,
     phone: true,
     workStatus: true,
-    leadsStatus: true,
+    leadStatus: true,
   });
 };
 
@@ -147,7 +143,7 @@ export const getMyPipelineDataFromDB = async (employeeEmail: string) => {
     name: true,
     phone: true,
     workStatus: true,
-    leadsStatus: true,
+    leadStatus: true,
   });
 };
 
