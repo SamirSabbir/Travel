@@ -104,7 +104,7 @@ workRoutes.patch(
 );
 workRoutes.patch(
   '/assign-services/:workId',
-  auth('SuperAdmin', 'AccountAdmin', 'HRAdmin'),
+  auth('SuperAdmin', 'AccountAdmin', 'Employee'),
   assignServiceController,
 );
 
