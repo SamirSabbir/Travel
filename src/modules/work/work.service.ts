@@ -119,32 +119,35 @@ export const updateWorkStatusAccountAdmin = async (
 export const getPipelineDataFromDB = async (employeeEmail: string) => {
   return await WorkModel.find({
     employeeEmail,
-    leadsStatus: { $not: /Confirmed/i },
+    leadsStatus: { $ne: /Confirmed/i },
   }).select({
-    name: true,
-    phone: true,
-    workStatus: true,
+    name: 1,
+    phone: 1,
+    workStatus: 1,
+    leadsStatus: 1,
   });
 };
 
 export const getAdminPipelineDataFromDB = async () => {
   return await WorkModel.find({
-    // leadsStatus: { $not: /Confirmed/i },
+    leadsStatus: { $ne: 'Confirmed' }, // exclude "Confirmed"
   }).select({
-    name: true,
-    phone: true,
-    workStatus: true,
+    name: 1,
+    phone: 1,
+    workStatus: 1,
+    leadsStatus: 1, // include leadsStatus if you want to see what it is
   });
 };
 
 export const getMyPipelineDataFromDB = async (employeeEmail: string) => {
   return await WorkModel.find({
     employeeEmail,
-    leadsStatus: { $not: /Confirmed/i },
+    leadsStatus: { $ne: /Confirmed/i },
   }).select({
-    name: true,
-    phone: true,
-    workStatus: true,
+    name: 1,
+    phone: 1,
+    workStatus: 1,
+    leadsStatus: 1,
   });
 };
 
