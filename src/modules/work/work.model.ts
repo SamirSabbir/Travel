@@ -42,7 +42,7 @@ const workSchema = new Schema<TWork>(
       required: true,
     },
     country: {
-      type: String,
+      type: [String],
     },
     pax: {
       type: String,

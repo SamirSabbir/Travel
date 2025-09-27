@@ -10,7 +10,7 @@ export type TWork = {
   pax: string;
   payment: number;
   paymentStatus: 'Partial Payment' | 'Full Payment' | 'Pending';
-  country: string;
+  country: string[];
   name: string;
   phone: string;
   paymentDetails?: Types.ObjectId;
