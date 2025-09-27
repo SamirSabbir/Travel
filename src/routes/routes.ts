@@ -26,6 +26,7 @@ import { ExpenseRoutes } from '../modules/expense/expense.route';
 import { notaryRoutes } from '../modules/notary/notary.route';
 import { lunchRoutes } from '../modules/lunch/lunch.route';
 import { officeSuppliesRoutes } from '../modules/officeSupplies/officeSupplies.route';
+import { activityRoutes } from '../modules/activity/activity.route';
 
 const router = express.Router();
 
@@ -61,6 +62,10 @@ const moduleRoutes = [
   {
     path: '/transfer',
     route: transferRoutes,
+  },
+  {
+    path: '/activities',
+    route: activityRoutes,
   },
   {
     path: '/hotel',

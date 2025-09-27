@@ -23,7 +23,9 @@ export class NotificationService {
       });
 
       if (NotificationService.io) {
-        NotificationService.io.to(userEmail).emit('new-notification', notification);
+        NotificationService.io
+          .to(userEmail)
+          .emit('new-notification', notification);
         console.log(`Real-time notification sent to ${userEmail}`);
       }
 
@@ -51,7 +53,7 @@ export class NotificationService {
   static async markAllAsRead(userEmail: string) {
     return await NotificationsModel.updateMany(
       { userEmail, isNew: true },
-      { isNew: false }
+      { isNew: false },
     );
   }
 }
