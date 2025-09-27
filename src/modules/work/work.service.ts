@@ -129,7 +129,7 @@ export const getPipelineDataFromDB = async (employeeEmail: string) => {
 
 export const getAdminPipelineDataFromDB = async () => {
   return await WorkModel.find({
-    leadsStatus: { $not: /Confirmed/i },
+    // leadsStatus: { $not: /Confirmed/i },
   }).select({
     name: true,
     phone: true,
