@@ -3,7 +3,7 @@ import { TAppointmentDate } from './appointmentDate.interface';
 
 const appointmentDateSchema = new Schema<TAppointmentDate>(
   {
-    uniqueNumber: { type: String, unique: true }, // optional
+    uniqueNumber: { type: String }, // optional
     assignedTo: { type: String, required: true }, // ✅ required
     workId: { type: Schema.Types.ObjectId, ref: 'Work', required: true }, // ✅ required
     name: { type: String }, // optional
