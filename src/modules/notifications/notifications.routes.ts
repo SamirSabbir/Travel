@@ -84,4 +84,36 @@ router.patch('/mark-all-read', async (req, res) => {
   }
 });
 
+// POST /notifications/test - Test notification endpoint (optional, for debugging)
+router.post('/test', async (req, res) => {
+  try {
+    const { userEmail, message } = req.body;
+
+    if (!userEmail) {
+      return res.status(400).json({
+        success: false,
+        message: 'User email is required',
+      });
+    }
+
+    const notification = await NotificationService.createNotification(
+      message || 'Test notification from API',
+      userEmail,
+      { type: 'test' },
+    );
+
+    res.status(201).json({
+      success: true,
+      message: 'Test notification created',
+      data: notification,
+    });
+  } catch (error) {
+    console.error('Error creating test notification:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create test notification',
+    });
+  }
+});
+
 export const notificationRoutes = router;
