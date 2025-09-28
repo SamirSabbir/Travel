@@ -33,10 +33,15 @@ export const updateHotelByIdController = async (
 ) => {
   try {
     const { id } = req.params;
-    const userEmail = req.user.userEmail;
+    const userEmail = req?.user?.userEmail;
     const updateData = req.body;
 
-    const updatedHotel = await updateHotelByIdInDB(id, userEmail, updateData);
+    const updatedHotel = await updateHotelByIdInDB(
+      id,
+      userEmail,
+      req?.user?.userName,
+      updateData,
+    );
     res.json(updatedHotel);
   } catch (err) {
     res.status(500).json({ message: 'Failed to update hotel', error: err });

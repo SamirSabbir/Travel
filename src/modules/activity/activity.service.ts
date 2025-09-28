@@ -63,7 +63,7 @@ export class ActivityService {
     userId?: string;
     userEmail: string;
     userName?: string;
-    workId?: string;
+    workId?: string | null;
     action: string;
     message?: string;
     meta?: Record<string, any>;
@@ -132,6 +132,7 @@ export class ActivityService {
       userName: 1,
       socketId: 1,
       lastSeen: 1,
+      isOnline: 1,
     });
   }
 

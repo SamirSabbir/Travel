@@ -1,3 +1,5 @@
+import { ActivityModel } from '../activity/activity.model';
+import { ActivityService } from '../activity/activity.service';
 import { PaymentModel } from '../payment/payment.model';
 import { WorkModel } from '../work/work.model';
 import { TLeads } from './leads.interface';
@@ -40,18 +42,21 @@ export const updateConfirmLeads = async (
   const result = await LeadsModel.findOneAndUpdate(
     { _id, employeeEmails: employeeEmail },
     { isConfirmed: data?.status },
+    { new: true }, // ✅ return updated doc
   );
-  console.log(result?._id);
+
+  if (!result) {
+    throw new Error('Lead not found or employee not authorized');
+  }
+
   const isWorkExist = await WorkModel.findOne({
     leadId: result?._id,
   });
-  console.log(isWorkExist ? true : false);
+
   if (isWorkExist) {
     await WorkModel.updateOne(
       { leadId: result?._id },
-      {
-        leadsStatus: data.status,
-      },
+      { leadsStatus: data.status },
     );
   } else {
     const paymentDetails = await PaymentModel.create({});
@@ -65,11 +70,28 @@ export const updateConfirmLeads = async (
       name: result?.customerName,
       phone: result?.phoneNumber,
     });
+
     await PaymentModel.updateOne(
       { _id: paymentDetails._id },
       { workId: work._id },
     );
   }
+
+  // ✅ Create Activity (big notification) if status is Confirmed
+  if (data.status === 'Confirmed') {
+    await ActivityService.recordActivity({
+      userEmail: employeeEmail,
+      userName: result?.customerName ?? 'Unknown',
+      workId: isWorkExist?._id?.toString() ?? null,
+      action: 'Lead Confirmed',
+      message: `Lead ${result?.customerName} has been confirmed.`,
+      meta: {
+        phone: result?.phoneNumber,
+        leadId: result?._id,
+      },
+    });
+  }
+
   return result;
 };
 
@@ -78,18 +100,34 @@ export const updateConfirmLeadsWithWorkId = async (
   employeeEmail: string,
   data: any,
 ) => {
-  const isWorkExist = await WorkModel.findOne({
-    _id,
-  });
+  // 1. Find the work
+  const isWorkExist = await WorkModel.findOne({ _id });
   if (!isWorkExist) {
-    throw Error("Work doesn't exist!");
+    throw new Error("Work doesn't exist!");
   }
-  const work = await WorkModel.updateOne(
+
+  // 2. Update the leadsStatus
+  const work = await WorkModel.findOneAndUpdate(
     { _id },
-    {
-      leadsStatus: data.status,
-    },
+    { leadsStatus: data.status },
+    { new: true },
   );
+
+  // 3. Only record activity if status = "Confirmed"
+  if (work && data.status === 'Confirmed') {
+    await ActivityService.recordActivity({
+      userEmail: employeeEmail,
+      userName: work.name ?? 'Unknown',
+      workId: work._id.toString(),
+      action: 'Lead Confirmed',
+      message: `Lead "${work.name}" has been confirmed.`,
+      meta: {
+        status: data.status,
+        leadId: work.leadId,
+        phone: work.phone,
+      },
+    });
+  }
 
   return work;
 };

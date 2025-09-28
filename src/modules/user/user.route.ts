@@ -21,7 +21,7 @@ const userRoutes = express.Router();
 userRoutes.post('/register', upload.single('photo'), createUser);
 userRoutes.post(
   '/create-admin',
-  auth('SuperAdmin', 'Admin'),
+  auth('SuperAdmin', 'AccountAdmin'),
   upload.single('photo'),
   createAdminUser,
 );

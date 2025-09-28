@@ -33,10 +33,15 @@ export const updateTicketByIdController = async (
 ) => {
   try {
     const { id } = req.params;
-    const userEmail = req.user.userEmail;
+    const userEmail = req?.user?.userEmail;
     const updateData = req.body;
 
-    const updatedTicket = await updateTicketByIdInDB(id, userEmail, updateData);
+    const updatedTicket = await updateTicketByIdInDB(
+      id,
+      userEmail,
+      req?.user?.userName,
+      updateData,
+    );
     res.json(updatedTicket);
   } catch (err) {
     res.status(500).json({ message: 'Failed to update ticket', error: err });

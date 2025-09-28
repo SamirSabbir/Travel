@@ -43,12 +43,13 @@ export const updateAppointmentByIdController = async (
 ) => {
   try {
     const { id } = req.params;
-    const userEmail = req.user.userEmail; // assuming client sends userEmail in body
+    const userEmail = req?.user?.userEmail; // assuming client sends userEmail in body
     const updateData = req.body;
 
     const updatedAppointment = await updateAppointmentByIdInDB(
       id,
       userEmail,
+      req?.user?.userName,
       updateData,
     );
     res.json(updatedAppointment);

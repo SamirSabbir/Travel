@@ -1,5 +1,6 @@
 import { TicketModel } from './ticket.model';
 import { TTicket } from './ticket.interface';
+import { ActivityService } from '../activity/activity.service';
 
 export const getAllTicketsFromDB = async () => {
   return await TicketModel.find();
@@ -14,11 +15,25 @@ export const getTicketByAssignedToFromDB = async (userEmail: string) => {
 export const updateTicketByIdInDB = async (
   id: string,
   userEmail: string,
+  userName: string,
   updateData: Partial<TTicket>,
 ) => {
   const result = await TicketModel.findOneAndUpdate(
     { _id: id, assignedTo: userEmail },
     updateData,
+    { new: true },
   ).populate('workId');
+
+  if (result) {
+    await ActivityService.recordActivity({
+      userEmail,
+      userName,
+      workId: result.workId.toString(),
+      action: 'Ticket Updated',
+      message: `Updated Ticket details for work "${result?.workId?.name}".`,
+      meta: updateData,
+    });
+  }
+
   return result;
 };

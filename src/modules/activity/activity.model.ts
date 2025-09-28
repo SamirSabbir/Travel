@@ -1,11 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 import { TActivity } from './activity.interface';
 
-
-
 const activitySchema = new Schema<TActivity>(
   {
-    userId: { type: Schema.Types.ObjectId, ref: 'User', required: false },
     userEmail: { type: String, required: true, index: true },
     userName: { type: String },
     workId: { type: Schema.Types.ObjectId, ref: 'Work', required: false },

@@ -42,6 +42,7 @@ export const updateTransferByIdController = async (
     const updatedTransfer = await updateTransferByIdInDB(
       id,
       userEmail,
+      req?.user?.userName,
       updateData,
     );
     res.json(updatedTransfer);

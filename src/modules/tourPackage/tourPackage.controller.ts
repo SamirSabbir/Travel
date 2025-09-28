@@ -46,6 +46,7 @@ export const updateTourPackageByIdController = async (
     const updatedTour = await updateTourPackageByIdInDB(
       id,
       userEmail,
+      req?.user?.userName,
       updateData,
     );
     res.json(updatedTour);

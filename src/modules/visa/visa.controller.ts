@@ -31,10 +31,15 @@ export const getVisaByAssignedToController = async (
 export const updateVisaByIdController = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const userEmail = req.user.userEmail;
+    const userEmail = req?.user.userEmail;
     const updateData = req.body;
 
-    const updatedVisa = await updateVisaCustomerDetailsByIdInDB(id, userEmail, updateData);
+    const updatedVisa = await updateVisaCustomerDetailsByIdInDB(
+      id,
+      userEmail,
+      req?.user.userName,
+      updateData,
+    );
     res.json(updatedVisa);
   } catch (err) {
     res.status(500).json({ message: 'Failed to update visa', error: err });

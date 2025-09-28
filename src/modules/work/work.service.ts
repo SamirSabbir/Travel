@@ -1,10 +1,13 @@
+import { ActivityService } from '../activity/activity.service';
 import { AppointmentDateModel } from '../appointmentDate/appointmentDate.model';
 import { HotelModel } from '../hotel/hotel.model';
+import { NotificationService } from '../notifications/notifications.services';
 import { TPayment } from '../payment/payment.interface';
 import { PaymentModel } from '../payment/payment.model';
 import { TicketModel } from '../ticket/ticket.model';
 import { TourPackageModel } from '../tourPackage/tourPackage.model';
 import { TransferModel } from '../transfer/transfer.model';
+import { UserModel } from '../user/user.model';
 import { VisaModel } from '../visa/visa.model';
 import { WorkRecordModel } from '../workRecords/workRecord.model';
 import { TWork } from './work.interface';
@@ -40,7 +43,7 @@ export const updateWorkStatusWithEmployee = async (
 ) => {
   const result = await WorkModel.findOneAndUpdate(
     { _id, employeeEmail, isApplied: false },
-    data
+    data,
   );
   if (!result) {
     throw new Error('Invalid work ID');
@@ -156,35 +159,48 @@ export const getAllUnapprovedWorksFromDB = async () => {
 
 export const approveWorkInDB = async (_id: string) => {
   const work = await WorkModel.findOne({ _id });
-  if (work?.paymentStatus === 'Partial Payment') {
-    return await WorkModel.updateOne(
-      {
-        _id,
-        isApplied: true,
-        workStatus: 'Pending',
-      },
-      {
-        workStatus: 'Pending',
-        isApplied: false,
-      },
+  if (!work) {
+    throw new Error('Work not found!');
+  }
+
+  let updatedWork;
+
+  // Case 2: Full Payment → Completed
+  if (work.paymentStatus === 'Full Payment') {
+    updatedWork = await WorkModel.findOneAndUpdate(
+      { _id, isApplied: true, workStatus: 'Pending' },
+      { workStatus: 'Completed' },
+      { new: true },
     );
   }
-  if (work?.paymentStatus === 'Full Payment') {
-    return await WorkModel.updateOne(
-      {
-        _id,
-        isApplied: true,
-        workStatus: 'Pending',
-      },
-      {
-        workStatus: 'Completed',
-      },
+  // Case 1: Partial Payment → stays Pending
+  else {
+    updatedWork = await WorkModel.findOneAndUpdate(
+      { _id, isApplied: true, workStatus: 'Pending' },
+      { workStatus: 'Pending', isApplied: false },
+      { new: true },
     );
   }
+
+  // ✅ Send small notification only to the employee who applied
+  if (updatedWork && work.employeeEmail) {
+    await NotificationService.createNotification(
+      `Your work "${work?.name}" has been approved with status "${updatedWork?.workStatus}" and payment "${work.paymentStatus}".`,
+      work?.employeeEmail,
+      { workId: work._id },
+    );
+  }
+
+  return updatedWork;
 };
 
 export const cancelWorkInDB = async (_id: string) => {
-  return await WorkModel.updateOne(
+  const work = await WorkModel.findOne({ _id });
+  if (!work) {
+    throw new Error('Work not found!');
+  }
+
+  const updatedWork = await WorkModel.findOneAndUpdate(
     {
       _id,
       isApplied: true,
@@ -193,7 +209,19 @@ export const cancelWorkInDB = async (_id: string) => {
     {
       isApplied: false,
     },
+    { new: true },
   );
+
+  // ✅ Small notification only to employee
+  if (updatedWork && work.employeeEmail) {
+    await NotificationService.createNotification(
+      `Your work "${work.name}" has been canceled while it was pending approval.`,
+      work.employeeEmail,
+      { workId: work._id },
+    );
+  }
+
+  return updatedWork;
 };
 
 export const directApproveWorkInDB = async (_id: string, data: TPayment) => {
@@ -226,9 +254,18 @@ export const directApproveWorkInDB = async (_id: string, data: TPayment) => {
   }
 };
 
-export const applyForApproveWorkInDB = async (_id: string, data: TPayment) => {
+export const applyForApproveWorkInDB = async (
+  _id: string,
+  data: TPayment & {
+    userEmail: string;
+    userName: string;
+  },
+) => {
+  // 1. Update Payment details
   await PaymentModel.updateOne({ workId: _id }, { ...data });
-  return await WorkModel.updateOne(
+
+  // 2. Update Work details
+  const work = await WorkModel.findOneAndUpdate(
     {
       _id,
       isApplied: false,
@@ -239,12 +276,67 @@ export const applyForApproveWorkInDB = async (_id: string, data: TPayment) => {
       payment: data.amount,
       paymentStatus: data.paymentStatus,
     },
+    { new: true },
   );
+
+  // 3. If update was successful, record an activity + create notifications
+  if (work) {
+    // Big notification (Employee Activity)
+    await ActivityService.recordActivity({
+      userEmail: data.userEmail,
+      userName: data.userName,
+      workId: work._id.toString(),
+      action: 'Applied for Approval',
+      message: `Applied for approval with payment of ${data.amount} (${data.paymentStatus}).`,
+      meta: {
+        amount: data.amount,
+        status: data.paymentStatus,
+      },
+    });
+
+    // Small notifications → SuperAdmin + all AccountAdmins
+    const targetEmails: string[] = ['superadmin@example.com'];
+
+    // find all AccountAdmins
+    const accountAdmins = await UserModel.find(
+      { role: 'AccountAdmin' },
+      { email: 1 },
+    ).lean();
+
+    accountAdmins.forEach((admin) => {
+      if (admin.email) targetEmails.push(admin.email);
+    });
+
+    // send notifications to all target admins
+    await Promise.all(
+      targetEmails.map((email) =>
+        NotificationService.createNotification(
+          `${data.userEmail} applied for approval of work named "${work.name}"`,
+          email,
+          { workId: work._id },
+        ),
+      ),
+    );
+  }
+
+  return work;
 };
 
 export const assignServiceInDB = async (workId: string, data: any) => {
-  const { assignedTo, services } = data;
-  await WorkModel.updateOne({ _id: workId }, { serviceAssignedTo: assignedTo });
+  const { assignedTo, services, userEmail, userName } = data;
+
+  // 1. Update work with assigned employee
+  const work = await WorkModel.findOneAndUpdate(
+    { _id: workId },
+    { serviceAssignedTo: assignedTo },
+    { new: true },
+  );
+
+  if (!work) {
+    throw new Error('Work not found!');
+  }
+
+  // 2. Assign selected services
   for (const service of services) {
     switch (service) {
       case 'visa':
@@ -275,4 +367,28 @@ export const assignServiceInDB = async (workId: string, data: any) => {
         console.log(`Unknown service: ${service}`);
     }
   }
+
+  // 3. Small notification only if assignedTo is not the same as the assigner
+  if (assignedTo && assignedTo !== userEmail) {
+    await NotificationService.createNotification(
+      `You have been assigned new services [${services.join(', ')}] for work "${work.name}".`,
+      assignedTo,
+      { workId: work._id },
+    );
+  }
+
+  // 4. Big notification (Employee Activity)
+  await ActivityService.recordActivity({
+    userEmail: userEmail,
+    userName: userName,
+    workId: work._id.toString(),
+    action: 'Service Assigned',
+    message: `Assigned services [${services.join(', ')}] to ${assignedTo} for work "${work.name}".`,
+    meta: {
+      assignedTo,
+      services,
+    },
+  });
+
+  return work;
 };

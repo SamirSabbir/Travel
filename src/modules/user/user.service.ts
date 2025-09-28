@@ -1,17 +1,31 @@
 import { CommissionChartModel, KPIChartModel } from '../chart/chart.model';
+import { NotificationService } from '../notifications/notifications.services';
 import TUser from './user.interface';
 import { UserModel } from './user.model';
 import bcrypt from 'bcrypt';
 
 const SALT_ROUNDS = 10;
 
-// Create a new user (Employee or other roles)
 export const createUserIntoDB = async (userData: TUser) => {
+  // 1. Hash the password
   const hashedPassword = await bcrypt.hash(userData.password, SALT_ROUNDS);
+
+  // 2. Create the user
   const result = await UserModel.create({
     ...userData,
     password: hashedPassword,
   });
+
+  // 3. Send small notification to Super Admin for every new user
+  const superAdmin = await UserModel.findOne({ role: 'SuperAdmin' }).lean();
+  if (superAdmin?.email) {
+    await NotificationService.createNotification(
+      `New user application: ${userData.name} (${userData.email})`,
+      superAdmin.email,
+      { userId: result._id.toString() },
+    );
+  }
+
   return result;
 };
 

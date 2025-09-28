@@ -241,13 +241,6 @@ export const approveWork = async (req: Request, res: Response) => {
   try {
     const result = await approveWorkInDB(req.params.workId);
 
-    if (result.modifiedCount === 0) {
-      return res.status(404).json({
-        success: false,
-        message: 'Work not found or already approved',
-      });
-    }
-
     res.status(200).json({
       success: true,
       message: 'Work approved successfully',
@@ -312,7 +305,11 @@ export const directApproveWork = async (req: Request, res: Response) => {
 // Add the missing controller function
 export const applyForWorkApproval = async (req: Request, res: Response) => {
   try {
-    const result = await applyForApproveWorkInDB(req.params.workId, req.body);
+    const result = await applyForApproveWorkInDB(req.params.workId, {
+      ...req.body,
+      userName: req.user.userName,
+      userEmail: req.user.userEmail,
+    });
 
     if (result.modifiedCount === 0) {
       return res.status(404).json({
@@ -361,7 +358,11 @@ export const assignWorkWithEmployeeController = async (
 export const assignServiceController = async (req: Request, res: Response) => {
   try {
     const { workId } = req.params;
-    const result = await assignServiceInDB(workId, req.body);
+    const result = await assignServiceInDB(workId, {
+      ...req.body,
+      userEmail: req.user.userEmail,
+      userName: req.user.userName,
+    });
 
     res.status(200).json({
       success: true,

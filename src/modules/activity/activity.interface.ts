@@ -1,7 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 export type TActivity = {
-  userId?: mongoose.Types.ObjectId | string;
   userEmail: string;
   userName?: string;
   workId?: mongoose.Types.ObjectId | string;
