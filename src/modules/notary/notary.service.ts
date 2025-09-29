@@ -1,8 +1,10 @@
 import { NotaryModel } from './notary.model';
 import { TNotary } from './notary.interface';
 import { ExpenseModel } from '../expense/expense.model';
+import { ActivityService } from '../activity/activity.service'; // Import activity service
 
 export const createNotaryInDB = async (payload: TNotary) => {
+  // 1. Create expense entry
   await ExpenseModel.create({
     title: `Notary Service - ${payload.clientName || 'Unknown Client'}`,
     category: 'Notary',
@@ -10,9 +12,26 @@ export const createNotaryInDB = async (payload: TNotary) => {
     date: payload.date || new Date(),
     paymentMethod: 'Cash', // or dynamic from payload
     description: `Notary expense for ${payload.documents || 'documents'}`,
-    // employee id if available
   });
+
+  // 2. Create notary record
   const notary = await NotaryModel.create(payload);
+
+  // 3. Create big notification (Activity)
+  await ActivityService.recordActivity({
+    userEmail: payload?.employeeEmail, // employee responsible
+    userName: payload.clientName || 'Unknown Client',
+    workId: null, // optional, if you have a related workId
+    action: 'Notary Created',
+    message: `New Notary created for ${payload.clientName || 'Unknown Client'}.`,
+    meta: {
+      notaryId: notary._id,
+      documents: payload.documents,
+      bill: payload.bill,
+      date: payload.date,
+    },
+  });
+
   return notary;
 };
 
