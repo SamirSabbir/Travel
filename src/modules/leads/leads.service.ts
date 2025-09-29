@@ -21,7 +21,7 @@ const scheduleFollowUpReminder = async (
   await agenda.cancel({ 'data.leadId': leadId, name: 'follow-up reminder' });
 
   // Schedule a new reminder in 2 minutes (for testing) or 2 days in production
-  await agenda.schedule('in 2 minutes', 'follow-up reminder', {
+  await agenda.schedule('in 1 minute', 'follow-up reminder', {
     leadId,
     employeeEmail,
   });

@@ -8,8 +8,8 @@ const LeadsSchema = new Schema<TLeads>(
       ref: 'LeadsManage',
       required: true,
     },
-    uuId:{
-      type:String,
+    uuId: {
+      type: String,
     },
     country: { type: String },
     description: { type: String, required: true },
@@ -34,7 +34,7 @@ const LeadsSchema = new Schema<TLeads>(
         'Confirmed',
         'Follow-up',
         'Follow-up 1',
-        'Followed-up 2',
+        'Follow-up 2',
         'Very Interested',
       ],
     },
