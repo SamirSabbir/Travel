@@ -27,7 +27,7 @@ export const updateHotelByIdInDB = async (
     await ActivityService.recordActivity({
       userEmail,
       userName,
-      workId: result.workId?.toString(),
+      workId: updateData.workId as any,
       action: 'Hotel Updated',
       message: `Updated Hotel details for work "${result?.workId?.name}".`,
       meta: updateData,
