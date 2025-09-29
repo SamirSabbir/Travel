@@ -12,6 +12,7 @@ const ticketSchema = new Schema<TTicket>(
     amount: { type: Number },
     bookedOn: { type: Date },
     travelDate: { type: Date },
+    action: {type:String},
     assignedTo: { type: String, required: true },
     workId: { type: Schema.Types.ObjectId, ref: 'Work', required: true },
   },
