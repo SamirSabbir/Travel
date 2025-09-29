@@ -37,7 +37,7 @@ function calculateNights(from?: string, to?: string): number {
 // 🔹 Pre-save (for .save())
 hotelSchema.pre('save', function (next) {
   const nights = calculateNights(this.night?.from, this.night?.to);
-  this.totalPrice = nights * (this.perNightPrice ?? 0) * (this.room ?? 0);
+  this.totalPrice = (nights+1) * (this.perNightPrice ?? 0) * (this.room ?? 0);
   next();
 });
 
