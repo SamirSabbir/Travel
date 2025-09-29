@@ -4,6 +4,7 @@ import { createServer, Server as HTTPServer } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import router from './routes/routes';
 import { ActivityService } from './modules/activity/activity.service';
+import config from './app/config';
 
 const app = express();
 const httpServer: HTTPServer = createServer(app);
@@ -11,7 +12,7 @@ const httpServer: HTTPServer = createServer(app);
 // Initialize Socket.IO
 const io = new SocketIOServer(httpServer, {
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: config.clientURL || 'http://localhost:5173',
     methods: ['GET', 'POST'],
   },
 });
