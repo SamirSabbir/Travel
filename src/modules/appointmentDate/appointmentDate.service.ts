@@ -28,7 +28,7 @@ export const updateAppointmentByIdInDB = async (
     await ActivityService.recordActivity({
       userEmail,
       userName,
-      workId: result.workId?.toString(),
+      workId: updateData.workId as any,
       action: 'Appointment Updated',
       message: `Updated Appointment details for work "${result.workId?.name}".`,
       meta: updateData,
