@@ -47,7 +47,7 @@ const visaSchema = new Schema<TVisa>(
     email: { type: String },
     phone: { type: String },
     details: { type: String },
-
+    visaStatus: { type: String },
     // Relations
     assignedTo: { type: String, required: true },
     workId: { type: Schema.Types.ObjectId, ref: 'Work', required: true },
