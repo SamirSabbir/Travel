@@ -32,7 +32,7 @@ export const updateVisaCustomerDetailsByIdInDB = async (
     { _id: id, assignedTo: userEmail},
     { ...updateData, isSubmitted: true },
     { new: true }
-  ).populate('workId');
+  ) 
 
   if (result) {
     await ActivityService.recordActivity({
