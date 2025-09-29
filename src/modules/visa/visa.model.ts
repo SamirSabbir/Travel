@@ -41,8 +41,8 @@ const visaSchema = new Schema<TVisa>(
     schengenDetails: { type: schengenDetailsSchema, default: null },
 
     // General details
-    dateOfEntry: { type: Date },
-    close: { type: Date },
+    dateOfEntry: { type: String },
+    close: { type: String },
     fullName: { type: String },
     email: { type: String },
     phone: { type: String },
@@ -50,7 +50,7 @@ const visaSchema = new Schema<TVisa>(
 
     // Relations
     assignedTo: { type: String, required: true },
-    workId: { type: Schema.Types.ObjectId, ref: 'Work',},
+    workId: { type: String},
 
     // Status
     status: {
