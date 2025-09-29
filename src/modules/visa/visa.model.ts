@@ -50,7 +50,7 @@ const visaSchema = new Schema<TVisa>(
 
     // Relations
     assignedTo: { type: String, required: true },
-    workId: { type: Schema.Types.ObjectId, ref: 'Work', required: true },
+    workId: { type: Schema.Types.ObjectId, ref: 'Work',},
 
     // Status
     status: {
