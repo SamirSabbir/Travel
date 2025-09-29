@@ -22,8 +22,8 @@ export interface TVisa {
     userName: string;
     password: string;
   } | null;
-  dateOfEntry: string; // Date of entry
-  close: string; // Closing/expiry date
+  dateOfEntry: Date; // Date of entry
+  close: Date; // Closing/expiry date
   details: string; // Additional details
   status: string; // e.g. "Pending", "Approved", "Rejected"
   assignedTo: string; // user assigned to this service
