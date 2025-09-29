@@ -1,71 +1,64 @@
-import { NotaryModel } from './notary.model';
-import { TNotary } from './notary.interface';
-import { ExpenseModel } from '../expense/expense.model';
-import { ActivityService } from '../activity/activity.service'; // Import activity service
+import { INOC } from '../NOC/noc.interface';
+import { NOCModel } from '../NOC/noc.model';
+import { NotificationService } from '../notifications/notifications.services'; // import notification service
 
-export const createNotaryInDB = async (payload: TNotary) => {
-  // 1. Create expense entry
-  await ExpenseModel.create({
-    title: `Notary Service - ${payload.clientName || 'Unknown Client'}`,
-    category: 'Notary',
-    amount: payload.bill,
-    date: payload.date || new Date(),
-    paymentMethod: 'Cash', // or dynamic from payload
-    description: `Notary expense for ${payload.documents || 'documents'}`,
-  });
-
-  // 2. Create notary record
-  const notary = await NotaryModel.create(payload);
-
-  // 3. Create big notification (Activity)
-  await ActivityService.recordActivity({
-    userEmail: payload?.employeeEmail, // employee responsible
-    userName: payload.clientName || 'Unknown Client',
-    workId: null, // optional, if you have a related workId
-    action: 'Notary Created',
-    message: `New Notary created for ${payload.clientName || 'Unknown Client'}.`,
-    meta: {
-      notaryId: notary._id,
-      documents: payload.documents,
-      bill: payload.bill,
-      date: payload.date,
-    },
-  });
-
-  return notary;
+export const getAllNOCsFromDB = async () => {
+  return await NOCModel.find({ approved: false, cancelled: false });
 };
 
-// Get all notary records
-export const getAllNotariesFromDB = async () => {
-  return await NotaryModel.find();
+export const getNOCByAssignedToFromDB = async (userEmail: string) => {
+  return await NOCModel.findOne({ assignedTo: userEmail });
 };
 
-// Update notary by id
-export const updateNotaryByIdInDB = async (
-  id: string,
-  updateData: Partial<TNotary>,
-) => {
-  return await NotaryModel.findByIdAndUpdate(id, updateData, { new: true });
+export const createNOCInDB = async (data: INOC) => {
+  const noc = await NOCModel.create(data);
+
+  // Small notification to assigned user
+  if (noc.assignedTo) {
+    await NotificationService.createNotification(
+      `New NOC assigned to you: ${noc.title || 'N/A'}`,
+      noc.assignedTo,
+      { nocId: noc._id },
+    );
+  }
+
+  return noc;
 };
 
-// Delete notary by id
-export const deleteNotaryByIdInDB = async (id: string) => {
-  return await NotaryModel.findByIdAndDelete(id);
+export const ApproveNOCByIdInDB = async (id: string, userEmail: string) => {
+  const result = await NOCModel.findOneAndUpdate(
+    { _id: id },
+    { approved: true, approvedBy: userEmail },
+    { new: true },
+  );
+
+  if (result?.assignedTo) {
+    // Small notification to assigned user
+    await NotificationService.createNotification(
+      `Your NOC "${result.title || 'N/A'}" has been approved by ${userEmail}`,
+      result.assignedTo,
+      { nocId: result._id },
+    );
+  }
+
+  return result;
 };
 
-// Get monthly total bill
-export const getMonthlyNotaryTotal = async (year: number, month: number) => {
-  const result = await NotaryModel.aggregate([
-    {
-      $match: {
-        date: {
-          $gte: new Date(year, month - 1, 1),
-          $lte: new Date(year, month, 0),
-        },
-      },
-    },
-    { $group: { _id: null, totalBill: { $sum: '$bill' } } },
-  ]);
+export const cancelNOCByIdInDB = async (id: string, userEmail: string) => {
+  const result = await NOCModel.findOneAndUpdate(
+    { _id: id },
+    { cancelled: true, cancelledBy: userEmail },
+    { new: true },
+  );
 
-  return result[0]?.totalBill || 0;
+  if (result?.assignedTo) {
+    // Small notification to assigned user
+    await NotificationService.createNotification(
+      `Your NOC "${result.title || 'N/A'}" has been cancelled by ${userEmail}`,
+      result.assignedTo,
+      { nocId: result._id },
+    );
+  }
+
+  return result;
 };
