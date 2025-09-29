@@ -22,25 +22,25 @@ export const updateVisaByIdInDB = async (
   return result;
 };
 
-export const updateVisaCustomerDetailsByIdInDB = async ( 
+export const updateVisaCustomerDetailsByIdInDB = async (
   id: string,
   userEmail: string,
   userName: string,
   updateData: Partial<TVisa>,
 ) => {
-  const result = await VisaModel.findOneAndUpdate(
-    { _id: id, assignedTo: userEmail},
+  const result = await VisaModel.updateOne(
+    { _id: id, assignedTo: userEmail },
     { ...updateData, isSubmitted: true },
-    { new: true }
-  ) 
+    { new: true },
+  ).populate('workId');
 
   if (result) {
     await ActivityService.recordActivity({
       userEmail,
       userName,
-      workId: result.workId?.toString(),
+      workId: updateData?.workId as any,
       action: 'Visa Updated',
-      message: `Updated Visa details for work "${result.workId?.name}".`,
+      message: `Updated Visa details for work "${result?.workId?.name}".`,
       meta: updateData,
     });
   }

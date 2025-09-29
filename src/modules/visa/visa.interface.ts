@@ -27,7 +27,7 @@ export interface TVisa {
   details: string; // Additional details
   status: string; // e.g. "Pending", "Approved", "Rejected"
   assignedTo: string; // user assigned to this service
-  workId: string;
+  workId: mongoose.ObjectId;
   fullName: string;
   email: string;
   phone: string;
