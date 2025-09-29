@@ -42,7 +42,7 @@ const visaSchema = new Schema<TVisa>(
 
     // General details
     dateOfEntry: { type: Date },
-    close: { type: Date },
+    close: { type: String },
     fullName: { type: String },
     email: { type: String },
     phone: { type: String },
