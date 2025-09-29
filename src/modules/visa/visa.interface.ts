@@ -31,4 +31,5 @@ export interface TVisa {
   fullName: string;
   email: string;
   phone: string;
+  visaStatus: string;
 }
