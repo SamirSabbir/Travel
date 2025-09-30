@@ -4,7 +4,7 @@ import { ExpenseModel } from '../expense/expense.model';
 import { TExpense } from '../expense/expense.interface';
 
 export const createLunchInDB = async (payload: TLunch) => {
-  return console.log(payload.bill, payload.date)
+  return console.log('bill', payload.bill, 'data', payload.date)
   // if(payload){
   //   const savingPayload = {
   //   title: `Lunch Expense - ${payload.source || 'Unknown Source'}`,
