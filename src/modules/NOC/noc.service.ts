@@ -1,12 +1,12 @@
-import { NOCModel } from './noc.model';
 import { INOC } from './noc.interface';
-import { NotificationService } from '../notifications/notifications.services'; // import notification service
+import { NOCModel } from './noc.model';
+import { NotificationService } from '../notifications/notifications.services';
 
 export const getAllNOCsFromDB = async () => {
   return await NOCModel.find({ approved: false, cancelled: false });
 };
 
-// Get NOC by assigned user (email)
+// Get NOC by assigned email
 export const getNOCByAssignedToFromDB = async (email: string) => {
   return await NOCModel.findOne({ email });
 };
@@ -15,10 +15,10 @@ export const getNOCByAssignedToFromDB = async (email: string) => {
 export const createNOCInDB = async (data: INOC) => {
   const noc = await NOCModel.create(data);
 
-  // Send small notification to the assigned employee
+  // Small notification to the employee
   if (noc.email) {
     await NotificationService.createNotification(
-      `New NOC created for you: ${noc.name} (${noc.purpose})`,
+      `New NOC request created for ${noc.name} (${noc.purpose})`,
       noc.email,
       { nocId: noc._id },
     );
@@ -36,9 +36,9 @@ export const ApproveNOCByIdInDB = async (id: string, userEmail: string) => {
   );
 
   if (result?.email) {
-    // Small notification to the assigned employee
+    // Small notification to the employee
     await NotificationService.createNotification(
-      `Your NOC "${result.name}" has been approved by ${userEmail}`,
+      `Your NOC for ${result.name} (${result.purpose}) has been approved by ${userEmail}`,
       result.email,
       { nocId: result._id },
     );
@@ -56,9 +56,9 @@ export const cancelNOCByIdInDB = async (id: string, userEmail: string) => {
   );
 
   if (result?.email) {
-    // Small notification to the assigned employee
+    // Small notification to the employee
     await NotificationService.createNotification(
-      `Your NOC "${result.name}" has been cancelled by ${userEmail}`,
+      `Your NOC for ${result.name} (${result.purpose}) has been cancelled by ${userEmail}`,
       result.email,
       { nocId: result._id },
     );

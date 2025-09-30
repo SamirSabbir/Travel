@@ -12,8 +12,8 @@ const httpServer: HTTPServer = createServer(app);
 // Initialize Socket.IO
 const io = new SocketIOServer(httpServer, {
   cors: {
-    origin: config.clientURL || 'http://localhost:5173',
-    methods: ['GET', 'POST'],
+    origin: config.clientURL || 'https://travel-trip-client.vercel.app',
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   },
 });
 
@@ -79,7 +79,7 @@ export { app, httpServer, io };
 
 // const io = new SocketIOServer(httpServer, {
 //   cors: {
-//     origin: process.env.CLIENT_URL || 'http://localhost:5173',
+//     origin: process.env.CLIENT_URL || '',
 //     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
 //   },
 // });

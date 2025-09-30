@@ -18,7 +18,7 @@ export class NotificationService {
       const notification = await NotificationsModel.create({
         message,
         userEmail,
-        isNew: true,
+        newIs: true,
         ...context,
       });
 
@@ -39,7 +39,7 @@ export class NotificationService {
   static async markAsRead(notificationId: string, userEmail: string) {
     return await NotificationsModel.findOneAndUpdate(
       { _id: notificationId, userEmail },
-      { isNew: false },
+      { newIs: false },
       { new: true },
     );
   }
@@ -52,8 +52,8 @@ export class NotificationService {
 
   static async markAllAsRead(userEmail: string) {
     return await NotificationsModel.updateMany(
-      { userEmail, isNew: true },
-      { isNew: false },
+      { userEmail, newIs: true },
+      { newIs: false },
     );
   }
 }

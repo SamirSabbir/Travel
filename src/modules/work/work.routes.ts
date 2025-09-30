@@ -63,19 +63,19 @@ workRoutes.patch(
 workRoutes.patch(
   '/cancel-work/:workId',
   auth('SuperAdmin', 'AccountAdmin'),
-  cancelWorkController,
+  cancelWorkController as any,
 );
 
 workRoutes.patch(
   '/direct-approve-work/:workId',
   auth('SuperAdmin', 'AccountAdmin'),
-  directApproveWork,
+  directApproveWork as any,
 );
 
 workRoutes.patch(
   '/apply-approval/:workId',
   auth('Employee'),
-  applyForWorkApproval,
+  applyForWorkApproval as any,
 );
 
 // Work assignment route
