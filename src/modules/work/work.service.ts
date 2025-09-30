@@ -123,7 +123,7 @@ export const getPipelineDataFromDB = async (employeeEmail: string) => {
     name: true,
     phone: true,
     workStatus: true,
-    leadStatus: true,
+    leadsStatus: true,
   });
 };
 
@@ -134,7 +134,7 @@ export const getAdminPipelineDataFromDB = async () => {
     name: true,
     phone: true,
     workStatus: true,
-    leadStatus: true,
+    leadsStatus: true,
   });
 };
 
@@ -146,7 +146,7 @@ export const getMyPipelineDataFromDB = async (employeeEmail: string) => {
     name: true,
     phone: true,
     workStatus: true,
-    leadStatus: true,
+    leadsStatus: true,
   });
 };
 
