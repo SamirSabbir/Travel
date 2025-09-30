@@ -9,7 +9,7 @@ export const createOfficeSupplyInDB = async (payload: TOfficeSupplies) => {
 
   // 2️⃣ Create corresponding expense entry
   await ExpenseModel.create({
-    title: `Office Supply - ${payload.items || 'Unknown Item'}`,
+    title: `Office Supply - ${payload.item || 'Unknown Item'}`,
     category: 'Office Supplies',
     amount: Number(payload.total) || 0,
     date: payload.date ? new Date(payload.date) : new Date(),
