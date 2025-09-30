@@ -1,5 +1,5 @@
   export type TLunch = {
-    date?: Date;
+    date?: string;
     lunchBoxesNo?: number;
     source?: string;
     note?: string;
