@@ -11,7 +11,7 @@ const NotificationsSchema = new Schema<TNotifications>(
       type: String,
       required: true,
     },
-    isNew: {
+    newIs: {
       type: Boolean,
       default: true,
     },
