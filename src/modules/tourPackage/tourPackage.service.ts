@@ -28,7 +28,7 @@ export const updateTourPackageByIdInDB = async (
     await ActivityService.recordActivity({
       userEmail,
       userName,
-      workId: result?.workId?.toString(),
+      workId: updateData?.workId as any,
       action: 'Tour Package Updated',
       message: `Updated Tour Package details for work "${result?.workId?.name}".`,
       meta: updateData,

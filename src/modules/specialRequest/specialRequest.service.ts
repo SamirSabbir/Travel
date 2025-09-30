@@ -1,62 +1,23 @@
 import { SpecialRequestModel } from './specialRequest.model';
 import { ISpecialRequest } from './specialRequest.interface';
 import { UserModel } from '../user/user.model';
+import { NotificationService } from '../notifications/notifications.services';
 
+const SUPER_ADMIN_EMAIL = 'superadmin@example.com'; // adjust as needed
+
+// Get all pending special requests
 export const getAllSpecialRequestsFromDB = async () => {
   return await SpecialRequestModel.find({ approved: false, cancelled: false });
 };
 
+// Get special request by assigned user
 export const getSpecialRequestByAssignedToFromDB = async (
   userEmail: string,
 ) => {
-  return await SpecialRequestModel.findOne({ assignedTo: userEmail });
+  return await SpecialRequestModel.findOne({ userEmail });
 };
 
-export const approveSpecialRequestByIdInDB = async (
-  id: string,
-  adminEmail: string,
-) => {
-  const request = await SpecialRequestModel.findById(id);
-  if (!request) throw new Error('Request not found');
-
-  const user = await UserModel.findOne({ email: request.userEmail });
-  if (!user) throw new Error('User not found');
-
-  // Deduct balances only now
-  if (request.type === 'CasualLeave' && request.leaveDates) {
-    user.remainingCasualLeaves -= request.leaveDates.length;
-  }
-
-  if (request.type === 'SickLeave' && request.leaveDates) {
-    user.remainingSickLeaves -= request.leaveDates.length;
-  }
-
-  if (request.type === 'CommissionWithdrawal') {
-    user.Commission -= request.commissionAmount ?? 0;
-  }
-
-  await user.save();
-
-  const result = await SpecialRequestModel.findOneAndUpdate(
-    { _id: id },
-    { approved: true, approvedBy: adminEmail },
-    { new: true },
-  );
-
-  return result;
-};
-
-export const cancelSpecialRequestByIdInDB = async (
-  id: string,
-  userEmail: string,
-) => {
-  const result = await SpecialRequestModel.findOneAndUpdate(
-    { _id: id },
-    { cancelled: true, cancelledBy: userEmail },
-  );
-  return result;
-};
-
+// Create a new special request
 export const createSpecialRequestInDB = async (
   userEmail: string,
   data: ISpecialRequest,
@@ -64,7 +25,7 @@ export const createSpecialRequestInDB = async (
   const user = await UserModel.findOne({ email: userEmail });
   if (!user) throw new Error('User not found');
 
-  // Validation only
+  // Validation
   if (data.type === 'CasualLeave') {
     if (
       !data.leaveDates ||
@@ -92,9 +53,84 @@ export const createSpecialRequestInDB = async (
     }
   }
 
-  return await SpecialRequestModel.create({
+  const request = await SpecialRequestModel.create({
     ...data,
     userEmail,
     userRole: user.role,
+    userName: user.name,
   });
+
+  // Send small notification to super admin
+  await NotificationService.createNotification(
+    `New Special Request created by ${user.name} (${data.type})`,
+    SUPER_ADMIN_EMAIL,
+    { requestId: request._id },
+  );
+
+  return request;
+};
+
+// Approve special request by ID
+export const approveSpecialRequestByIdInDB = async (
+  id: string,
+  adminEmail: string,
+) => {
+  const request = await SpecialRequestModel.findById(id);
+  if (!request) throw new Error('Request not found');
+
+  const user = await UserModel.findOne({ email: request.userEmail });
+  if (!user) throw new Error('User not found');
+
+  // Deduct balances
+  if (request.type === 'CasualLeave' && request.leaveDates) {
+    user.remainingCasualLeaves -= request.leaveDates.length;
+  }
+
+  if (request.type === 'SickLeave' && request.leaveDates) {
+    user.remainingSickLeaves -= request.leaveDates.length;
+  }
+
+  if (request.type === 'CommissionWithdrawal') {
+    user.Commission -= request.commissionAmount ?? 0;
+  }
+
+  await user.save();
+
+  const result = await SpecialRequestModel.findOneAndUpdate(
+    { _id: id },
+    { approved: true, approvedBy: adminEmail },
+    { new: true },
+  );
+
+  // Send small notification to the user
+  await NotificationService.createNotification(
+    `Your Special Request "${request.type}" has been approved by ${adminEmail}`,
+    request.userEmail,
+    { requestId: result?._id },
+  );
+
+  return result;
+};
+
+// Cancel special request by ID
+export const cancelSpecialRequestByIdInDB = async (
+  id: string,
+  userEmail: string,
+) => {
+  const request = await SpecialRequestModel.findOneAndUpdate(
+    { _id: id },
+    { cancelled: true, cancelledBy: userEmail },
+    { new: true },
+  );
+
+  // Send small notification to the user
+  if (request?.userEmail) {
+    await NotificationService.createNotification(
+      `Your Special Request "${request.type}" has been cancelled by ${userEmail}`,
+      request.userEmail,
+      { requestId: request._id },
+    );
+  }
+
+  return request;
 };

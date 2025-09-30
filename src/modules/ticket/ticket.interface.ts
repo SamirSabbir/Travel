@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 // ticket.interface.ts
 export interface TTicket {
@@ -11,6 +11,7 @@ export interface TTicket {
   amount: number;
   bookedOn: Date;
   travelDate: Date;
-  assignedTo: string;        // user assigned to this service
+  assignedTo: string;
+  action: string; // user assigned to this service
   workId: mongoose.ObjectId;
 }

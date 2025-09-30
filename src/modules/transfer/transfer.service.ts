@@ -26,7 +26,7 @@ export const updateTransferByIdInDB = async (
     await ActivityService.recordActivity({
       userEmail,
       userName,
-      workId: result?.workId?.toString(),
+      workId: updateData?.workId as any,
       action: 'Transfer Updated',
       message: `Updated Transfer details for work "${result.workId?.name}".`,
       meta: updateData,

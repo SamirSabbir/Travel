@@ -23,7 +23,7 @@ export interface TVisa {
     password: string;
   } | null;
   dateOfEntry: Date; // Date of entry
-  close: Date; // Closing/expiry date
+  close: string; // Closing/expiry date
   details: string; // Additional details
   status: string; // e.g. "Pending", "Approved", "Rejected"
   assignedTo: string; // user assigned to this service
@@ -31,4 +31,5 @@ export interface TVisa {
   fullName: string;
   email: string;
   phone: string;
+  visaStatus: string;
 }
