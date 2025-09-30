@@ -14,10 +14,11 @@ export const createLunchInDB = async (payload: TLunch) => {
       payload.lunchBoxesNo || 0
     } boxes) - Note: ${payload.note || 'N/A'}`,
   };
-  await ExpenseModel.create(savingPayload);
-  const lunch = await LunchModel.create(payload);
-
-  return lunch;
+  const expense = await ExpenseModel.create(savingPayload);
+  if (expense) {
+    const lunch = await LunchModel.create(payload);
+    return lunch;
+  }
 };
 
 // Get all lunches
