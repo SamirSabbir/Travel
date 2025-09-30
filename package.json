@@ -4,12 +4,14 @@
   "main": "dist/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild src/server.ts --bundle --platform=node --outfile=dist/server.js",
+    "build": "esbuild src/server.ts --bundle --platform=node --external:bcrypt --outfile=dist/server.js",
+
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "start:dev": "ts-node-dev --respawn --transpile-only ./src/server",
-    "start:prod": "nodemon ./dist/server"
+    "start:prod": "node dist/server.js"
+
   },
   "keywords": [],
   "author": "",
