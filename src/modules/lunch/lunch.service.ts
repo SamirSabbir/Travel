@@ -1,26 +1,25 @@
 import { LunchModel } from './lunch.model';
 import { TLunch } from './lunch.interface';
 import { ExpenseModel } from '../expense/expense.model';
-
+import { TExpense } from '../expense/expense.interface';
 
 export const createLunchInDB = async (payload: TLunch) => {
-  
-  await ExpenseModel.create({
+  const savingPayload = {
     title: `Lunch Expense - ${payload.source || 'Unknown Source'}`,
     category: 'Lunch',
-    amount: payload.bill,
-    date: payload.date,
+    amount: payload.bill as any,
+    date: payload.date as any,
     paymentMethod: 'Cash', // static unless you want it dynamic
     description: `Lunch ordered from ${payload.source || 'unknown source'} (${
       payload.lunchBoxesNo || 0
     } boxes) - Note: ${payload.note || 'N/A'}`,
-    createdBy: undefined, // no employee field in TLunch, keep undefined
-  });
-  const lunch = await LunchModel.create(payload);
-
-  return lunch;
+  };
+  const expense = await ExpenseModel.create(savingPayload);
+  if (expense) {
+    const lunch = await LunchModel.create(payload);
+    return lunch;
+  }
 };
-
 
 // Get all lunches
 export const getAllLunchesFromDB = async () => {
