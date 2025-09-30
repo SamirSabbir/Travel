@@ -3,7 +3,7 @@ import { TLunch } from './lunch.interface';
 
 const lunchSchema = new Schema<TLunch>(
   {
-    date: { type: Date },
+    date: { type: String },
     lunchBoxesNo: { type: Number },
     source: { type: String },
     note: { type: String },
