@@ -12,7 +12,7 @@ const httpServer: HTTPServer = createServer(app);
 // Initialize Socket.IO
 const io = new SocketIOServer(httpServer, {
   cors: {
-    origin: config.clientURL || 'https://travel-murex-ten.vercel.app/',
+    origin: config.clientURL || 'https://travel-trip-client.vercel.app',
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   },
 });
@@ -79,7 +79,7 @@ export { app, httpServer, io };
 
 // const io = new SocketIOServer(httpServer, {
 //   cors: {
-//     origin: process.env.CLIENT_URL || 'https://travel-murex-ten.vercel.app/',
+//     origin: process.env.CLIENT_URL || '',
 //     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
 //   },
 // });
