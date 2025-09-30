@@ -1,7 +1,7 @@
 export type TOfficeSupplies = {
   date?: Date;
   productDescription?: string;
-  items?: string;
+  item?: string;
   quantity?: number;
   unitPrice?: number;
   total?: number;

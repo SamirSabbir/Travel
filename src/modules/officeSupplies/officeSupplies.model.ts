@@ -5,7 +5,7 @@ const officeSuppliesSchema = new Schema<TOfficeSupplies>(
   {
     date: { type: Date },
     productDescription: { type: String },
-    items: { type: String },
+    item: { type: String },
     quantity: { type: Number },
     unitPrice: { type: Number },
     total: { type: Number },
