@@ -29,7 +29,7 @@ export const updateHotelByIdInDB = async (
       userName,
       workId: updateData.workId as any,
       action: 'Hotel Updated',
-      message: `Updated Hotel details for work "${result?.workId?.name}".`,
+      message: `Updated Hotel details for work "${result?.workId}".`,
       meta: updateData,
     });
   }

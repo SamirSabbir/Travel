@@ -26,7 +26,7 @@ router.get('/:userEmail', async (req, res) => {
 });
 
 // PATCH /notifications/:notificationId/:userEmail/read - Mark as read
-router.patch('/:notificationId/:userEmail/read', async (req, res) => {
+router.patch('/:notificationId/:userEmail/read', async (req:any, res:any) => {
   try {
     const { notificationId, userEmail } = req.params;
 
@@ -54,10 +54,10 @@ router.patch('/:notificationId/:userEmail/read', async (req, res) => {
       message: 'Failed to mark notification as read',
     });
   }
-});
+} );
 
 // PATCH /notifications/mark-all-read - Mark all as read
-router.patch('/mark-all-read', async (req, res) => {
+router.patch('/mark-all-read', async (req:any, res:any) => {
   try {
     const { userEmail } = req.body;
 
@@ -85,7 +85,7 @@ router.patch('/mark-all-read', async (req, res) => {
 });
 
 // POST /notifications/test - Test notification endpoint (optional, for debugging)
-router.post('/test', async (req, res) => {
+router.post('/test', async (req:any, res:any) => {
   try {
     const { userEmail, message } = req.body;
 

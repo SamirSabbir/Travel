@@ -6,7 +6,7 @@ import {
 } from './transfer.service';
 
 export const getAllTransfersController = async (
-  _req: Request,
+  _req: any,
   res: Response,
 ) => {
   try {
@@ -18,7 +18,7 @@ export const getAllTransfersController = async (
 };
 
 export const getTransferByAssignedToController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -31,7 +31,7 @@ export const getTransferByAssignedToController = async (
 };
 
 export const updateTransferByIdController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {

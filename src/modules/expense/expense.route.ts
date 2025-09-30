@@ -17,7 +17,7 @@ router.get(
 router.get(
   '/download',
   auth('SuperAdmin', 'AccountAdmin'),
-  ExpenseController.downloadExpenseSheet,
+  ExpenseController?.downloadExpenseSheet as any,
 );
 
 export const ExpenseRoutes = router;

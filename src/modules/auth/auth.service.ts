@@ -33,7 +33,7 @@ const loginUser = async (payload: TLoginUser) => {
       userRole: isUserExist.role,
       userName: isUserExist.name,
       photo: isUserExist.photo,
-      commission: isUserExist.Commission,
+      commission: isUserExist?.commission as any,
       sickLeaves: isUserExist.remainingCasualLeaves,
       casualLeaves: isUserExist.remainingSickLeaves,
     };

@@ -5,7 +5,7 @@ import {
   updateTicketByIdInDB,
 } from './ticket.service';
 
-export const getAllTicketsController = async (_req: Request, res: Response) => {
+export const getAllTicketsController = async (_req: any, res: Response) => {
   try {
     const tickets = await getAllTicketsFromDB();
     res.json(tickets);
@@ -15,7 +15,7 @@ export const getAllTicketsController = async (_req: Request, res: Response) => {
 };
 
 export const getTicketByAssignedToController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -28,7 +28,7 @@ export const getTicketByAssignedToController = async (
 };
 
 export const updateTicketByIdController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {

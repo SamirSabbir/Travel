@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import {
   getAllAppointmentsFromDB,
   getAppointmentByAssignedToFromDB,
@@ -7,7 +7,7 @@ import {
 
 // Get all appointments (admin/general)
 export const getAllAppointmentsController = async (
-  _req: Request,
+  _req: any,
   res: Response,
 ) => {
   try {
@@ -22,7 +22,7 @@ export const getAllAppointmentsController = async (
 
 // Get appointment by assignedTo (user-specific)
 export const getAppointmentByAssignedToController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -38,7 +38,7 @@ export const getAppointmentByAssignedToController = async (
 
 // Update appointment by ID and assignedTo
 export const updateAppointmentByIdController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {

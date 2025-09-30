@@ -9,7 +9,7 @@ import {
 
 // Get all
 export const getAllSalaryCertificatesController = async (
-  _req: Request,
+  _req: any,
   res: Response,
 ) => {
   try {
@@ -24,7 +24,7 @@ export const getAllSalaryCertificatesController = async (
 
 // Get by assigned user
 export const getSalaryCertificateByAssignedToController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -40,7 +40,7 @@ export const getSalaryCertificateByAssignedToController = async (
 
 // Update by ID
 export const approveSalaryCertificateByIdController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -58,7 +58,7 @@ export const approveSalaryCertificateByIdController = async (
 
 
 export const cancelSalaryCertificateByIdController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -76,7 +76,7 @@ export const cancelSalaryCertificateByIdController = async (
 
 // Create
 export const createSalaryCertificateController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {

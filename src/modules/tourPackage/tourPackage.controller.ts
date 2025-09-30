@@ -20,7 +20,7 @@ export const getAllTourPackagesController = async (
 };
 
 export const getTourPackageByAssignedToController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -35,7 +35,7 @@ export const getTourPackageByAssignedToController = async (
 };
 
 export const updateTourPackageByIdController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {

@@ -46,9 +46,9 @@ export const createSpecialRequestInDB = async (
   }
 
   if (data.type === 'CommissionWithdrawal') {
-    if ((data.commissionAmount ?? 0) > user.Commission) {
+    if ((data.commissionAmount ?? 0) > user?.commission) {
       throw new Error(
-        `You only have ${user.Commission} commission balance available`,
+        `You only have ${user.commission} commission balance available`,
       );
     }
   }
@@ -91,7 +91,7 @@ export const approveSpecialRequestByIdInDB = async (
   }
 
   if (request.type === 'CommissionWithdrawal') {
-    user.Commission -= request.commissionAmount ?? 0;
+    user.commission -= request.commissionAmount ?? 0;
   }
 
   await user.save();

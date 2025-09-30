@@ -19,7 +19,7 @@ import {
   assignServiceInDB,
 } from './work.service';
 
-export const createWorkEntry = async (req: Request, res: Response) => {
+export const createWorkEntry = async (req: any, res: Response) => {
   try {
     const { leadsId, status } = req.body;
 
@@ -31,8 +31,8 @@ export const createWorkEntry = async (req: Request, res: Response) => {
       leadId: leadsId,
       files: filePaths,
       status,
-      employeeEmail: req.user?.userEmail,
-    });
+      employeeEmail: req?.user?.userEmail,
+    } as any);
 
     res.status(201).json({
       success: true,
@@ -47,7 +47,7 @@ export const createWorkEntry = async (req: Request, res: Response) => {
   }
 };
 
-export const getPipelineData = async (req: Request, res: Response) => {
+export const getPipelineData = async (req: any, res: Response) => {
   try {
     const result = await getPipelineDataFromDB(req?.user.userEmail);
     res.status(200).json({
@@ -63,7 +63,7 @@ export const getPipelineData = async (req: Request, res: Response) => {
   }
 };
 
-export const getAdminPipelineData = async (req: Request, res: Response) => {
+export const getAdminPipelineData = async (req: any, res: Response) => {
   try {
     const result = await getAdminPipelineDataFromDB(); // Fixed: Use getAdminPipelineDataFromDB instead of getMyPipelineDataFromDB
     res.status(200).json({
@@ -79,7 +79,7 @@ export const getAdminPipelineData = async (req: Request, res: Response) => {
   }
 };
 
-export const getMyPipelineData = async (req: Request, res: Response) => {
+export const getMyPipelineData = async (req: any, res: Response) => {
   try {
     const result = await getMyPipelineDataFromDB(req.params.employeeEmail);
     res.status(200).json({
@@ -95,7 +95,7 @@ export const getMyPipelineData = async (req: Request, res: Response) => {
   }
 };
 
-export const getMyWorkData = async (req: Request, res: Response) => {
+export const getMyWorkData = async (req: any, res: Response) => {
   try {
     const result = await getAllEmployeeWorks(req.user.userEmail);
     res.status(200).json({
@@ -111,7 +111,7 @@ export const getMyWorkData = async (req: Request, res: Response) => {
   }
 };
 
-export const getAllWorkEntries = async (req: Request, res: Response) => {
+export const getAllWorkEntries = async (req: any, res: Response) => {
   try {
     const result = await getAllWorkFromDB();
     res.status(200).json({
@@ -127,7 +127,7 @@ export const getAllWorkEntries = async (req: Request, res: Response) => {
 };
 
 export const getAllEmployeeWorkEntries = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -145,7 +145,7 @@ export const getAllEmployeeWorkEntries = async (
 };
 
 export const getAllEmployeeWorkEntriesForAdmin = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -162,7 +162,7 @@ export const getAllEmployeeWorkEntriesForAdmin = async (
   }
 };
 
-export const updateWorkWithEmployee = async (req: Request, res: Response) => {
+export const updateWorkWithEmployee = async (req: any, res: Response) => {
   try {
     const result = await updateWorkStatusWithEmployee(
       req.params.workId as string,
@@ -181,7 +181,7 @@ export const updateWorkWithEmployee = async (req: Request, res: Response) => {
   }
 };
 
-export const updateWorkWithSuperAdmin = async (req: Request, res: Response) => {
+export const updateWorkWithSuperAdmin = async (req: any, res: Response) => {
   try {
     const result = await updateWorkStatusSuperAdmin(
       req.params.workId as string,
@@ -201,7 +201,7 @@ export const updateWorkWithSuperAdmin = async (req: Request, res: Response) => {
 };
 
 export const updateWorkWithAccountAdmin = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -221,7 +221,7 @@ export const updateWorkWithAccountAdmin = async (
   }
 };
 
-export const getAllUnapprovedWorks = async (req: Request, res: Response) => {
+export const getAllUnapprovedWorks = async (req: any, res: Response) => {
   try {
     const result = await getAllUnapprovedWorksFromDB();
     res.status(200).json({
@@ -237,7 +237,7 @@ export const getAllUnapprovedWorks = async (req: Request, res: Response) => {
   }
 };
 
-export const approveWork = async (req: Request, res: Response) => {
+export const approveWork = async (req: any, res: Response) => {
   try {
     const result = await approveWorkInDB(req.params.workId);
 
@@ -254,9 +254,9 @@ export const approveWork = async (req: Request, res: Response) => {
   }
 };
 
-export const cancelWorkController = async (req: Request, res: Response) => {
+export const cancelWorkController = async (req: any, res: Response) => {
   try {
-    const result = await cancelWorkInDB(req.params.workId);
+    const result:any = await cancelWorkInDB(req.params.workId);
 
     if (result.modifiedCount === 0) {
       return res.status(404).json({
@@ -278,7 +278,7 @@ export const cancelWorkController = async (req: Request, res: Response) => {
   }
 };
 
-export const directApproveWork = async (req: Request, res: Response) => {
+export const directApproveWork = async (req: any, res: Response) => {
   try {
     const result = await directApproveWorkInDB(req.params.workId, req.body);
 
@@ -303,9 +303,9 @@ export const directApproveWork = async (req: Request, res: Response) => {
 };
 
 // Add the missing controller function
-export const applyForWorkApproval = async (req: Request, res: Response) => {
+export const applyForWorkApproval = async (req: any, res: Response) => {
   try {
-    const result = await applyForApproveWorkInDB(req.params.workId, {
+    const result:any = await applyForApproveWorkInDB(req.params.workId, {
       ...req.body,
       userName: req.user.userName,
       userEmail: req.user.userEmail,
@@ -332,7 +332,7 @@ export const applyForWorkApproval = async (req: Request, res: Response) => {
 };
 
 export const assignWorkWithEmployeeController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -355,7 +355,7 @@ export const assignWorkWithEmployeeController = async (
   }
 };
 
-export const assignServiceController = async (req: Request, res: Response) => {
+export const assignServiceController = async (req: any, res: Response) => {
   try {
     const { workId } = req.params;
     const result = await assignServiceInDB(workId, {

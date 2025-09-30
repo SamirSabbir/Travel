@@ -28,7 +28,7 @@ export const updateTransferByIdInDB = async (
       userName,
       workId: updateData?.workId as any,
       action: 'Transfer Updated',
-      message: `Updated Transfer details for work "${result.workId?.name}".`,
+      message: `Updated Transfer details for work "${result.workId}".`,
       meta: updateData,
     });
   }

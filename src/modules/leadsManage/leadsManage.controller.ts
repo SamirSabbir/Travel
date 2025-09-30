@@ -6,7 +6,7 @@ import {
   getAssignedLeadsMangageFromDB,
 } from './leadsManage.service';
 
-export const createLeadsManage = async (req: Request, res: Response) => {
+export const createLeadsManage = async (req: any, res: Response) => {
   try {
     const result = await createLeadsManageInDB({
       ...req.body,
@@ -18,7 +18,7 @@ export const createLeadsManage = async (req: Request, res: Response) => {
   }
 };
 
-export const getAllLeadsManage = async (req: Request, res: Response) => {
+export const getAllLeadsManage = async (req: any, res: Response) => {
   try {
     const result = await getAllLeadsManageFromDB();
     res.status(200).json({ success: true, data: result });
@@ -28,7 +28,7 @@ export const getAllLeadsManage = async (req: Request, res: Response) => {
 };
 
 // Add this to your existing controllers
-export const assignEmailToLeadsManage = async (req: Request, res: Response) => {
+export const assignEmailToLeadsManage = async (req: any, res: Response) => {
   try {
     const { leadId } = req.params;
     const { email } = req.body;
@@ -44,7 +44,7 @@ export const assignEmailToLeadsManage = async (req: Request, res: Response) => {
   }
 };
 
-export const getMyAssignedLeadsManage = async (req: Request, res: Response) => {
+export const getMyAssignedLeadsManage = async (req: any, res: Response) => {
   try {
     const userEmail = req.user.userEmail; // Assuming user email is in the JWT
     const result = await getAssignedLeadsMangageFromDB(userEmail);

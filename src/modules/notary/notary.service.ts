@@ -19,7 +19,7 @@ export const createNotaryInDB = async (payload: TNotary) => {
 
   // 3. Create big notification (Activity)
   await ActivityService.recordActivity({
-    userEmail: payload?.employeeEmail || 'system@example.com', // employee responsible
+    userEmail: 'system@example.com', // employee responsible
     userName: payload.clientName || 'Unknown Client',
     workId: null, // optional, if you have a related workId
     action: 'Notary Created',

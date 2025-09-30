@@ -8,7 +8,7 @@ import {
 } from './specialRequest.service';
 
 export const getAllSpecialRequestsController = async (
-  _req: Request,
+  _req: any,
   res: Response,
 ) => {
   try {
@@ -20,7 +20,7 @@ export const getAllSpecialRequestsController = async (
 };
 
 export const getSpecialRequestByAssignedToController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -33,7 +33,7 @@ export const getSpecialRequestByAssignedToController = async (
 };
 
 export const approveSpecialRequestByIdController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -48,7 +48,7 @@ export const approveSpecialRequestByIdController = async (
 };
 
 export const cancelSpecialRequestByIdController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -63,7 +63,7 @@ export const cancelSpecialRequestByIdController = async (
 };
 
 export const createSpecialRequestController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {

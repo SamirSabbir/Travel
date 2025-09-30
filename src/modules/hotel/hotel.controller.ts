@@ -5,7 +5,7 @@ import {
   updateHotelByIdInDB,
 } from './hotel.service';
 
-export const getAllHotelsController = async (_req: Request, res: Response) => {
+export const getAllHotelsController = async (_req: any, res: Response) => {
   try {
     const hotels = await getAllHotelsFromDB();
     res.json(hotels);
@@ -15,7 +15,7 @@ export const getAllHotelsController = async (_req: Request, res: Response) => {
 };
 
 export const getHotelByAssignedToController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -27,10 +27,7 @@ export const getHotelByAssignedToController = async (
   }
 };
 
-export const updateHotelByIdController = async (
-  req: Request,
-  res: Response,
-) => {
+export const updateHotelByIdController = async (req: any, res: Response) => {
   try {
     const { id } = req.params;
     const userEmail = req?.user?.userEmail;

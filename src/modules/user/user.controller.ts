@@ -14,7 +14,7 @@ import {
   updateAdminProfileIntoDB
 } from './user.service';
 
-export const createAdminUser = async (req: Request, res: Response) => {
+export const createAdminUser = async (req: any, res: Response) => {
   try {
     const userData = req.body;
 
@@ -37,7 +37,7 @@ export const createAdminUser = async (req: Request, res: Response) => {
   }
 };
 
-export const createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: any, res: Response) => {
   try {
     const userData = req.body;
 
@@ -61,7 +61,7 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 // Approve HR User
-export const approveUser = async (req: Request, res: Response) => {
+export const approveUser = async (req: any, res: Response) => {
   try {
     const { email } = req.params;
     const result = await approveUserIntoDB(email);
@@ -81,7 +81,7 @@ export const approveUser = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteUser = async (req: any, res: Response) => {
   try {
     const { email } = req.params;
     const result = await deleteUserFromDB(email);
@@ -102,7 +102,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 };
 
 // Get all unapproved users
-export const findUnapprovedUsers = async (req: Request, res: Response) => {
+export const findUnapprovedUsers = async (req: any, res: Response) => {
   try {
     const result = await findAllUnApprovedUsersFromDB();
     res.status(200).json({
@@ -122,7 +122,7 @@ export const findUnapprovedUsers = async (req: Request, res: Response) => {
 };
 
 // Get all unapproved users
-export const findAllUsers = async (req: Request, res: Response) => {
+export const findAllUsers = async (req: any, res: Response) => {
   try {
     const result = await findAllUsersFromDB();
     res.status(200).json({
@@ -141,7 +141,7 @@ export const findAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-export const getEmployeeUser = async (req: Request, res: Response) => {
+export const getEmployeeUser = async (req: any, res: Response) => {
   try {
     const result = await employeeProfileIntoDB(req?.user.userEmail);
     res.status(200).json({
@@ -160,7 +160,7 @@ export const getEmployeeUser = async (req: Request, res: Response) => {
   }
 };
 
-export const getAdminProfileUser = async (req: Request, res: Response) => {
+export const getAdminProfileUser = async (req: any, res: Response) => {
   try {
     const result = await adminProfileIntoDB(
       req?.user?.userEmail,
@@ -182,7 +182,7 @@ export const getAdminProfileUser = async (req: Request, res: Response) => {
   }
 };
 
-export const updateAdminProfileUser = async (req: Request, res: Response) => {
+export const updateAdminProfileUser = async (req: any, res: Response) => {
   try {
     const result = await updateAdminProfileIntoDB(
       req?.user?.userEmail,
@@ -205,7 +205,7 @@ export const updateAdminProfileUser = async (req: Request, res: Response) => {
   }
 };
 
-export const updateEmployeeUser = async (req: Request, res: Response) => {
+export const updateEmployeeUser = async (req: any, res: Response) => {
   try {
     const result = await employeeProfileUpdateIntoDB(
       req?.user.userEmail,
@@ -228,7 +228,7 @@ export const updateEmployeeUser = async (req: Request, res: Response) => {
 };
 
 export const updateEmployeeUserForAdmin = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -250,7 +250,7 @@ export const updateEmployeeUserForAdmin = async (
 };
 
 // Get all unapproved users
-export const findAllEmployeeUsers = async (req: Request, res: Response) => {
+export const findAllEmployeeUsers = async (req: any, res: Response) => {
   try {
     const result = await findAllEmployeesFromDB();
     res.status(200).json({

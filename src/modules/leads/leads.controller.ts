@@ -7,7 +7,7 @@ import {
   updateLeadsDataIntoDB,
 } from './leads.service';
 
-// export const createLeadsEntry = async (req: Request, res: Response) => {
+// export const createLeadsEntry = async (req: any, res: Response) => {
 //   try {
 //     const data = req.body;
 //     const result = await createLeadsEntryInDB({...data,employeeEmail:req.user?.userEmail});
@@ -24,7 +24,7 @@ import {
 //   }
 // };
 
-export const getAllLeads = async (req: Request, res: Response) => {
+export const getAllLeads = async (req: any, res: Response) => {
   try {
     const result = await getAllLeadsFromDB();
     res.status(200).json({
@@ -39,7 +39,7 @@ export const getAllLeads = async (req: Request, res: Response) => {
   }
 };
 
-export const getEmployeeLeads = async (req: Request, res: Response) => {
+export const getEmployeeLeads = async (req: any, res: Response) => {
   try {
     const result = await getAllEmployeeLeads(req?.user?.userEmail);
     res.status(200).json({
@@ -54,7 +54,7 @@ export const getEmployeeLeads = async (req: Request, res: Response) => {
   }
 };
 
-export const getEmployeeLeadsForAdmin = async (req: Request, res: Response) => {
+export const getEmployeeLeadsForAdmin = async (req: any, res: Response) => {
   try {
     const result = await getAllEmployeeLeads(
       req?.params?.employeeEmail as string,
@@ -71,7 +71,7 @@ export const getEmployeeLeadsForAdmin = async (req: Request, res: Response) => {
   }
 };
 
-export const confirmLeads = async (req: Request, res: Response) => {
+export const confirmLeads = async (req: any, res: Response) => {
   try {
     const result = await updateConfirmLeads(
       req?.params?.LeadsId as string,
@@ -90,7 +90,7 @@ export const confirmLeads = async (req: Request, res: Response) => {
   }
 };
 
-export const confirmLeadsWithWorkId = async (req: Request, res: Response) => {
+export const confirmLeadsWithWorkId = async (req: any, res: Response) => {
   try {
     const result = await updateConfirmLeadsWithWorkId(
       req?.params?.workId as string,
@@ -109,7 +109,7 @@ export const confirmLeadsWithWorkId = async (req: Request, res: Response) => {
   }
 };
 
-export const updateLeadsData = async (req: Request, res: Response) => {
+export const updateLeadsData = async (req: any, res: Response) => {
   try {
     const result = await updateLeadsDataIntoDB(
       req?.params?.LeadsId as string,

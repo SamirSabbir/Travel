@@ -7,7 +7,7 @@ import {
   cancelNOCByIdInDB,
 } from './noc.service';
 
-export const getAllNOCsController = async (_req: Request, res: Response) => {
+export const getAllNOCsController = async (_req: any, res: Response) => {
   try {
     const nocs = await getAllNOCsFromDB();
     res.json(nocs);
@@ -16,10 +16,7 @@ export const getAllNOCsController = async (_req: Request, res: Response) => {
   }
 };
 
-export const getNOCByAssignedToController = async (
-  req: Request,
-  res: Response,
-) => {
+export const getNOCByAssignedToController = async (req: any, res: Response) => {
   try {
     const userEmail = req.user.userEmail;
     const noc = await getNOCByAssignedToFromDB(userEmail);
@@ -29,7 +26,7 @@ export const getNOCByAssignedToController = async (
   }
 };
 
-export const approveNOCByIdController = async (req: Request, res: Response) => {
+export const approveNOCByIdController = async (req: any, res: Response) => {
   try {
     const { id } = req.params;
     const userEmail = req.user.userEmail;
@@ -41,7 +38,7 @@ export const approveNOCByIdController = async (req: Request, res: Response) => {
   }
 };
 
-export const cancelNOCByIdController = async (req: Request, res: Response) => {
+export const cancelNOCByIdController = async (req: any, res: Response) => {
   try {
     const { id } = req.params;
     const userEmail = req.user.userEmail;
@@ -53,8 +50,7 @@ export const cancelNOCByIdController = async (req: Request, res: Response) => {
   }
 };
 
-
-export const createNOCController = async (req: Request, res: Response) => {
+export const createNOCController = async (req: any, res: Response) => {
   try {
     const data = req.body;
     const created = await createNOCInDB(data);

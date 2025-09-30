@@ -6,7 +6,7 @@ import {
   updateVisaCustomerDetailsByIdInDB,
 } from './visa.service';
 
-export const getAllVisasController = async (_req: Request, res: Response) => {
+export const getAllVisasController = async (_req: any, res: Response) => {
   try {
     const visas = await getAllVisasFromDB();
     res.json(visas);
@@ -16,7 +16,7 @@ export const getAllVisasController = async (_req: Request, res: Response) => {
 };
 
 export const getVisaByAssignedToController = async (
-  req: Request,
+  req: any,
   res: Response,
 ) => {
   try {
@@ -28,7 +28,7 @@ export const getVisaByAssignedToController = async (
   }
 };
 
-export const updateVisaByIdController = async (req: Request, res: Response) => {
+export const updateVisaByIdController = async (req: any, res: Response) => {
   try {
     const { id } = req.params;
     const userEmail = req?.user.userEmail;

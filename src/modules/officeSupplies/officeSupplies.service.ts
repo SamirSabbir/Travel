@@ -15,7 +15,7 @@ export const createOfficeSupplyInDB = async (payload: TOfficeSupplies) => {
     date: payload.date ? new Date(payload.date) : new Date(),
     paymentMethod: 'Cash', // adjust if needed
     description: `Purchased ${payload.quantity || 0} x ${
-      payload.items || 'item'
+      payload.item || 'item'
     } @ ${payload.unitPrice || 0} each. Note: ${
       payload.productDescription || 'N/A'
     }`,

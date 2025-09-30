@@ -15,17 +15,17 @@ router.get('/', auth('SuperAdmin', 'AccountAdmin'), handleGetAllPayments);
 router.get(
   '/:id',
   auth('SuperAdmin', 'AccountAdmin', 'Employee'),
-  handleGetPaymentById,
+  handleGetPaymentById as any,
 );
 router.get(
   '/:workId',
   auth('SuperAdmin', 'AccountAdmin', 'Employee'),
-  handleGetPaymentByWorkId,
+  handleGetPaymentByWorkId as any,
 );
 router.patch(
   '/:id',
   auth('SuperAdmin', 'AccountAdmin'),
-  handleUpdatePaymentById,
+  handleUpdatePaymentById as any,
 );
 
 export const paymentRoutes = router;

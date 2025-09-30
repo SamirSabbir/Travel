@@ -40,7 +40,7 @@ export const updateVisaCustomerDetailsByIdInDB = async (
       userName,
       workId: updateData?.workId as any,
       action: 'Visa Updated',
-      message: `Updated Visa details for work "${result?.workId?.name}".`,
+      message: `Updated Visa details for work "${updateData.workId}".`,
       meta: updateData,
     });
   }
