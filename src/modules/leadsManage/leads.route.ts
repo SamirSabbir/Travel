@@ -11,18 +11,18 @@ const leadsManageRoutes = express.Router();
 
 leadsManageRoutes.post(
   '/create-lead',
-  auth('SuperAdmin', 'HRAdmin'),
+  auth('SuperAdmin', 'AccountAdmin'),
   createLeadsManage,
 );
-leadsManageRoutes.get('/', auth('SuperAdmin', 'HRAdmin'), getAllLeadsManage);
+leadsManageRoutes.get('/', auth('SuperAdmin', 'AccountAdmin'), getAllLeadsManage);
 leadsManageRoutes.patch(
   '/assign/:leadId',
-  auth('SuperAdmin', 'HRAdmin'),
+  auth('SuperAdmin', 'AccountAdmin'),
   assignEmailToLeadsManage,
 );
 leadsManageRoutes.get(
   '/my-leads',
-  auth('Employee', 'SuperAdmin'), // Allowed for these roles
+  auth('Employee', 'SuperAdmin', 'AccountAdmin'), // Allowed for these roles
   getMyAssignedLeadsManage,
 );
 
