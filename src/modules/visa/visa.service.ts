@@ -7,7 +7,7 @@ export const getAllVisasFromDB = async () => {
 };
 
 export const getVisaByAssignedToFromDB = async (userEmail: string) => {
-  return await VisaModel.findOne({ assignedTo: userEmail }).populate('workId');
+  return await VisaModel.find({ assignedTo: userEmail }).populate('workId');
 };
 
 export const updateVisaByIdInDB = async (
