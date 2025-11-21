@@ -65,6 +65,10 @@ const workSchema = new Schema<TWork>(
       type: Boolean,
       default: false,
     },
+    services: {
+      type: [],
+      default: [],
+    },
   },
   {
     timestamps: true,

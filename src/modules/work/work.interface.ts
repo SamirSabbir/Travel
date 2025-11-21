@@ -7,6 +7,7 @@ export type TWork = {
   employeeEmail: string;
   submissionDate: string;
   deliveryDate: string;
+  services: string[];
   pax: string;
   payment: number;
   paymentStatus: 'Partial Payment' | 'Full Payment' | 'Pending';
@@ -17,5 +18,5 @@ export type TWork = {
   // uniqueName?: string;
   leadsStatus: string;
   isApplied: boolean;
-  serviceAssignedTo:string,
+  serviceAssignedTo: string;
 };
