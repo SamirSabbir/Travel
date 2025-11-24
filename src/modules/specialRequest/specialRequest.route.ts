@@ -21,7 +21,7 @@ specialRequestRoutes.get(
 specialRequestRoutes.get(
   '/user',
   auth('Employee', 'AccountAdmin', 'OfficeBoy'),
-  getSpecialRequestByAssignedToController,
+  getSpecialRequestByAssignedToController as any,
 );
 
 // Update only assigned employee can update

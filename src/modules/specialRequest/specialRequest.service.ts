@@ -11,12 +11,33 @@ export const getAllSpecialRequestsFromDB = async () => {
 };
 
 // Get special request by assigned user
+// Get special requests by user with pagination
 export const getSpecialRequestByAssignedToFromDB = async (
   userEmail: string,
+  page: number = 1,
+  limit: number = 10,
 ) => {
-  return await SpecialRequestModel.findOne({ userEmail });
-};
+  const skip = (page - 1) * limit;
 
+  const [requests, total] = await Promise.all([
+    SpecialRequestModel.find({ userEmail })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit),
+    SpecialRequestModel.countDocuments({ userEmail }),
+  ]);
+
+  return {
+    items: requests,
+    pagination: {
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+      totalRequests: total,
+      hasNextPage: page < Math.ceil(total / limit),
+      hasPrevPage: page > 1,
+    },
+  };
+};
 // Create a new special request
 export const createSpecialRequestInDB = async (
   userEmail: string,

@@ -25,10 +25,35 @@ export const getSpecialRequestByAssignedToController = async (
 ) => {
   try {
     const userEmail = req.user.userEmail;
-    const request = await getSpecialRequestByAssignedToFromDB(userEmail);
-    res.json(request);
-  } catch (err) {
-    res.status(500).json({ message: 'Failed to fetch request', error: err });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    // Validate pagination parameters
+    if (page < 1 || limit < 1) {
+      return res.status(400).json({
+        success: false,
+        message: 'Page and limit must be positive numbers',
+      });
+    }
+
+    const result = await getSpecialRequestByAssignedToFromDB(
+      userEmail,
+      page,
+      limit,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'User special requests fetched successfully',
+      data: result,
+    });
+  } catch (err: any) {
+    console.error('Error fetching user special requests:', err);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch user requests',
+      error: err.message,
+    });
   }
 };
 
