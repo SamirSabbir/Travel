@@ -3,18 +3,55 @@ import { NotificationService } from './notifications.services';
 
 const router = express.Router();
 
-// GET /notifications/:userEmail - Get user notifications
-router.get('/:userEmail', async (req, res) => {
+// GET /notifications/:userEmail/unread-count - Get unread notifications count
+router.get('/:userEmail/unread-count', async (req: any, res: any) => {
   try {
     const { userEmail } = req.params;
 
-    const notifications =
-      await NotificationService.getUserNotifications(userEmail);
+    const unreadCount = await NotificationService.getUnreadCount(userEmail);
+
+    res.status(200).json({
+      success: true,
+      message: 'Unread count fetched successfully',
+      data: { unreadCount },
+    });
+  } catch (error) {
+    console.error('Error fetching unread count:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch unread count',
+    });
+  }
+});
+
+// GET /notifications/:userEmail - Get user notifications with pagination
+router.get('/:userEmail', async (req: any, res: any) => {
+  try {
+    const { userEmail } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 50;
+
+    // Validate pagination parameters
+    if (page < 1 || limit < 1) {
+      return res.status(400).json({
+        success: false,
+        message: 'Page and limit must be positive numbers',
+      });
+    }
+
+    const result = await NotificationService.getUserNotifications(
+      userEmail,
+      page,
+      limit,
+    );
 
     res.status(200).json({
       success: true,
       message: 'Notifications fetched successfully',
-      data: notifications,
+      data: {
+        items: result.notifications,
+        pagination: result.pagination,
+      },
     });
   } catch (error) {
     console.error('Error fetching notifications:', error);
@@ -25,8 +62,73 @@ router.get('/:userEmail', async (req, res) => {
   }
 });
 
+// ... rest of your existing routes remain the same
+
+// GET /notifications/:userEmail - Get user notifications with pagination
+router.get('/:userEmail', async (req: any, res: any) => {
+  try {
+    const { userEmail } = req.params;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 50;
+
+    // Validate pagination parameters
+    if (page < 1 || limit < 1) {
+      return res.status(400).json({
+        success: false,
+        message: 'Page and limit must be positive numbers',
+      });
+    }
+
+    const result = await NotificationService.getUserNotifications(
+      userEmail,
+      page,
+      limit,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'Notifications fetched successfully',
+      data: {
+        items: result.notifications,
+        pagination: result.pagination,
+      },
+    });
+  } catch (error) {
+    console.error('Error fetching notifications:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch notifications',
+    });
+  }
+});
+
+// GET /notifications/:userEmail/recent - Get recent notifications for dropdown
+router.get('/:userEmail/recent', async (req: any, res: any) => {
+  try {
+    const { userEmail } = req.params;
+    const limit = parseInt(req.query.limit) || 6;
+
+    const notifications = await NotificationService.getRecentNotifications(
+      userEmail,
+      limit,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: 'Recent notifications fetched successfully',
+      data: notifications,
+    });
+  } catch (error) {
+    console.error('Error fetching recent notifications:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch recent notifications',
+    });
+  }
+});
+
 // PATCH /notifications/:notificationId/:userEmail/read - Mark as read
-router.patch('/:notificationId/:userEmail/read', async (req:any, res:any) => {
+router.patch('/:notificationId/:userEmail/read', async (req: any, res: any) => {
   try {
     const { notificationId, userEmail } = req.params;
 
@@ -54,10 +156,10 @@ router.patch('/:notificationId/:userEmail/read', async (req:any, res:any) => {
       message: 'Failed to mark notification as read',
     });
   }
-} );
+});
 
 // PATCH /notifications/mark-all-read - Mark all as read
-router.patch('/mark-all-read', async (req:any, res:any) => {
+router.patch('/mark-all-read', async (req: any, res: any) => {
   try {
     const { userEmail } = req.body;
 
@@ -84,8 +186,8 @@ router.patch('/mark-all-read', async (req:any, res:any) => {
   }
 });
 
-// POST /notifications/test - Test notification endpoint (optional, for debugging)
-router.post('/test', async (req:any, res:any) => {
+// POST /notifications/test - Test notification endpoint
+router.post('/test', async (req: any, res: any) => {
   try {
     const { userEmail, message } = req.body;
 

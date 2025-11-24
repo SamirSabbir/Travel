@@ -7,7 +7,7 @@ const SUPER_ADMIN_EMAIL = 'superadmin@example.com'; // adjust as needed
 
 // Get all pending special requests
 export const getAllSpecialRequestsFromDB = async () => {
-  return await SpecialRequestModel.find({ approved: false, cancelled: false });
+  return await SpecialRequestModel.find();
 };
 
 // Get special request by assigned user
@@ -60,16 +60,48 @@ export const createSpecialRequestInDB = async (
     userName: user.name,
   });
 
-  // Send small notification to super admin
+  // Find all Account Admins
+  const accountAdmins = await UserModel.find(
+    {
+      role: 'AccountAdmin',
+      isApproved: true, // Only send to approved account admins
+    },
+    { email: 1, name: 1 },
+  );
+
+  // Send notification to Super Admin
   await NotificationService.createNotification(
     `New Special Request created by ${user.name} (${data.type})`,
     SUPER_ADMIN_EMAIL,
-    { requestId: request._id },
+    {
+      requestId: request._id,
+      type: 'special_request_created',
+    },
   );
+
+  // Send notification to all Account Admins
+  if (accountAdmins.length > 0) {
+    const notificationPromises = accountAdmins.map((admin) =>
+      NotificationService.createNotification(
+        `New Special Request applied by ${user.name} (${data.type})`,
+        admin.email,
+        {
+          requestId: request._id,
+          type: 'special_request_created',
+        },
+      ),
+    );
+
+    // Wait for all notifications to be sent
+    await Promise.all(notificationPromises);
+
+    console.log(
+      `📨 Notifications sent to ${accountAdmins.length} Account Admins`,
+    );
+  }
 
   return request;
 };
-
 // Approve special request by ID
 export const approveSpecialRequestByIdInDB = async (
   id: string,

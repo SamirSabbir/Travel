@@ -28,7 +28,7 @@ export const updateVisaCustomerDetailsByIdInDB = async (
   userName: string,
   updateData: Partial<TVisa>,
 ) => {
-  const result = await VisaModel.updateOne(
+  const result = await VisaModel.findOneAndUpdate(
     { _id: id, assignedTo: userEmail },
     { ...updateData, isSubmitted: true },
     { new: true },
@@ -40,7 +40,7 @@ export const updateVisaCustomerDetailsByIdInDB = async (
       userName,
       workId: updateData?.workId as any,
       action: 'Visa Updated',
-      message: `Updated Visa details for work "${updateData.workId}".`,
+      message: `Updated Visa details for "${result.workId?.name}", work id: ${result?.workId?._id}`,
       meta: updateData,
     });
   }

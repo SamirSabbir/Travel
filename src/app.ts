@@ -12,7 +12,7 @@ const httpServer: HTTPServer = createServer(app);
 // Initialize Socket.IO
 const io = new SocketIOServer(httpServer, {
   cors: {
-    origin: config.clientURL || 'https://travel-trip-client.vercel.app',
+    origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   },
 });

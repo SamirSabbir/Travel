@@ -28,7 +28,7 @@ export const updateTicketByIdInDB = async (
       userName,
       workId: updateData.workId as any,
       action: 'Ticket Updated',
-      message: `Updated Ticket details for work "${result?.workId}".`,
+      message: `Updated Ticket details for work "${result.workId?.name}", work id: ${result?.workId?._id}`,
       meta: updateData,
     });
   }

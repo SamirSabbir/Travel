@@ -30,7 +30,7 @@ export const updateTourPackageByIdInDB = async (
       userName,
       workId: updateData?.workId as any,
       action: 'Tour Package Updated',
-      message: `Updated Tour Package details for work "${result?.workId}".`,
+      message: `Updated Tour Package details for work "${result.workId?.name}", work id: ${result?.workId?._id}`,
       meta: updateData,
     });
   }

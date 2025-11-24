@@ -6,5 +6,5 @@ export default {
   port: process.env.PORT,
   databaseUri: process.env.DATABASE_URI,
   secret: process.env.JWT_SECRET,
-  clientURL: process.env.CLIENT_URL,
+  prodURL: process.env.CLIENT_URL,
 };
