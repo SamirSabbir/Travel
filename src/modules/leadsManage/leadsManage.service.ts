@@ -4,8 +4,12 @@ import { TLeadsManage } from './leadsManage.interface';
 import LeadsManageModel from './leadsManage.model';
 import { v4 as uuidv4 } from 'uuid';
 
+const generateShortUuid = () =>
+  uuidv4().replace(/-/g, '').substring(0, 8).toUpperCase();
+
 export const createLeadsManageInDB = async (data: TLeadsManage) => {
-  const uuId = uuidv4();
+  const uuId = generateShortUuid(); // <-- now using short uuid
+
   const result = await LeadsManageModel.create({ ...data, uuId });
 
   if (data) {
@@ -18,7 +22,6 @@ export const createLeadsManageInDB = async (data: TLeadsManage) => {
       uuId,
     });
 
-    // Send notifications to assigned employees
     if (data.assigns && data.assigns.length > 0) {
       for (const email of data.assigns) {
         await NotificationService.createNotification(
@@ -33,8 +36,7 @@ export const createLeadsManageInDB = async (data: TLeadsManage) => {
       }
     }
 
-    // Notify admin/super admin that a new lead was created
-    const adminEmails = ['admin@example.com', 'superadmin@example.com']; // Replace with actual admin emails
+    const adminEmails = ['admin@example.com', 'superadmin@example.com'];
 
     for (const adminEmail of adminEmails) {
       await NotificationService.createNotification(
