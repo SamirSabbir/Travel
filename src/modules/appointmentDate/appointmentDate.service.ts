@@ -18,7 +18,7 @@ export const updateAppointmentByIdInDB = async (
   userName: string,
   updateData: Partial<TAppointmentDate>,
 ) => {
-  const result = await AppointmentDateModel.findOneAndUpdate(
+  const result: any = await AppointmentDateModel.findOneAndUpdate(
     { _id: id, assignedTo: userEmail },
     updateData,
     { new: true },

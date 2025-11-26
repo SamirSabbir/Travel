@@ -16,7 +16,7 @@ export const updateTransferByIdInDB = async (
   userName: string,
   updateData: Partial<TTransfer>,
 ) => {
-  const result = await TransferModel.findOneAndUpdate(
+  const result: any = await TransferModel.findOneAndUpdate(
     { _id: id, assignedTo: userEmail },
     updateData,
     { new: true },

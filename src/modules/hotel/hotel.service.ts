@@ -17,7 +17,7 @@ export const updateHotelByIdInDB = async (
   userName: string,
   updateData: Partial<THotel>,
 ) => {
-  const result = await HotelModel.findOneAndUpdate(
+  const result: any = await HotelModel.findOneAndUpdate(
     { _id: id, assignedTo: userEmail },
     updateData,
     { new: true },

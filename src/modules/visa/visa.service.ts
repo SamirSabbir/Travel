@@ -28,7 +28,7 @@ export const updateVisaCustomerDetailsByIdInDB = async (
   userName: string,
   updateData: Partial<TVisa>,
 ) => {
-  const result = await VisaModel.findOneAndUpdate(
+  const result:any = await VisaModel.findOneAndUpdate(
     { _id: id, assignedTo: userEmail },
     { ...updateData, isSubmitted: true },
     { new: true },

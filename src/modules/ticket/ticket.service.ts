@@ -16,7 +16,7 @@ export const updateTicketByIdInDB = async (
   userName: string,
   updateData: Partial<TTicket>,
 ) => {
-  const result = await TicketModel.findOneAndUpdate(
+  const result: any = await TicketModel.findOneAndUpdate(
     { _id: id, assignedTo: userEmail },
     updateData,
     { new: true },

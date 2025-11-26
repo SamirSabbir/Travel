@@ -18,7 +18,7 @@ export const updateTourPackageByIdInDB = async (
   userName: string,
   updateData: Partial<TTourPackage>,
 ) => {
-  const result = await TourPackageModel.findOneAndUpdate(
+  const result:any = await TourPackageModel.findOneAndUpdate(
     { _id: id, assignedTo: userEmail },
     updateData,
     { new: true },
