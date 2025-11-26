@@ -11,11 +11,11 @@ export const seedSuperAdmin = async () => {
     }
 
     // ✅ Hash the password before saving
-    const hashedPassword = await bcrypt.hash('123456', 10);
+    const hashedPassword = await bcrypt.hash('T/EuI`h5w>F7', 10);
 
     const superAdmin = await UserModel.create({
       name: 'Super Admin',
-      email: 'superadmin@example.com',
+      email: 'tripandtravelbd@gmail.com',
       password: hashedPassword,
       role: 'SuperAdmin',
       isApproved: true,
