@@ -14,6 +14,9 @@ const workSchema = new Schema<TWork>(
     serviceAssignedTo: {
       type: String,
     },
+    isServiceAssigned: {
+      type: Boolean,
+    },
     // uniqueName: {
     //   type: String,
     // },
