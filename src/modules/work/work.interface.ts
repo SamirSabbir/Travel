@@ -15,7 +15,7 @@ export type TWork = {
   name: string;
   phone: string;
   paymentDetails?: Types.ObjectId;
-  isServiceAssigned: boolean,
+  serviceAssigned: boolean;
   // uniqueName?: string;
   leadsStatus: string;
   isApplied: boolean;

@@ -328,7 +328,7 @@ export const assignServiceInDB = async (workId: string, data: any) => {
   // 1. Update work with assigned employee
   const work = await WorkModel.findOneAndUpdate(
     { _id: workId },
-    { serviceAssignedTo: assignedTo, services, isServiceAssigned: true },
+    { serviceAssignedTo: assignedTo, services, serviceAssigned: true },
     { new: true },
   );
 
